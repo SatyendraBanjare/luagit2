@@ -3,7 +3,7 @@ _Updated Lua bindings to libgit2_
 
 > Depends on :  lua 5.1.
 
-I have included the lualib files incase this these are not available.
+I have included the lualib files in case these are not available.
 
 ### Quick Installation of libgit2 for libgit2-0.26.0: 
 ```
@@ -39,7 +39,7 @@ Currently available functions are
  
 ### libgit2 important initailizing functions
 - lua_git_libgit2_init()     `lua equivalent of git_libgit2_init()`
-- lua_git_libgit2_shutdown() `lua equivalent of git_libgit2_init()`
+- lua_git_libgit2_shutdown() `lua equivalent of git_libgit2_shutdown()`
 
 ```
 $ lua5.1
