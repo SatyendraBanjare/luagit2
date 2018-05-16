@@ -10,9 +10,9 @@
 #include <git2.h> 
 
 typedef struct {
-   int *major;
-   int *minor;
-   int *rev;
+   int major;
+   int minor;
+   int rev;
 } libgit_version_data;
 
 static int lua_git_libgit2_init (lua_State *L) {
@@ -35,9 +35,9 @@ static int lua_git_libgit2_version (lua_State *L) {
 	libgit_version_data *version_data;
  
     version_data = (libgit_version_data *)lua_newuserdata(L, sizeof(*version_data));
-    version_data->major  = NULL;
-    version_data->minor = NULL;
-    version_data->rev = NULL;
+    version_data->major  = 0;
+    version_data->minor = 0;
+    version_data->rev = 0;
  
     
     luaL_getmetatable(L, "libgit2_version_data");
@@ -50,9 +50,9 @@ static int lua_git_libgit2_version (lua_State *L) {
     
     git_libgit2_version(&Major , &Minor ,&Rev );
     
-    version_data->major = &Major;
-   	version_data->minor = &Minor;
-   	version_data->rev = &Rev;
+    version_data->major = Major;
+   	version_data->minor = Minor;
+   	version_data->rev = Rev;
  
     return 1;
 
