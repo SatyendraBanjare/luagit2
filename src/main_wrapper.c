@@ -33,6 +33,12 @@ static const struct luaL_Reg luagit2 [] = {
 
       //---------------------------  cred functions  ------------------------------------------------//
       {"luagit2_cred_default_new",lua_git_cred_default_new},
+      {"luagit2_cred_ssh_key_from_agent",lua_git_cred_ssh_key_from_agent},
+      {"luagit2_cred_ssh_key_memory_new",lua_git_cred_ssh_key_memory_new},
+      {"luagit2_cred_ssh_key_new",lua_git_cred_ssh_key_new},
+      {"luagit2_cred_username_new",lua_git_cred_username_new},
+      {"luagit2_cred_userpass_plaintext_new",lua_git_cred_userpass_plaintext_new},
+      //---------------------------------------------------------------------------------------------//
 
       {NULL, NULL}  
     };
