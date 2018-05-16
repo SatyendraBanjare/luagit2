@@ -9,11 +9,11 @@
 #include <stdlib.h>
 #include <git2.h> 
 
-/*typedef struct {
+typedef struct {
    int *major;
    int *minor;
    int *rev;
-} libgit_version_data;*/
+} libgit_version_data;
 
 static int lua_git_libgit2_init (lua_State *L) {
     git_libgit2_init();
@@ -31,7 +31,7 @@ static int lua_git_libgit2_features (lua_State *L) {
     return 1;
 } 
  
-/*static int lua_git_libgit2_version (lua_State *L) {
+static int lua_git_libgit2_version (lua_State *L) {
 	libgit_version_data *version_data;
  
     version_data = (libgit_version_data *)lua_newuserdata(L, sizeof(*version_data));
@@ -43,21 +43,20 @@ static int lua_git_libgit2_features (lua_State *L) {
     luaL_getmetatable(L, "libgit2_version_data");
     
     lua_setmetatable(L, -2);
- 
+
+	int Major ;
+	int Minor ;
+	int Rev ;
     
-	int *Major = NULL;
-	int *Minor = NULL;
-	int *Rev = NULL;
+    git_libgit2_version(&Major , &Minor ,&Rev );
     
-    git_libgit2_version(Major , Minor ,Rev );
-    
-    version_data->major = Major;
-   	version_data->minor = Minor;
-   	version_data->rev = Rev;
+    version_data->major = &Major;
+   	version_data->minor = &Minor;
+   	version_data->rev = &Rev;
  
     return 1;
 
-}*/
+}
 
 static int lua_GIT_OPT_GET_MWINDOW_SIZE(lua_State *L){
 	int *mmap_size ;

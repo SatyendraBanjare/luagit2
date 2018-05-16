@@ -1,4 +1,5 @@
 #include "./header_files/lua_libgit2.h"
+#include "./header_files/lua_cred.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -6,7 +7,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_init", lua_git_libgit2_init }, 
       {"luagit2_shutdown" , lua_git_libgit2_shutdown},
       {"luagit2_features",lua_git_libgit2_features},
-      //{"luagit2_version",lua_git_libgit2_version},
+      {"luagit2_version",lua_git_libgit2_version},
       {"luagit2_GET_MWINDOW_SIZE",lua_GIT_OPT_GET_MWINDOW_SIZE},
       {"luagit2_SET_MWINDOW_SIZE",lua_GIT_OPT_SET_MWINDOW_SIZE},
       {"luagit2_GET_MWINDOW_MAPPED_LIMIT",lua_GIT_OPT_GET_MWINDOW_MAPPED_LIMIT},
@@ -28,8 +29,10 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_ENABLE_OFS_DELTA",lua_GIT_OPT_ENABLE_OFS_DELTA},
       {"luagit2_ENABLE_FSYNC_GITDIR",lua_GIT_OPT_ENABLE_FSYNC_GITDIR},
       {"luagit2_ENABLE_STRICT_HASH_VERIFICATION",lua_GIT_OPT_ENABLE_STRICT_HASH_VERIFICATION},
-
       //--------------------------------------------------------------------------------------------//
+
+      //---------------------------  cred functions  ------------------------------------------------//
+      {"luagit2_cred_default_new",lua_git_cred_default_new},
 
       {NULL, NULL}  
     };
