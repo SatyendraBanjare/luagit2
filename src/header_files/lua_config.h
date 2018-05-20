@@ -89,6 +89,101 @@ static int lua_git_config_find_xdg (lua_State *L) {
     return 1;
 }
 
+static int lua_git_config_get_int32 (lua_State *L) {
+	const luagit2_config *parent_cfg;
+	int32_t out;
+
+    parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+    const char *name = luaL_checkstring(L,2);
+
+    git_config_get_int32(&out,parent_cfg->cfg,name); 
+   	
+   	lua_pushinteger(L,out);
+    return 1;
+} 
+
+static int lua_git_config_get_int64 (lua_State *L) {
+	const luagit2_config *parent_cfg;
+	int64_t out;
+
+    parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+    const char *name = luaL_checkstring(L,2);
+
+    git_config_get_int64(&out,parent_cfg->cfg,name); 
+   	
+   	lua_pushinteger(L,out);
+    return 1;
+} 
+
+static int lua_git_config_get_bool (lua_State *L) {
+	const luagit2_config *parent_cfg;
+	int out;
+
+    parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+    const char *name = luaL_checkstring(L,2);
+
+    git_config_get_bool(&out,parent_cfg->cfg,name); 
+   	
+   	lua_pushinteger(L,out);
+    return 1;
+} 
+
+static int lua_git_config_get_path (lua_State *L) {
+	luagit2_buf *lua_buf;
+	const luagit2_config *parent_cfg;
+
+    parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+    const char *name = luaL_checkstring(L,2);
+	
+    lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
+    lua_buf->buf  = NULL;
+ 
+    luaL_getmetatable(L, "luagit2_buf");
+    
+    lua_setmetatable(L, -2);
+    
+    git_buf local_buf = {0};
+    git_config_get_path(&local_buf,parent_cfg->cfg,name); 
+   	lua_buf->buf  = &local_buf;
+ 
+    return 1;
+}
+
+static int lua_git_config_get_string (lua_State *L) {
+	const char *value;
+	const luagit2_config *parent_cfg;
+
+    parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+    const char *name = luaL_checkstring(L,2);
+
+    git_buf local_buf = {0};
+    git_config_get_string(&value,parent_cfg->cfg,name); 
+
+	lua_pushstring(L,value); 
+    return 1;
+}
+
+static int lua_git_config_get_string_buf (lua_State *L) {
+	luagit2_buf *lua_buf;
+	const luagit2_config *parent_cfg;
+
+    parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+    const char *name = luaL_checkstring(L,2);
+	
+    lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
+    lua_buf->buf  = NULL;
+ 
+    luaL_getmetatable(L, "luagit2_buf");
+    
+    lua_setmetatable(L, -2);
+    
+    git_buf local_buf = {0};
+    git_config_get_string_buf(&local_buf,parent_cfg->cfg,name); 
+   	lua_buf->buf  = &local_buf;
+ 
+    return 1;
+}
+
 static int lua_git_config_open_default (lua_State *L) {
 	luagit2_config *lua_cfg;
  
