@@ -17,6 +17,31 @@ typedef struct {
 	git_config *cfg;
 } luagit2_config;
 
+static int lua_git_config_delete_entry (lua_State *L) {
+	
+	const luagit2_config *parent_cfg;
+ 
+    parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+    const char *name = luaL_checkstring(L,2);
+
+    git_config_delete_entry(parent_cfg->cfg,name); 
+   	
+    return 1;
+} 
+
+static int lua_git_config_delete_multivar (lua_State *L) {
+	
+	const luagit2_config *parent_cfg;
+ 
+    parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+    const char *name = luaL_checkstring(L,2);
+    const char *regex = luaL_checkstring(L,3);
+
+    git_config_delete_multivar(parent_cfg->cfg,name,regex); 
+   	
+    return 1;
+} 
+
 static int lua_git_config_find_global (lua_State *L) {
 	luagit2_buf *lua_buf;
 	
