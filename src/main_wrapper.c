@@ -2,6 +2,7 @@
 #include "./header_files/lua_cred.h"
 #include "./header_files/lua_config.h"
 #include "./header_files/lua_oid.h"
+#include "./header_files/lua_signature.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -80,6 +81,13 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_oid_pathfmt",lua_git_oid_pathfmt},
       {"luagit2_oid_iszero",lua_git_oid_iszero},
       {"luagit2_oid_strcmp",lua_git_oid_strcmp},
+      //----------------------------------------------------------------------------------------------//
+
+      //----------------------------------------- Signature functions --------------------------------//
+      {"luagit2_signature_default",lua_git_signature_default},
+      {"luagit2_signature_dup",lua_git_signature_dup},
+      {"luagit2_signature_from_buffer",lua_git_signature_from_buffer},
+      {"luagit2_signature_now",lua_git_signature_now},
       //----------------------------------------------------------------------------------------------//
       {NULL, NULL}  
     };
