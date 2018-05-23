@@ -9,10 +9,6 @@
 #include <stdlib.h>
 #include <git2.h> 
 
-typedef struct {
-   git_cred *git_cred_object;
-} luagit2_cred_object;
-
 static int lua_git_cred_default_new (lua_State *L) {
 	luagit2_cred_object *cred_obj;
  

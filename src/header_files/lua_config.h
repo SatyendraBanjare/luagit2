@@ -9,14 +9,6 @@
 #include <stdlib.h>
 #include <git2.h> 
 
-typedef struct {
-	git_buf *buf;
-} luagit2_buf;
-
-typedef struct {
-	git_config *cfg;
-} luagit2_config;
-
 static int lua_git_config_delete_entry (lua_State *L) {
 	
 	const luagit2_config *parent_cfg;

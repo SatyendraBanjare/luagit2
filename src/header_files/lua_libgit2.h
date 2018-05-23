@@ -3,17 +3,12 @@
 
 #include "../luaC-api/lua.h"
 #include "../luaC-api/lualib.h"
-#include "../luaC-api/lauxlib.h"	
+#include "../luaC-api/lauxlib.h"
+#include "lua_objects.h"	
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <git2.h> 
-
-typedef struct {
-   int major;
-   int minor;
-   int rev;
-} libgit_version_data;
 
 static int lua_git_libgit2_init (lua_State *L) {
     git_libgit2_init();
