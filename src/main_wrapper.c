@@ -1,6 +1,7 @@
 #include "./header_files/lua_libgit2.h"
 #include "./header_files/lua_cred.h"
 #include "./header_files/lua_config.h"
+#include "./header_files/lua_oid.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -70,6 +71,16 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_config_snapshot",lua_git_config_snapshot},
       //----------------------------------------------------------------------------------------------//
 
+      //---------------------------------------- Object Id (oid) functions ---------------------------//
+      {"luagit2_oid_fromstr",lua_git_oid_fromstr},
+      {"luagit2_oid_fromstrn",lua_git_oid_fromstrn},
+      {"luagit2_oid_cmp",lua_git_oid_cmp},
+      {"luagit2_oid_ncmp",lua_git_oid_ncmp},
+      {"luagit2_oid_nfmt",lua_git_oid_nfmt},
+      {"luagit2_oid_pathfmt",lua_git_oid_pathfmt},
+      {"luagit2_oid_iszero",lua_git_oid_iszero},
+      {"luagit2_oid_strcmp",lua_git_oid_strcmp},
+      //----------------------------------------------------------------------------------------------//
       {NULL, NULL}  
     };
 

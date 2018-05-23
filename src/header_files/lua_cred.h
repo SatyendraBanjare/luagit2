@@ -3,7 +3,8 @@
 
 #include "../luaC-api/lua.h"
 #include "../luaC-api/lualib.h"
-#include "../luaC-api/lauxlib.h"	
+#include "../luaC-api/lauxlib.h"
+#include "lua_objects.h"	
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

@@ -28,7 +28,7 @@ typedef struct {
 } luagit2_config;
 
 typedef struct {
-	git_oid *oid;
+	git_oid oid;
 } luagit2_oid;
 
 typedef struct {
