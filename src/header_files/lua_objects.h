@@ -27,5 +27,24 @@ typedef struct {
 	git_config *cfg;
 } luagit2_config;
 
+typedef struct {
+	git_oid *oid;
+} luagit2_oid;
+
+typedef struct {
+	git_commit *commit;
+} luagit2_commit;
+
+typedef struct {
+	git_signature *sign;
+} luagit2_signature;
+
+typedef struct {
+	git_tree *tree;
+} luagit2_tree;
+
+typedef struct {
+	git_repository *repo;
+} luagit2_repository;
 
 #endif
