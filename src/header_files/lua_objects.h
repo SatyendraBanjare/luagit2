@@ -47,4 +47,8 @@ typedef struct {
 	git_repository *repo;
 } luagit2_repository;
 
+typedef struct {
+	git_index *index;
+} luagit2_index;
+
 #endif
