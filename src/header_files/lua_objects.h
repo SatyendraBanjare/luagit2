@@ -51,4 +51,16 @@ typedef struct {
 	git_index *index;
 } luagit2_index;
 
+typedef struct {
+	git_tree_entry *tree_entry;
+} luagit2_tree_entry;
+
+typedef struct {
+	git_tree_update *tree_update;
+} luagit2_tree_update;
+
+typedef struct {
+	git_object *object;
+} luagit2_object;
+
 #endif

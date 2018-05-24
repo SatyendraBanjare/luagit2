@@ -4,6 +4,7 @@
 #include "./header_files/lua_oid.h"
 #include "./header_files/lua_signature.h"
 #include "./header_files/lua_clone.h"
+#include "./header_files/lua_repository.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -93,7 +94,11 @@ static const struct luaL_Reg luagit2 [] = {
 
       //------------------------------------------- Clone functions -----------------------------------//
       {"luagit2_clone_public",lua_git_clone_public},
-      //----------------------------------------------------------------------------------------------//
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Repository functions ------------------------------//
+      {"luagit2_repository_open",lua_git_repository_open},
+      //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}  
     };
 
