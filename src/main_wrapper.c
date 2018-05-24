@@ -3,6 +3,7 @@
 #include "./header_files/lua_config.h"
 #include "./header_files/lua_oid.h"
 #include "./header_files/lua_signature.h"
+#include "./header_files/lua_clone.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -88,6 +89,10 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_signature_dup",lua_git_signature_dup},
       {"luagit2_signature_from_buffer",lua_git_signature_from_buffer},
       {"luagit2_signature_now",lua_git_signature_now},
+      //----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Clone functions -----------------------------------//
+      {"luagit2_clone_public",lua_git_clone_public},
       //----------------------------------------------------------------------------------------------//
       {NULL, NULL}  
     };
