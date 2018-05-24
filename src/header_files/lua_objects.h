@@ -63,4 +63,12 @@ typedef struct {
 	git_object *object;
 } luagit2_object;
 
+typedef struct {
+	git_otype otype;
+} luagit2_otype;
+
+typedef struct {
+	git_filemode_t filemode;
+} luagit2_filemode;
+
 #endif
