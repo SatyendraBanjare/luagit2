@@ -5,6 +5,7 @@
 #include "./header_files/lua_signature.h"
 #include "./header_files/lua_clone.h"
 #include "./header_files/lua_repository.h"
+#include "./header_files/lua_tree.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -98,6 +99,22 @@ static const struct luaL_Reg luagit2 [] = {
 
       //------------------------------------------- Repository functions ------------------------------//
       {"luagit2_repository_open",lua_git_repository_open},
+      //-----------------------------------------------------------------------------------------------//
+
+      //-------------------------------------------- Tree functions -----------------------------------//
+      {"luagit2_tree_entry_byid",lua_git_tree_entry_byid},
+      {"luagit2_tree_entry_byindex",lua_git_tree_entry_byindex},
+      {"luagit2_tree_entry_byname",lua_git_tree_entry_byname},
+      {"luagit2_tree_entry_bypath",lua_git_tree_entry_bypath},
+      {"luagit2_tree_entry_cmp",lua_git_tree_entry_cmp},
+      {"luagit2_tree_entry_filemode",lua_git_tree_entry_filemode},
+      {"luagit2_tree_entry_filemode_raw",lua_git_tree_entry_filemode_raw},
+      {"luagit2_tree_entry_type",lua_git_tree_entry_type},
+      {"luagit2_tree_entrycount",lua_git_tree_entrycount},
+      {"luagit2_tree_id",lua_git_tree_id},
+      {"luagit2_tree_lookup",lua_git_tree_lookup},
+      {"luagit2_tree_lookup_prefix",lua_git_tree_lookup_prefix},
+      {"luagit2_tree_owner",lua_git_tree_owner},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}  
     };
