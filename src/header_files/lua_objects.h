@@ -71,4 +71,7 @@ typedef struct {
 	git_filemode_t filemode;
 } luagit2_filemode;
 
+typedef struct {
+	git_time_t time;
+} luagit2_time;
 #endif

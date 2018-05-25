@@ -6,6 +6,7 @@
 #include "./header_files/lua_clone.h"
 #include "./header_files/lua_repository.h"
 #include "./header_files/lua_tree.h"
+#include "./header_files/lua_commit.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -115,6 +116,12 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_tree_lookup",lua_git_tree_lookup},
       {"luagit2_tree_lookup_prefix",lua_git_tree_lookup_prefix},
       {"luagit2_tree_owner",lua_git_tree_owner},
+      //-----------------------------------------------------------------------------------------------//
+
+      //--------------------------------------------- Commit functions --------------------------------//
+      {"luagit2_commit_author",lua_git_commit_author},
+      {"luagit2_commit_body",lua_git_commit_body},
+      {"luagit2_commit_committer",lua_git_commit_committer},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}  
     };
