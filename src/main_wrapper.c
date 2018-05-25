@@ -122,6 +122,22 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_commit_author",lua_git_commit_author},
       {"luagit2_commit_body",lua_git_commit_body},
       {"luagit2_commit_committer",lua_git_commit_committer},
+      {"luagit2_commit_extract_signature",lua_git_commit_extract_signature},
+      {"luagit2_commit_header_field",lua_git_commit_header_field},
+      {"luagit2_commit_lookup",lua_git_commit_lookup},
+      {"luagit2_commit_lookup_prefix",lua_git_commit_lookup_prefix},
+      {"luagit2_commit_message",lua_git_commit_message},
+      {"luagit2_commit_message_encoding",lua_git_commit_message_encoding},
+      {"luagit2_commit_message_raw",lua_git_commit_message_raw},
+      {"luagit2_commit_nth_gen_ancestor",lua_git_commit_nth_gen_ancestor},
+      {"luagit2_commit_parent",lua_git_commit_parent},
+      {"luagit2_commit_parent_id",lua_git_commit_parent_id},
+      {"luagit2_commit_parentcount",lua_git_commit_parentcount},
+      {"luagit2_commit_raw_header",lua_git_commit_raw_header},
+      {"luagit2_commit_summary",lua_git_commit_summary},
+      {"luagit2_commit_time",lua_git_commit_time},
+      {"luagit2_commit_tree",lua_git_commit_tree},
+      {"luagit2_commit_tree_id",lua_git_commit_tree_id},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}  
     };
