@@ -9,10 +9,11 @@ include_directories (
     ${LUA_INCLUDE_DIR}
     ${CMAKE_INSTALL_PREFIX}
 )
+
+set(src_dest "src/")
  
-set (SOURCES
-    main_wrapper.c
-)
+set (SOURCES ${src_dest}/main_wrapper.c )
+
 set(lib_dest "lib/")
 
 OPTION(BUILD_SHARED_LIBS ON)
