@@ -7,6 +7,8 @@
 #include "./header_files/lua_repository.h"
 #include "./header_files/lua_tree.h"
 #include "./header_files/lua_commit.h"
+//----------------- Helper Methods Functions --------------------//
+#include "./helper_methods/lua_libgit2_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -138,6 +140,10 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_commit_time",lua_git_commit_time},
       {"luagit2_commit_tree",lua_git_commit_tree},
       {"luagit2_commit_tree_id",lua_git_commit_tree_id},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Helper Methods ------------------------------------//
+      {"luagit2_print_version_data",lua_git_libgit2_print_version_data},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}  
     };
