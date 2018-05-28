@@ -1,3 +1,4 @@
+pcall(require, "luacov")
 lib = require"luagit2"
 print("successfully imported library luagit2")
 local lunatest = require "lunatest"
