@@ -1,0 +1,3 @@
+modules = {
+   ["luagit2_libgit_test"] = "luagit2_libgit_test.lua"
+}
