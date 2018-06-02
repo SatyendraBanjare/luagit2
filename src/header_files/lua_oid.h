@@ -68,12 +68,26 @@ static int lua_git_oid_ncmp (lua_State *L) {
     return 1;
 }
 
+static int lua_git_oid_fmt (lua_State *L) {
+    const luagit2_oid *oid_A;
+
+    oid_A = (luagit2_oid *)lua_touserdata(L, 1);
+
+    char result_str[GIT_OID_HEXSZ+1];
+    result_str[GIT_OID_HEXSZ] = '\0';
+    git_oid_fmt(result_str,&(oid_A->oid));
+
+    lua_pushstring(L,result_str);
+    return 1;
+}
+
 static int lua_git_oid_nfmt (lua_State *L) {
 	const luagit2_oid *oid_A;
 
     oid_A = (luagit2_oid *)lua_touserdata(L, 1);
     size_t length = luaL_checkinteger(L,2);
-    char *result_str;
+    char result_str[GIT_OID_HEXSZ+1];
+    result_str[GIT_OID_HEXSZ] = '\0';
 	git_oid_nfmt(result_str,length,&(oid_A->oid));
 
 	lua_pushstring(L,result_str);
@@ -85,7 +99,8 @@ static int lua_git_oid_pathfmt (lua_State *L) {
 
     oid_A = (luagit2_oid *)lua_touserdata(L, 1);
 
-    char *result_str;
+    char result_str[GIT_OID_HEXSZ+2];
+    result_str[GIT_OID_HEXSZ +1] = '\0';
 	git_oid_pathfmt(result_str,&(oid_A->oid));
 
 	lua_pushstring(L,result_str);
