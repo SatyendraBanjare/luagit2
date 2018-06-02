@@ -113,6 +113,28 @@ static int lua_git_oid_strcmp (lua_State *L) {
 
     return 1;
 }
+   
+static int lua_git_oid_tostr (lua_State *L) {
+    const luagit2_oid *oid_A;
 
+    oid_A = (luagit2_oid *)lua_touserdata(L, 1);
+    size_t size_value = luaL_checkinteger(L,2);
+    char *string_value ;;
+    git_oid_tostr(string_value,size_value,&(oid_A->oid));
+    lua_pushstring(L,string_value);
+    
+    return 1;
+}
+
+static int lua_git_oid_tostr_s (lua_State *L) {
+    const luagit2_oid *oid_A;
+
+    oid_A = (luagit2_oid *)lua_touserdata(L, 1);
+    const char *string_value = git_oid_tostr_s(&(oid_A->oid));
+
+    lua_pushstring(L,string_value);
+
+    return 1;
+}
 
 #endif

@@ -87,6 +87,8 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_oid_pathfmt",lua_git_oid_pathfmt},
       {"luagit2_oid_iszero",lua_git_oid_iszero},
       {"luagit2_oid_strcmp",lua_git_oid_strcmp},
+      {"luagit2_oid_tostr",lua_git_oid_tostr},
+      {"luagit2_oid_tostr_s",lua_git_oid_tostr_s},
       //----------------------------------------------------------------------------------------------//
 
       //----------------------------------------- Signature functions --------------------------------//
