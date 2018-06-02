@@ -10,8 +10,7 @@
 #include <stdlib.h>
 #include <git2.h>
 
-static int lua_git_repository_open(lua_State *L)
-{
+static int lua_git_repository_open(lua_State *L) {
     luagit2_repository *lua_repo;
     const char *path;
 
@@ -29,6 +28,25 @@ static int lua_git_repository_open(lua_State *L)
     git_repository_open(&Repository,path);
 
     lua_repo->repo = Repository ;
+    return 1;
+}
+
+static int lua_git_repository_index(lua_State *L) {
+    luagit2_index *lua_index;
+
+    const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
+
+    lua_index = (luagit2_index *)lua_newuserdata(L, sizeof(*lua_index));
+    lua_index->index  = NULL;
+
+    luaL_getmetatable(L, "luagit2_index");
+    lua_setmetatable(L, -2);
+
+    git_index *local_index  = NULL;
+    git_repository_index(&local_index,lua_repo->repo);
+
+    lua_index->index  = local_index;
+
     return 1;
 }
 

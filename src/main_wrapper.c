@@ -7,8 +7,10 @@
 #include "./luagit2/repository/lua_repository.h"
 #include "./luagit2/tree/lua_tree.h"
 #include "./luagit2/commit/lua_commit.h"
+#include "./luagit2/index/lua_index.h"
 //----------------- Helper Methods Functions --------------------//
 #include "./luagit2/libgit2/lua_libgit2_help.h"
+#include "./luagit2/signature/lua_signature_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -105,6 +107,7 @@ static const struct luaL_Reg luagit2 [] = {
 
       //------------------------------------------- Repository functions ------------------------------//
       {"luagit2_repository_open",lua_git_repository_open},
+      {"luagit2_repository_index",lua_git_repository_index},
       //-----------------------------------------------------------------------------------------------//
 
       //-------------------------------------------- Tree functions -----------------------------------//
@@ -145,8 +148,14 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_commit_tree_id",lua_git_commit_tree_id},
       //-----------------------------------------------------------------------------------------------//
 
+      //------------------------------------------- Index methods -------------------------------------//
+      {"luagit2_index_write_tree",lua_git_index_write_tree},
+      //-----------------------------------------------------------------------------------------------//
+
       //------------------------------------------- Helper Methods ------------------------------------//
       {"luagit2_print_version_data",lua_git_libgit2_print_version_data},
+      {"luagit2_get_signature_details",lua_get_signature_details},
+      {"luagit2_print_complete_signature_details",lua_print_complete_signature_details},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}  
     };
