@@ -1,14 +1,14 @@
-#include "./header_files/lua_libgit2.h"
-#include "./header_files/lua_cred.h"
-#include "./header_files/lua_config.h"
-#include "./header_files/lua_oid.h"
-#include "./header_files/lua_signature.h"
-#include "./header_files/lua_clone.h"
-#include "./header_files/lua_repository.h"
-#include "./header_files/lua_tree.h"
-#include "./header_files/lua_commit.h"
+#include "./luagit2/libgit2/lua_libgit2.h"
+#include "./luagit2/cred/lua_cred.h"
+#include "./luagit2/config/lua_config.h"
+#include "./luagit2/oid/lua_oid.h"
+#include "./luagit2/signature/lua_signature.h"
+#include "./luagit2/clone/lua_clone.h"
+#include "./luagit2/repository/lua_repository.h"
+#include "./luagit2/tree/lua_tree.h"
+#include "./luagit2/commit/lua_commit.h"
 //----------------- Helper Methods Functions --------------------//
-#include "./helper_methods/lua_libgit2_help.h"
+#include "./luagit2/libgit2/lua_libgit2_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
