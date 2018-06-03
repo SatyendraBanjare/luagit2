@@ -1,3 +1,9 @@
 modules = {
-   ["luagit2_libgit_test"] = "luagit2_libgit_test.lua"
+   ["luagit2_libgit_test"] = "luagit2_libgit_test.lua",
+   ["luagit2_oid_test"] = "luagit2_oid_test.lua",
+   ["luagit2_signature_test"] = "luagit2_signature_test.lua",
+   ["luagit2_tree_test"] = "luagit2_tree_test.lua",
+   ["luagit2_commit_test"] = "luagit2_commit_test.lua",
+   ["luagit2_config_test"] = "luagit2_config_test.lua",
+   ["luagit2_cred_test"] = "luagit2_cred_test.lua"
 }
