@@ -1,13 +1,15 @@
-#include "./luagit2/libgit2/lua_libgit2.h"
-#include "./luagit2/cred/lua_cred.h"
-#include "./luagit2/config/lua_config.h"
-#include "./luagit2/oid/lua_oid.h"
-#include "./luagit2/signature/lua_signature.h"
-#include "./luagit2/clone/lua_clone.h"
-#include "./luagit2/repository/lua_repository.h"
-#include "./luagit2/tree/lua_tree.h"
-#include "./luagit2/commit/lua_commit.h"
-#include "./luagit2/index/lua_index.h"
+#include "luagit2/libgit2/lua_libgit2.h"
+#include "luagit2/cred/lua_cred.h"
+#include "luagit2/config/lua_config.h"
+#include "luagit2/oid/lua_oid.h"
+#include "luagit2/signature/lua_signature.h"
+#include "luagit2/clone/lua_clone.h"
+#include "luagit2/repository/lua_repository.h"
+#include "luagit2/tree/lua_tree.h"
+#include "luagit2/commit/lua_commit.h"
+#include "luagit2/index/lua_index.h"
+#include "luagit2/reference/lua_reference.h"
+#include "luagit2/branch/lua_branch.h"
 //----------------- Helper Methods Functions --------------------//
 #include "./luagit2/libgit2/lua_libgit2_help.h"
 #include "./luagit2/signature/lua_signature_help.h"
@@ -106,8 +108,38 @@ static const struct luaL_Reg luagit2 [] = {
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Repository functions ------------------------------//
-      {"luagit2_repository_open",lua_git_repository_open},
+      {"luagit2_repository_commondir",lua_git_repository_commondir},
+      {"luagit2_repository_config",lua_git_repository_config},
+      {"luagit2_repository_config_snapshot",lua_git_repository_config_snapshot},
+      {"luagit2_repository_detach_head",lua_git_repository_detach_head},
+      {"luagit2_repository_get_namespace",lua_git_repository_get_namespace},
+      {"luagit2_repository_head",lua_git_repository_head},
+      {"luagit2_repository_head_detached",lua_git_repository_head_detached},
+      {"luagit2_repository_head_for_worktree",lua_git_repository_head_for_worktree},
+      {"luagit2_repository_head_unborn",lua_git_repository_head_unborn},
+      {"luagit2_repository_ident",lua_git_repository_ident},
       {"luagit2_repository_index",lua_git_repository_index},
+      {"luagit2_repository_init",lua_git_repository_init},
+      {"luagit2_repository_is_bare",lua_git_repository_is_bare},
+      {"luagit2_repository_is_empty",lua_git_repository_is_empty},
+      {"luagit2_repository_is_shallow",lua_git_repository_is_shallow},
+      {"luagit2_repository_is_worktree",lua_git_repository_is_worktree},
+      {"luagit2_repository_message",lua_git_repository_message},
+      {"luagit2_repository_message_remove",lua_git_repository_message_remove},
+      {"luagit2_repository_odb",lua_git_repository_odb},
+      {"luagit2_repository_open",lua_git_repository_open},
+      {"luagit2_repository_open_bare",lua_git_repository_open_bare},
+      {"luagit2_repository_open_from_worktree",lua_git_repository_open_from_worktree},
+      {"luagit2_repository_path",lua_git_repository_path},
+      {"luagit2_repository_refdb",lua_git_repository_refdb},
+      {"luagit2_repository_set_head",lua_git_repository_set_head},
+      {"luagit2_repository_set_head_detached",lua_git_repository_set_head_detached},
+      {"luagit2_repository_set_ident",lua_git_repository_set_ident},
+      {"luagit2_repository_set_namespace",lua_git_repository_set_namespace},
+      {"luagit2_repository_set_workdir",lua_git_repository_set_workdir},
+      {"luagit2_repository_state",lua_git_repository_state},
+      {"luagit2_repository_state_cleanup",lua_git_repository_state_cleanup},
+      {"luagit2_repository_workdir",lua_git_repository_workdir},
       //-----------------------------------------------------------------------------------------------//
 
       //-------------------------------------------- Tree functions -----------------------------------//
@@ -153,6 +185,56 @@ static const struct luaL_Reg luagit2 [] = {
 
       //------------------------------------------- Index methods -------------------------------------//
       {"luagit2_index_write_tree",lua_git_index_write_tree},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Reference Methods ---------------------------------//
+      {"luagit2_reference_create",lua_git_reference_create},
+      {"luagit2_reference_create_matching",lua_git_reference_create_matching},
+      {"luagit2_reference_dup",lua_git_reference_dup},
+      {"luagit2_reference_dwim",lua_git_reference_dwim},
+      {"luagit2_reference_ensure_log",lua_git_reference_ensure_log},
+      {"luagit2_reference_has_log",lua_git_reference_has_log},
+      {"luagit2_reference_is_branch",lua_git_reference_is_branch},
+      {"luagit2_reference_is_note",lua_git_reference_is_note},
+      {"luagit2_reference_is_remote",lua_git_reference_is_remote},
+      {"luagit2_reference_is_tag",lua_git_reference_is_tag},
+      {"luagit2_reference_is_valid_name",lua_git_reference_is_valid_name},
+      {"luagit2_reference_iterator_glob_new",lua_git_reference_iterator_glob_new},
+      {"luagit2_reference_iterator_new",lua_git_reference_iterator_new},
+      {"luagit2_reference_list",lua_git_reference_list},
+      {"luagit2_reference_lookup",lua_git_reference_lookup},
+      {"luagit2_reference_name",lua_git_reference_name},
+      {"luagit2_reference_name_to_id",lua_git_reference_name_to_id},
+      {"luagit2_reference_next",lua_git_reference_next},
+      {"luagit2_reference_next_name",lua_git_reference_next_name},
+      {"luagit2_reference_owner",lua_git_reference_owner},
+      {"luagit2_reference_peel",lua_git_reference_peel},
+      {"luagit2_reference_remove",lua_git_reference_remove},
+      {"luagit2_reference_rename",lua_git_reference_rename},
+      {"luagit2_reference_resolve",lua_git_reference_resolve},
+      {"luagit2_reference_set_target",lua_git_reference_set_target},
+      {"luagit2_reference_symbolic_create",lua_git_reference_symbolic_create},
+      {"luagit2_reference_symbolic_create_matching",lua_git_reference_symbolic_create_matching},
+      {"luagit2_reference_symbolic_set_target",lua_git_reference_symbolic_set_target},
+      {"luagit2_reference_symbolic_target",lua_git_reference_symbolic_target},
+      {"luagit2_reference_target",lua_git_reference_target},
+      {"luagit2_reference_target_peel",lua_git_reference_target_peel},
+      {"luagit2_reference_type",lua_git_reference_type},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Branch Methods ---------------------------------//
+      {"luagit2_branch_create",lua_git_branch_create},
+      {"luagit2_branch_create_from_annotated",lua_git_branch_create_from_annotated},
+      {"luagit2_branch_delete",lua_git_branch_delete},
+      {"luagit2_branch_is_checked_out",lua_git_branch_is_checked_out},
+      {"luagit2_branch_is_head",lua_git_branch_is_head},
+      {"luagit2_branch_iterator_new",lua_git_branch_iterator_new},
+      {"luagit2_branch_lookup",lua_git_branch_lookup},
+      {"luagit2_branch_move",lua_git_branch_move},
+      {"luagit2_branch_name",lua_git_branch_name},
+      {"luagit2_branch_next",lua_git_branch_next},
+      {"luagit2_branch_set_upstream",lua_git_branch_set_upstream},
+      {"luagit2_branch_upstream",lua_git_branch_upstream},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//
