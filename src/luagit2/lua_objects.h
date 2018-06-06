@@ -74,4 +74,45 @@ typedef struct {
 typedef struct {
 	git_time_t time;
 } luagit2_time;
+
+typedef struct {
+	git_reference *reference;
+} luagit2_reference;
+
+typedef struct {
+	git_odb *odb;
+} luagit2_odb;
+
+typedef struct {
+	git_worktree *worktree;
+} luagit2_worktree;
+
+typedef struct {
+	git_refdb *refdb;
+} luagit2_refdb;
+
+typedef struct {
+	git_reference_iterator *iterator;
+} luagit2_reference_iterator;
+
+typedef struct {
+	git_strarray array;
+} luagit2_strarray;
+
+typedef struct {
+	git_ref_t ref_type;
+} luagit2_ref_type;
+
+typedef struct {
+	git_annotated_commit *annotated_commit;
+} luagit2_annotated_commit;
+
+typedef struct {
+	git_branch_t branch_type;
+} luagit2_branch_type;
+
+typedef struct {
+	git_branch_iterator *branch_iterator;
+} luagit2_branch_iterator;
+
 #endif
