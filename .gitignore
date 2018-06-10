@@ -1,2 +1,5 @@
 # build cmake/make files
 build/
+
+#linter generated files
+*.gch

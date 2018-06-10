@@ -10,14 +10,16 @@
 #include "luagit2/index/lua_index.h"
 #include "luagit2/reference/lua_reference.h"
 #include "luagit2/branch/lua_branch.h"
+#include "luagit2/blame/lua_blame.h"
+#include "luagit2/blob/lua_blob.h"
 //----------------- Helper Methods Functions --------------------//
 #include "./luagit2/libgit2/lua_libgit2_help.h"
 #include "./luagit2/signature/lua_signature_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
-      //-------------- libgit2 functions -------------------------------------------------------// 
-      {"luagit2_init", lua_git_libgit2_init }, 
+      //-------------- libgit2 functions -------------------------------------------------------//
+      {"luagit2_init", lua_git_libgit2_init },
       {"luagit2_shutdown" , lua_git_libgit2_shutdown},
       {"luagit2_features",lua_git_libgit2_features},
       {"luagit2_version",lua_git_libgit2_version},
@@ -184,7 +186,34 @@ static const struct luaL_Reg luagit2 [] = {
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Index methods -------------------------------------//
+      {"luagit2_index_add",lua_git_index_add},
+      {"luagit2_index_add_bypath",lua_git_index_add_bypath},
+      {"luagit2_index_caps",lua_git_index_caps},
+      {"luagit2_index_checksum",lua_git_index_checksum},
+      {"luagit2_index_conflict_add",lua_git_index_conflict_add},
+      {"luagit2_index_conflict_cleanup",lua_git_index_conflict_cleanup},
+      {"luagit2_index_entry_is_conflict",lua_git_index_entry_is_conflict},
+      {"luagit2_index_entry_stage",lua_git_index_entry_stage},
+      {"luagit2_index_entrycount",lua_git_index_entrycount},
+      {"luagit2_index_find",lua_git_index_find},
+      {"luagit2_index_find_prefix",lua_git_index_find_prefix},
+      {"luagit2_index_get_byindex",lua_git_index_get_byindex},
+      {"luagit2_index_get_bypath",lua_git_index_get_bypath},
+      {"luagit2_index_has_conflicts",lua_git_index_has_conflicts},
+      {"luagit2_index_open",lua_git_index_open},
+      {"luagit2_index_owner",lua_git_index_owner},
+      {"luagit2_index_path",lua_git_index_path},
+      {"luagit2_index_read",lua_git_index_read},
+      {"luagit2_index_read_tree",lua_git_index_read_tree},
+      {"luagit2_index_remove",lua_git_index_remove},
+      {"luagit2_index_remove_bypath",lua_git_index_remove_bypath},
+      {"luagit2_index_remove_directory",lua_git_index_remove_directory},
+      {"luagit2_index_set_caps",lua_git_index_set_caps},
+      {"luagit2_index_set_version",lua_git_index_set_version},
+      {"luagit2_index_version",lua_git_index_version},
+      {"luagit2_index_write",lua_git_index_write},
       {"luagit2_index_write_tree",lua_git_index_write_tree},
+      {"luagit2_index_write_tree_to",lua_git_index_write_tree_to},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Reference Methods ---------------------------------//
@@ -237,15 +266,35 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_branch_upstream",lua_git_branch_upstream},
       //-----------------------------------------------------------------------------------------------//
 
+      //------------------------------------------- Blame Methods -------------------------------------//
+      {"luagit2_blame_buffer",lua_git_blame_buffer},
+      {"luagit2_blame_file",lua_git_blame_file},
+      {"luagit2_blame_get_hunk_byindex",lua_git_blame_get_hunk_byindex},
+      {"luagit2_blame_get_hunk_byline",lua_git_blame_get_hunk_byline},
+      {"luagit2_blame_get_hunk_count",lua_git_blame_get_hunk_count},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------ Blob Methods ---------------------------------------//
+      {"luagit2_blob_create_fromdisk",lua_git_blob_create_fromdisk},
+      {"luagit2_blob_create_fromworkdir",lua_git_blob_create_fromworkdir},
+      {"luagit2_blob_filtered_content",lua_git_blob_filtered_content},
+      {"luagit2_blob_id",lua_git_blob_id},
+      {"luagit2_blob_is_binary",lua_git_blob_is_binary},
+      {"luagit2_blob_lookup",lua_git_blob_lookup},
+      {"luagit2_blob_lookup_prefix",lua_git_blob_lookup_prefix},
+      {"luagit2_blob_owner",lua_git_blob_owner},
+      {"luagit2_blob_rawsize",lua_git_blob_rawsize},
+      //-----------------------------------------------------------------------------------------------//
+
       //------------------------------------------- Helper Methods ------------------------------------//
       {"luagit2_print_version_data",lua_git_libgit2_print_version_data},
       {"luagit2_get_signature_details",lua_get_signature_details},
       {"luagit2_print_complete_signature_details",lua_print_complete_signature_details},
       //-----------------------------------------------------------------------------------------------//
-      {NULL, NULL}  
+      {NULL, NULL}
     };
 
 int luaopen_luagit2 (lua_State *L){
-luaL_register(L, "luagit2", luagit2);    
+luaL_register(L, "luagit2", luagit2);
 return 1;
-}; 
+};
