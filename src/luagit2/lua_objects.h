@@ -3,11 +3,11 @@
 
 #include "../luaC-api/lua.h"
 #include "../luaC-api/lualib.h"
-#include "../luaC-api/lauxlib.h"	
+#include "../luaC-api/lauxlib.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <git2.h> 
+#include <git2.h>
 
 typedef struct {
    int major;
@@ -114,5 +114,29 @@ typedef struct {
 typedef struct {
 	git_branch_iterator *branch_iterator;
 } luagit2_branch_iterator;
+
+typedef struct {
+	git_blame *blame;
+} luagit2_blame;
+
+typedef struct {
+	git_blame_hunk *blame_hunk;
+} luagit2_blame_hunk;
+
+typedef struct {
+	git_blob *blob;
+} luagit2_blob;
+
+typedef struct {
+	git_off_t size;
+} luagit2_off_t;
+
+typedef struct {
+	git_index_entry *index_entry;
+} luagit2_index_entry;
+
+typedef struct {
+	git_index_conflict_iterator *index_conflict_iterator;
+} luagit2_index_conflict_iterator;
 
 #endif
