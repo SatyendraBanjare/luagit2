@@ -10,6 +10,8 @@ Though the project is still under development, you can try, install and test the
 
 ## Installation 
 
+First, install [libgit2](https://github.com/libgit2/libgit2), according to the instructions on their documentation.
+
 ```
 git clone https://github.com/SatyendraBanjare/luagit2.git
 cd luagit2
