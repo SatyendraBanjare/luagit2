@@ -139,4 +139,7 @@ typedef struct {
 	git_index_conflict_iterator *index_conflict_iterator;
 } luagit2_index_conflict_iterator;
 
+typedef struct{
+  git_config_level_t level;
+}luagit2_config_level_t;
 #endif

@@ -4,7 +4,7 @@
 #include "../../luaC-api/lua.h"
 #include "../../luaC-api/lualib.h"
 #include "../../luaC-api/lauxlib.h"
-#include "../lua_objects.h"	
+#include "../lua_objects.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -13,16 +13,16 @@
 static int lua_git_oid_fromstr (lua_State *L) {
 	luagit2_oid *obj_id;
     const char *string_value = luaL_checkstring(L,1);
-	
+
     obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
     luaL_getmetatable(L, "luagit2_oid");
     lua_setmetatable(L, -2);
-    
+
     git_oid local_id;
-    git_oid_fromstr(&local_id,string_value); 
+    git_oid_fromstr(&local_id,string_value);
    	obj_id->oid = local_id;
- 
+
     return 1;
 }
 
@@ -30,16 +30,16 @@ static int lua_git_oid_fromstrn (lua_State *L) {
 	luagit2_oid *obj_id;
     const char *string_value = luaL_checkstring(L,1);
     size_t length = luaL_checkinteger(L,2);
-	
+
     obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
     luaL_getmetatable(L, "luagit2_oid");
     lua_setmetatable(L, -2);
-    
+
     git_oid local_id;
-    git_oid_fromstrn(&local_id,string_value,length); 
+    git_oid_fromstrn(&local_id,string_value,length);
    	obj_id->oid = local_id;
- 
+
     return 1;
 }
 
@@ -114,7 +114,7 @@ static int lua_git_oid_iszero (lua_State *L) {
 	int result = git_oid_iszero(&(oid_A->oid));
 
 	lua_pushinteger(L,result);
-	return 1; 
+	return 1;
 }
 
 static int lua_git_oid_strcmp (lua_State *L) {
@@ -128,7 +128,7 @@ static int lua_git_oid_strcmp (lua_State *L) {
 
     return 1;
 }
-   
+
 static int lua_git_oid_tostr (lua_State *L) {
     const luagit2_oid *oid_A;
 
@@ -137,7 +137,7 @@ static int lua_git_oid_tostr (lua_State *L) {
     char *string_value ;;
     git_oid_tostr(string_value,size_value,&(oid_A->oid));
     lua_pushstring(L,string_value);
-    
+
     return 1;
 }
 

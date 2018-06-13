@@ -4,11 +4,11 @@
 #include "../../luaC-api/lua.h"
 #include "../../luaC-api/lualib.h"
 #include "../../luaC-api/lauxlib.h"
-#include "../lua_objects.h"	
+#include "../lua_objects.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <git2.h> 
+#include <git2.h>
 
 static int lua_git_libgit2_init (lua_State *L) {
     git_libgit2_init();
@@ -24,31 +24,31 @@ static int lua_git_libgit2_features (lua_State *L) {
     int features_number = git_libgit2_features();
     lua_pushinteger(L , features_number);
     return 1;
-} 
- 
+}
+
 static int lua_git_libgit2_version (lua_State *L) {
 	libgit_version_data *version_data;
- 
+
     version_data = (libgit_version_data *)lua_newuserdata(L, sizeof(*version_data));
     version_data->major  = 0;
     version_data->minor = 0;
     version_data->rev = 0;
- 
-    
+
+
     luaL_getmetatable(L, "libgit2_version_data");
-    
+
     lua_setmetatable(L, -2);
 
 	int Major ;
 	int Minor ;
 	int Rev ;
-    
+
     git_libgit2_version(&Major , &Minor ,&Rev );
-    
+
     version_data->major = Major;
    	version_data->minor = Minor;
    	version_data->rev = Rev;
- 
+
     return 1;
 
 }
@@ -56,9 +56,9 @@ static int lua_git_libgit2_version (lua_State *L) {
 static int lua_GIT_OPT_GET_MWINDOW_SIZE(lua_State *L){
 	int *mmap_size ;
 	git_libgit2_opts(GIT_OPT_GET_MWINDOW_SIZE, mmap_size);
- 	
+
  	int MMap_Size = *mmap_size;
- 	lua_pushinteger(L,MMap_Size); 
+ 	lua_pushinteger(L,MMap_Size);
 	return 1;
 }
 
@@ -71,9 +71,9 @@ static int lua_GIT_OPT_SET_MWINDOW_SIZE(lua_State *L){
 static int lua_GIT_OPT_GET_MWINDOW_MAPPED_LIMIT(lua_State *L){
 	int *mmap_limit ;
 	git_libgit2_opts(GIT_OPT_GET_MWINDOW_MAPPED_LIMIT, mmap_limit);
- 	
+
  	int MMap_Limit = *mmap_limit;
- 	lua_pushinteger(L,MMap_Limit); 
+ 	lua_pushinteger(L,MMap_Limit);
 	return 1;
 }
 
@@ -100,7 +100,7 @@ static int lua_GIT_OPT_GET_SEARCH_PATH(lua_State *L){
 		    	break;
 	}
 
- 	lua_pushstring(L,path.ptr); 
+ 	lua_pushstring(L,path.ptr);
 	return 1;
 }
 
@@ -131,9 +131,9 @@ static int lua_GIT_OPT_GET_CACHED_MEMORY(lua_State *L){
 
 	switch(option_number)
 	{
-		case 1: lua_pushinteger(L,*current); 
+		case 1: lua_pushinteger(L,*current);
 		    	break;
-		case 2: lua_pushinteger(L,*allowed); 
+		case 2: lua_pushinteger(L,*allowed);
 		    	break;
 	}
 
@@ -164,7 +164,7 @@ static int lua_GIT_OPT_GET_TEMPLATE_PATH(lua_State *L){
 
 	git_libgit2_opts(GIT_OPT_GET_TEMPLATE_PATH, &path);
 
- 	lua_pushstring(L,path.ptr); 
+ 	lua_pushstring(L,path.ptr);
 	return 1;
 }
 
@@ -183,9 +183,9 @@ static int lua_GIT_OPT_SET_USER_AGENT(lua_State *L){
 static int lua_GIT_OPT_GET_WINDOWS_SHAREMODE(lua_State *L){
 	unsigned long *value ;
 	git_libgit2_opts(GIT_OPT_GET_WINDOWS_SHAREMODE, value);
- 	
+
  	int Value = *value;
- 	lua_pushnumber(L,Value); 
+ 	lua_pushnumber(L,Value);
 	return 1;
 }
 

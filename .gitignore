@@ -1,5 +1,12 @@
 # build cmake/make files
 build/
 
+#generated shared object
+luagit2.so
+
 #linter generated files
 *.gch
+
+#lua-cov report and stats file
+tests/luacov.report.out
+tests/luacov.stats.out

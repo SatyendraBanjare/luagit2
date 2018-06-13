@@ -4,7 +4,7 @@
 #include "../../luaC-api/lua.h"
 #include "../../luaC-api/lualib.h"
 #include "../../luaC-api/lauxlib.h"
-#include "../lua_objects.h"	
+#include "../lua_objects.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -55,13 +55,13 @@ static int lua_git_commit_extract_signature (lua_State *L) {
 	const char *field = luaL_checkstring(L,3);
 
 	luagit2_buf *lua_signature_buf;
- 
+
     lua_signature_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_signature_buf));
     lua_signature_buf->buf = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_buf");
     lua_setmetatable(L, -2);
-    
+
     git_buf *local_sign_buf;
     git_buf *local_extra_buf;
     git_commit_extract_signature(local_sign_buf,local_extra_buf,Repo->repo,&(Commit_id->oid),field);
@@ -75,13 +75,13 @@ static int lua_git_commit_header_field (lua_State *L) {
 	const char *field = luaL_checkstring(L,2);
 
 	luagit2_buf *lua_header_buf;
- 
+
     lua_header_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_header_buf));
     lua_header_buf->buf = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_buf");
     lua_setmetatable(L, -2);
-    
+
     git_buf *local_out_buf;
     git_commit_header_field(local_out_buf,Commit->commit,field);
 
@@ -94,13 +94,13 @@ static int lua_git_commit_lookup (lua_State *L) {
 	const luagit2_oid *Commit_id = (luagit2_oid *)lua_touserdata(L, 2);
 
 	luagit2_commit *lua_Commit;
- 
+
     lua_Commit = (luagit2_commit *)lua_newuserdata(L, sizeof(*lua_Commit));
     lua_Commit->commit = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_commit");
     lua_setmetatable(L, -2);
-    
+
     git_commit *local_commit;
     git_commit_lookup(&(local_commit),Repo->repo,&(Commit_id->oid));
 
@@ -114,13 +114,13 @@ static int lua_git_commit_lookup_prefix (lua_State *L) {
 	size_t length = luaL_checkinteger(L,3);
 
 	luagit2_commit *lua_Commit;
- 
+
     lua_Commit = (luagit2_commit *)lua_newuserdata(L, sizeof(*lua_Commit));
     lua_Commit->commit = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_commit");
     lua_setmetatable(L, -2);
-    
+
     git_commit *local_commit;
     git_commit_lookup_prefix(&(local_commit),Repo->repo,&(Commit_id->oid),length);
 
@@ -157,13 +157,13 @@ static int lua_git_commit_nth_gen_ancestor (lua_State *L) {
 	unsigned int Nth_ancestor_gen  = luaL_checkinteger(L,2);
 
 	luagit2_commit *lua_ancesstor_commit;
- 
+
     lua_ancesstor_commit = (luagit2_commit *)lua_newuserdata(L, sizeof(*lua_ancesstor_commit));
     lua_ancesstor_commit->commit = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_commit");
     lua_setmetatable(L, -2);
-    
+
     git_commit *local_commit;
     git_commit_nth_gen_ancestor(&(local_commit),lua_commit->commit,Nth_ancestor_gen);
 
@@ -176,13 +176,13 @@ static int lua_git_commit_parent (lua_State *L) {
 	unsigned int position  = luaL_checkinteger(L,2);
 
 	luagit2_commit *lua_Commit;
- 
+
     lua_Commit = (luagit2_commit *)lua_newuserdata(L, sizeof(*lua_Commit));
     lua_Commit->commit = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_commit");
     lua_setmetatable(L, -2);
-    
+
     git_commit *local_commit;
     git_commit_parent(&(local_commit),lua_commit->commit,position);
 
@@ -194,14 +194,14 @@ static int lua_git_commit_parent_id (lua_State *L) {
 	const luagit2_commit *lua_commit = (luagit2_commit *)lua_touserdata(L, 1);
 	luagit2_oid *parent_id;
     unsigned int position  = luaL_checkinteger(L,2);
-	
+
     parent_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*parent_id));
 
     luaL_getmetatable(L, "luagit2_oid");
     lua_setmetatable(L, -2);
-     
+
    	parent_id->oid = *(git_commit_parent_id(lua_commit->commit,position));
- 
+
     return 1;
 }
 
@@ -232,46 +232,46 @@ static int lua_git_commit_summary (lua_State *L) {
 static int lua_git_commit_time (lua_State *L) {
 	const luagit2_commit *lua_commit = (luagit2_commit *)lua_touserdata(L, 1);
 	luagit2_time *commit_time;
-	
+
     commit_time = (luagit2_time *)lua_newuserdata(L, sizeof(*commit_time));
 
     luaL_getmetatable(L, "luagit2_oid");
     lua_setmetatable(L, -2);
-     
+
    	commit_time->time = git_commit_time(lua_commit->commit);
- 
+
     return 1;
 }
 
 static int lua_git_commit_tree (lua_State *L) {
 	const luagit2_commit *lua_commit = (luagit2_commit *)lua_touserdata(L, 1);
 	luagit2_tree *lua_tree;
- 
+
     lua_tree = (luagit2_tree *)lua_newuserdata(L, sizeof(*lua_tree));
     lua_tree->tree = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_tree");
     lua_setmetatable(L, -2);
-    
+
     git_tree *local_tree_obj;
     git_commit_tree(&local_tree_obj,lua_commit->commit);
 
    	lua_tree->tree  = local_tree_obj;
-     
+
     return 1;
 }
 
 static int lua_git_commit_tree_id (lua_State *L) {
 	const luagit2_commit *lua_commit = (luagit2_commit *)lua_touserdata(L, 1);
 	luagit2_oid *tree_id;
-	
+
     tree_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*tree_id));
 
     luaL_getmetatable(L, "luagit2_oid");
     lua_setmetatable(L, -2);
-     
+
    	tree_id->oid = *(git_commit_tree_id(lua_commit->commit));
- 
+
     return 1;
 }
 

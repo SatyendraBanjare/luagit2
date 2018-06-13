@@ -4,7 +4,7 @@
 #include "../../luaC-api/lua.h"
 #include "../../luaC-api/lualib.h"
 #include "../../luaC-api/lauxlib.h"
-#include "../lua_objects.h" 
+#include "../lua_objects.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -23,15 +23,15 @@ static int lua_git_repository_config (lua_State *L) {
 
     lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
     lua_cfg->cfg  = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_config");
-    
+
     lua_setmetatable(L, -2);
-    
+
     git_config *local_config;
-    git_repository_config(&local_config,lua_repo->repo); 
+    git_repository_config(&local_config,lua_repo->repo);
     lua_cfg->cfg  = local_config;
- 
+
     return 1;
 }
 
@@ -41,28 +41,28 @@ static int lua_git_repository_config_snapshot (lua_State *L) {
 
     lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
     lua_cfg->cfg  = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_config");
-    
+
     lua_setmetatable(L, -2);
-    
+
     git_config *local_config;
-    git_repository_config_snapshot(&local_config,lua_repo->repo); 
+    git_repository_config_snapshot(&local_config,lua_repo->repo);
     lua_cfg->cfg  = local_config;
- 
+
     return 1;
 }
 
 static int lua_git_repository_detach_head (lua_State *L) {
     const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-    git_repository_detach_head(lua_repo->repo); 
+    git_repository_detach_head(lua_repo->repo);
     return 1;
 }
 
 static int lua_git_repository_get_namespace(lua_State *L) {
     const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-    const char *namespace = git_repository_get_namespace(lua_repo->repo);
-    lua_pushstring(L,namespace);
+    const char *name_space = git_repository_get_namespace(lua_repo->repo);
+    lua_pushstring(L,name_space);
     return 1;
 }
 
@@ -72,15 +72,15 @@ static int lua_git_repository_head (lua_State *L) {
 
     lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
     lua_ref->reference  = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_reference");
-    
+
     lua_setmetatable(L, -2);
-    
+
     git_reference *local_ref;
-    git_repository_head(&local_ref,lua_repo->repo); 
+    git_repository_head(&local_ref,lua_repo->repo);
     lua_ref->reference  = local_ref;
- 
+
     return 1;
 }
 
@@ -98,15 +98,15 @@ static int lua_git_repository_head_for_worktree (lua_State *L) {
 
     lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
     lua_ref->reference  = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_reference");
-    
+
     lua_setmetatable(L, -2);
-    
+
     git_reference *local_ref;
-    git_repository_head_for_worktree(&local_ref,lua_repo->repo,name); 
+    git_repository_head_for_worktree(&local_ref,lua_repo->repo,name);
     lua_ref->reference  = local_ref;
- 
+
     return 1;
 }
 
@@ -204,18 +204,18 @@ static int lua_git_repository_is_worktree (lua_State *L) {
 static int lua_git_repository_message (lua_State *L) {
     luagit2_buf *lua_buf;
     const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
- 
+
     lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
     lua_buf->buf  = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_buf");
-    
+
     lua_setmetatable(L, -2);
-    
+
     git_buf local_buf = {0};
-    git_repository_message(&local_buf,lua_repo->repo); 
+    git_repository_message(&local_buf,lua_repo->repo);
     lua_buf->buf  = &local_buf;
- 
+
     return 1;
 }
 
@@ -232,15 +232,15 @@ static int lua_git_repository_odb (lua_State *L) {
 
     lua_odb = (luagit2_odb *)lua_newuserdata(L, sizeof(*lua_odb));
     lua_odb->odb  = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_odb");
-    
+
     lua_setmetatable(L, -2);
-    
+
     git_odb *local_odb;
-    git_repository_odb(&local_odb,lua_repo->repo); 
+    git_repository_odb(&local_odb,lua_repo->repo);
     lua_odb->odb  = local_odb;
- 
+
     return 1;
 }
 
@@ -316,15 +316,15 @@ static int lua_git_repository_refdb (lua_State *L) {
 
     lua_refdb = (luagit2_refdb *)lua_newuserdata(L, sizeof(*lua_refdb));
     lua_refdb->refdb  = NULL;
- 
+
     luaL_getmetatable(L, "luagit2_refdb");
-    
+
     lua_setmetatable(L, -2);
-    
+
     git_refdb *local_refdb;
-    git_repository_refdb(&local_refdb,lua_repo->repo); 
+    git_repository_refdb(&local_refdb,lua_repo->repo);
     lua_refdb->refdb  = local_refdb;
- 
+
     return 1;
 }
 
