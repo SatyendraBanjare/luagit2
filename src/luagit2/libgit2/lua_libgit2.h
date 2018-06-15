@@ -5,231 +5,227 @@
 #include "../../luaC-api/lualib.h"
 #include "../../luaC-api/lauxlib.h"
 #include "../lua_objects.h"
+#include "../common/lua_common.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <git2.h>
 
-static int lua_git_libgit2_init (lua_State *L) {
-    git_libgit2_init();
-    return 1;
-}
-
-static int lua_git_libgit2_shutdown (lua_State *L) {
-    git_libgit2_shutdown();
-    return 1;
-}
-
-static int lua_git_libgit2_features (lua_State *L) {
-    int features_number = git_libgit2_features();
-    lua_pushinteger(L , features_number);
-    return 1;
-}
-
-static int lua_git_libgit2_version (lua_State *L) {
-	libgit_version_data *version_data;
-
-    version_data = (libgit_version_data *)lua_newuserdata(L, sizeof(*version_data));
-    version_data->major  = 0;
-    version_data->minor = 0;
-    version_data->rev = 0;
+/* Module Libgit2
+ *
+ * This file contains methods to access, view and set
+ * Global variables for the working of luagit2.
+ */
 
 
-    luaL_getmetatable(L, "libgit2_version_data");
+/* Callable function name : luagit2_init()
+ *
+ * This function must be called before any other luagit2 function in order
+ * to set up global state and threading.
+ *
+ * Params required : None
+ * Returns : None
+ */
+int lua_git_libgit2_init (lua_State *L);
 
-    lua_setmetatable(L, -2);
+/* Callable function name : luagit2_shutdown()
+ *
+ * Clean up the global state and threading context after calling it as many times
+ * as luagit2_init() was called.
+ *
+ * Params required : None
+ * Returns : None
+ */
+int lua_git_libgit2_shutdown (lua_State *L);
 
-	int Major ;
-	int Minor ;
-	int Rev ;
+/* Callable function name : luagit2_features().
+ *
+ * Params required : None
+ * Returns : Integer value for Query compile time options for libgit2.
+ */
+int lua_git_libgit2_features (lua_State *L);
 
-    git_libgit2_version(&Major , &Minor ,&Rev );
+/* Callable function name : luagit2_version().
+ *
+ * Params required : None
+ * Returns : A `libgit_version_data` type Userdata object.
+ */
+int lua_git_libgit2_version (lua_State *L);
 
-    version_data->major = Major;
-   	version_data->minor = Minor;
-   	version_data->rev = Rev;
+/* Callable function name : luagit2_GET_MWINDOW_SIZE().
+ *
+ * Params required : None
+ * Returns : an Integer valued maximum mmap window size.
+ */
+int lua_GIT_OPT_GET_MWINDOW_SIZE(lua_State *L);
 
-    return 1;
+/* Callable function name : luagit2_SET_MWINDOW_SIZE( lua_integer Size).
+ *
+ * Sets the maximum mmap window size.
+ *
+ * Params required : (Integer) an integer value.
+ * Returns : None.
+ */
+int lua_GIT_OPT_SET_MWINDOW_SIZE(lua_State *L);
 
-}
+/* Callable function name : luagit2_GET_MWINDOW_MAPPED_LIMIT().
+ *
+ * Params required : None
+ * Returns : Integer value of the maximum memory that will be
+ *           mapped in total by the library.
+ */
+int lua_GIT_OPT_GET_MWINDOW_MAPPED_LIMIT(lua_State *L);
 
-static int lua_GIT_OPT_GET_MWINDOW_SIZE(lua_State *L){
-	int *mmap_size ;
-	git_libgit2_opts(GIT_OPT_GET_MWINDOW_SIZE, mmap_size);
+/* Callable function name : luagit2_SET_MWINDOW_MAPPED_LIMIT( lua_integer Size).
+ * Sets the maximum memory that	will be mapped by library.
+ *
+ * Params required : (Integer) an integer value.
+ * Returns : None.
+ */
+int lua_GIT_OPT_SET_MWINDOW_MAPPED_LIMIT(lua_State *L);
 
- 	int MMap_Size = *mmap_size;
- 	lua_pushinteger(L,MMap_Size);
-	return 1;
-}
+/* Callable function name : luagit2_GET_SEARCH_PATH( lua_integer Option_Number).
+ *
+ * Params required : (Integer) Integer option number.
+ 					1 -> GIT_CONFIG_LEVEL_SYSTEM
+ 					2 -> GIT_CONFIG_LEVEL_GLOBAL
+ 					3 -> GIT_CONFIG_LEVEL_XDG
+ 					4 -> GIT_CONFIG_LEVEL_PROGRAMDATA
+ * Returns : String value of search path for a selected level for a config data.
+ */
+int lua_GIT_OPT_GET_SEARCH_PATH(lua_State *L);
 
-static int lua_GIT_OPT_SET_MWINDOW_SIZE(lua_State *L){
-	int size = luaL_checkint(L,1);
-	git_libgit2_opts(GIT_OPT_SET_MWINDOW_SIZE, size);
-	return 1;
-}
+/* Callable function name : luagit2_SET_SEARCH_PATH( lua_integer Option_Number , lua_string path).
+ *
+ * Params required : (String) string value of path ,(Integer) Integer option number.
+ 					1 -> GIT_CONFIG_LEVEL_SYSTEM
+ 					2 -> GIT_CONFIG_LEVEL_GLOBAL
+ 					3 -> GIT_CONFIG_LEVEL_XDG
+ 					4 -> GIT_CONFIG_LEVEL_PROGRAMDATA
+ * Returns : None.
+ */
+int lua_GIT_OPT_SET_SEARCH_PATH(lua_State *L);
 
-static int lua_GIT_OPT_GET_MWINDOW_MAPPED_LIMIT(lua_State *L){
-	int *mmap_limit ;
-	git_libgit2_opts(GIT_OPT_GET_MWINDOW_MAPPED_LIMIT, mmap_limit);
+/* Callable function name : luagit2_GET_CACHED_MEMORY(lua_integer option_number)
+ * Get the current bytes in cache and the maximum that would be  allowed in the cache.
+ *
+ * Params required : (Integer) option number. 1 -> current value, 2 -> allowed value
+ * Returns : cache byte value according to selected option number.
+ */
+int lua_GIT_OPT_GET_CACHED_MEMORY(lua_State *L);
 
- 	int MMap_Limit = *mmap_limit;
- 	lua_pushinteger(L,MMap_Limit);
-	return 1;
-}
+/* Callable function name : luagit2_SET_CACHE_OBJECT_LIMIT(lua_integer size)
+ * Sets the cache object memory limit.
+ *
+ * Params required : (Integer) integer value of size.
+ * Returns : None.
+ */
+int lua_GIT_OPT_SET_CACHE_OBJECT_LIMIT(lua_State *L);
 
-static int lua_GIT_OPT_SET_MWINDOW_MAPPED_LIMIT(lua_State *L){
-	int size = luaL_checkint(L,1);
-	git_libgit2_opts(GIT_OPT_SET_MWINDOW_MAPPED_LIMIT, size);
-	return 1;
-}
+/* Callable function name : luagit2_SET_CACHE_MAX_SIZE(lua_integer size)
+ * Set the maximum total data size that will be cached in memory
+ * across all repositories before libgit2 starts evicting objects
+ * from the cache.
+ *
+ * Params required : (Integer) integer value of size.
+ * Returns : None.
+ */
+int lua_GIT_OPT_SET_CACHE_MAX_SIZE(lua_State *L);
 
+/* Callable function name : luagit2_ENABLE_CACHING(lua_integer is_enabled)
+ * Enable or disable caching completely.
+ *
+ * Params required : (Integer) integer equivalent of bool. 0 -> disabled , >0 -> enabled
+ * Returns : None.
+ */
+int lua_GIT_OPT_ENABLE_CACHING(lua_State *L);
 
-static int lua_GIT_OPT_GET_SEARCH_PATH(lua_State *L){
-	git_buf path = {0} ;
-	int option_number = luaL_checkint(L,1);
+/* Callable function name : luagit2_GET_TEMPLATE_PATH()
+ *
+ * Params required : None.
+ * Returns : String value of default template path.
+ */
+int lua_GIT_OPT_GET_TEMPLATE_PATH(lua_State *L);
 
-	switch(option_number)
-	{
-		case 1: git_libgit2_opts(GIT_OPT_GET_SEARCH_PATH, GIT_CONFIG_LEVEL_SYSTEM, &path);
-		    	break;
-		case 2: git_libgit2_opts(GIT_OPT_GET_SEARCH_PATH, GIT_CONFIG_LEVEL_GLOBAL, &path);
-		    	break;
-		case 3: git_libgit2_opts(GIT_OPT_GET_SEARCH_PATH, GIT_CONFIG_LEVEL_XDG, &path);
-		    	break;
-		case 4: git_libgit2_opts(GIT_OPT_GET_SEARCH_PATH, GIT_CONFIG_LEVEL_PROGRAMDATA, &path);
-		    	break;
-	}
+/* Callable function name : luagit2_SET_TEMPLATE_PATH(lua_string path)
+ * Set the default template path.
+ *
+ * Params required : (String) path value .
+ * Returns : None.
+ */
+int lua_GIT_OPT_SET_TEMPLATE_PATH(lua_State *L);
 
- 	lua_pushstring(L,path.ptr);
-	return 1;
-}
+/* Callable function name : luagit2_SET_USER_AGENT(lua_string user_agent)
+ * Set the user agent.
+ *
+ * Params required : (String) string value of user_agent .
+ * Returns : None.
+ */
+int lua_GIT_OPT_SET_USER_AGENT(lua_State *L);
 
-static int lua_GIT_OPT_SET_SEARCH_PATH(lua_State *L){
-	int option_number = luaL_checkint(L,1);
-	const char *path = luaL_checkstring(L,2);
+/* Callable function name : luagit2_GET_WINDOWS_SHAREMODE()
+ * Get the share mode used when opening files on Windows
+ *
+ * Params required : None .
+ * Returns : Integer value of share mode.
+ */
+int lua_GIT_OPT_GET_WINDOWS_SHAREMODE(lua_State *L);
 
-	switch(option_number)
-	{
-		case 1: git_libgit2_opts(GIT_OPT_SET_SEARCH_PATH, GIT_CONFIG_LEVEL_SYSTEM, path);
-		    	break;
-		case 2: git_libgit2_opts(GIT_OPT_SET_SEARCH_PATH, GIT_CONFIG_LEVEL_GLOBAL, path);
-		    	break;
-		case 3: git_libgit2_opts(GIT_OPT_SET_SEARCH_PATH, GIT_CONFIG_LEVEL_XDG, path);
-		    	break;
-		case 4: git_libgit2_opts(GIT_OPT_SET_SEARCH_PATH, GIT_CONFIG_LEVEL_PROGRAMDATA, path);
-		    	break;
-	}
-	return 1;
-}
+/* Callable function name : luagit2_SET_WINDOWS_SHAREMODE(lua_number value)
+ * Set the share mode on windows.
+ *
+ * Params required : (lua_Number) a long integer equivalent number .
+ * Returns : None.
+ */
+int lua_GIT_OPT_SET_WINDOWS_SHAREMODE(lua_State *L);
 
+/* Callable function name : luagit2_ENABLE_STRICT_OBJECT_CREATION(lua_integer is_enabled)
+ * enable or disable creation of objects strictly.
+ *
+ * Params required : (Integer) integer equivalent of bool. 0 -> disabled , >0 -> enabled.
+ * Returns : None.
+ */
+int lua_GIT_OPT_ENABLE_STRICT_OBJECT_CREATION(lua_State *L);
 
-static int lua_GIT_OPT_GET_CACHED_MEMORY(lua_State *L){
-	ssize_t *current; ssize_t *allowed ;
-	int option_number = luaL_checkint(L,1);
+/* Callable function name : luagit2_ENABLE_STRICT_SYMBOLIC_REF_CREATION(lua_integer is_enabled)
+ * enable or disable creation of symbolic reference strictly.
+ *
+ * Params required : (Integer) integer equivalent of bool. 0 -> disabled , >0 -> enabled.
+ * Returns : None.
+ */
+int lua_GIT_OPT_ENABLE_STRICT_SYMBOLIC_REF_CREATION(lua_State *L);
 
-	git_libgit2_opts(GIT_OPT_GET_CACHED_MEMORY, current , allowed);
+/* Callable function name : luagit2_SET_SSL_CIPHERS(lua_string ssl_cipher)
+ * Set the SSL ciphers use for HTTPS connections.
+ * `ssl_cipher_name` is the list of ciphers that are eanbled.
+ *
+ * Params required : (String) SSL_cipher.
+ * Returns : None.
+ */
+int lua_GIT_OPT_SET_SSL_CIPHERS(lua_State *L);
 
-	switch(option_number)
-	{
-		case 1: lua_pushinteger(L,*current);
-		    	break;
-		case 2: lua_pushinteger(L,*allowed);
-		    	break;
-	}
+/* Callable function name : luagit2_ENABLE_OFS_DELTA(lua_integer is_enabled)
+ * Enable or disable the use of "offset deltas" when creating packfiles.
+ *
+ * Params required : (Integer) integer equivalent of bool. 0 -> disabled , >0 -> enabled.
+ * Returns : None.
+ */
+int lua_GIT_OPT_ENABLE_OFS_DELTA(lua_State *L);
 
-	return 1;
-}
+/* Callable function name : luagit2_ENABLE_FSYNC_GITDIR(lua_integer is_enabled)
+ * Enable synchronized writes of files in the gitdir using `fsync`.
+ *
+ * Params required : (Integer) integer equivalent of bool. 0 -> disabled , >0 -> enabled.
+ * Returns : None.
+ */
+int lua_GIT_OPT_ENABLE_FSYNC_GITDIR(lua_State *L);
 
-static int lua_GIT_OPT_SET_CACHE_OBJECT_LIMIT(lua_State *L){
-	int size = luaL_checkint(L,1);
-	git_otype type;
-	git_libgit2_opts(GIT_OPT_SET_CACHE_OBJECT_LIMIT,type, size);
-	return 1;
-}
-
-static int lua_GIT_OPT_SET_CACHE_MAX_SIZE(lua_State *L){
-	ssize_t	 size = luaL_checkint(L,1);
-	git_libgit2_opts(GIT_OPT_SET_CACHE_MAX_SIZE, size);
-	return 1;
-}
-
-static int lua_GIT_OPT_ENABLE_CACHING(lua_State *L){
-	int enabled = luaL_checkint(L,1);
-	git_libgit2_opts(GIT_OPT_ENABLE_CACHING, enabled);
-	return 1;
-}
-
-static int lua_GIT_OPT_GET_TEMPLATE_PATH(lua_State *L){
-	git_buf path = {0};
-
-	git_libgit2_opts(GIT_OPT_GET_TEMPLATE_PATH, &path);
-
- 	lua_pushstring(L,path.ptr);
-	return 1;
-}
-
-static int lua_GIT_OPT_SET_TEMPLATE_PATH(lua_State *L){
-	const char *path = luaL_checkstring(L,1);
-	git_libgit2_opts(GIT_OPT_SET_TEMPLATE_PATH, path);
-	return 1;
-}
-
-static int lua_GIT_OPT_SET_USER_AGENT(lua_State *L){
-	const char *user_agent = luaL_checkstring(L,1);
-	git_libgit2_opts(GIT_OPT_SET_USER_AGENT, user_agent);
-	return 1;
-}
-
-static int lua_GIT_OPT_GET_WINDOWS_SHAREMODE(lua_State *L){
-	unsigned long *value ;
-	git_libgit2_opts(GIT_OPT_GET_WINDOWS_SHAREMODE, value);
-
- 	int Value = *value;
- 	lua_pushnumber(L,Value);
-	return 1;
-}
-
-static int lua_GIT_OPT_SET_WINDOWS_SHAREMODE(lua_State *L){
-	unsigned long value = luaL_checklong(L,1);
-	git_libgit2_opts(GIT_OPT_SET_WINDOWS_SHAREMODE, value);
-	return 1;
-}
-
-static int lua_GIT_OPT_ENABLE_STRICT_OBJECT_CREATION(lua_State *L){
-	int enabled = luaL_checkint(L,1);
-	git_libgit2_opts(GIT_OPT_ENABLE_STRICT_OBJECT_CREATION, enabled);
-	return 1;
-}
-
-static int lua_GIT_OPT_ENABLE_STRICT_SYMBOLIC_REF_CREATION(lua_State *L){
-	int enabled = luaL_checkint(L,1);
-	git_libgit2_opts(GIT_OPT_ENABLE_STRICT_SYMBOLIC_REF_CREATION, enabled);
-	return 1;
-}
-
-static int lua_GIT_OPT_SET_SSL_CIPHERS(lua_State *L){
-	const char *ciphers = luaL_checkstring(L,1);
-	git_libgit2_opts(GIT_OPT_SET_SSL_CIPHERS, ciphers);
-	return 1;
-}
-
-static int lua_GIT_OPT_ENABLE_OFS_DELTA(lua_State *L){
-	int enabled = luaL_checkint(L,1);
-	git_libgit2_opts(GIT_OPT_ENABLE_OFS_DELTA, enabled);
-	return 1;
-}
-
-static int lua_GIT_OPT_ENABLE_FSYNC_GITDIR(lua_State *L){
-	int enabled = luaL_checkint(L,1);
-	git_libgit2_opts(GIT_OPT_ENABLE_FSYNC_GITDIR, enabled);
-	return 1;
-}
-
-static int lua_GIT_OPT_ENABLE_STRICT_HASH_VERIFICATION(lua_State *L){
-	int enabled = luaL_checkint(L,1);
-	git_libgit2_opts(GIT_OPT_ENABLE_STRICT_HASH_VERIFICATION, enabled);
-
-	return 1;
-}
+/* Callable function name : luagit2_ENABLE_STRICT_HASH_VERIFICATION(lua_integer is_enabled)
+ * Enable strict verification of object hashsums when reading objects from disk.
+ *
+ * Params required : (Integer) integer equivalent of bool. 0 -> disabled , >0 -> enabled.
+ * Returns : None.
+ */
+int lua_GIT_OPT_ENABLE_STRICT_HASH_VERIFICATION(lua_State *L);
 
 #endif

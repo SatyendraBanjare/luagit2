@@ -5,26 +5,28 @@
 #include "../../luaC-api/lualib.h"
 #include "../../luaC-api/lauxlib.h"
 #include "../lua_objects.h"
+#include "../common/lua_common.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <git2.h>
 
-static int lua_git_libgit2_print_version_data (lua_State *L) {
-	const libgit_version_data *version_data = (libgit_version_data *)lua_touserdata(L, 1);
-	int which_version = luaL_checkinteger(L,2);
+/* Module Libgit2_helper
+ *
+ * These are helper methods to ease the user in accessing
+ * the libgit2.
+ */
 
-	switch(which_version)
-	{
-		case 1:  lua_pushinteger(L,version_data->major);
-		    	break;
-		case 2: lua_pushinteger(L,version_data->minor);
-		    	break;
-		case 3: lua_pushinteger(L,version_data->major);
-		    	break;
-	}
-
-    return 1;
-}
+/* Callable function name : luagit2_print_version_data(lua_userdata version_data, lua_integer option)
+ *
+ * Helper function to help in printing libgit2's version details.
+ *
+ * Params required : (lua_userdata) libgit_version_data , (lua_integer) option number.
+ * 					 1 -> Major version number
+ 					 2 -> Minor version number
+ 					 3 -> Rev version number
+ * Returns : None
+ */
+int lua_git_libgit2_print_version_data (lua_State *L);
 
 #endif
