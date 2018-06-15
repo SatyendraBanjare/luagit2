@@ -16,7 +16,11 @@ build = {
    type = "builtin",
    modules = {
       luagit2 = {
-         sources = {"src/main_wrapper.c" },
+         sources = { "src/main_wrapper.c" ,
+                     "src/luagit2/common/lua_common.c",
+                     "src/luagit2/libgit2/lua_libgit2.c",
+                     "src/luagit2/libgit2/lua_libgit2_help.c"
+                   },
          libraries = {"git2" , "lua5.1" , "lua5.2" , "lua5.3" },
       }
    },
