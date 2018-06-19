@@ -5,90 +5,78 @@
 #include "../../luaC-api/lualib.h"
 #include "../../luaC-api/lauxlib.h"
 #include "../lua_objects.h"
+#include "../common/lua_common.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <git2.h>
 
-static int lua_git_blame_buffer (lua_State *L) {
-	luagit2_blame *lua_blame;
-	const luagit2_blame *reference = (luagit2_blame *)lua_touserdata(L, 1);
-	const char *buffer = luaL_checkstring(L,2);
-	size_t buffer_len = luaL_checkinteger(L,3);
+/* Module Blame
+ *
+ * This file contains lua-Bindings to libgit2's Blame module.
+ * 
+ */
 
-    lua_blame = (luagit2_blame *)lua_newuserdata(L, sizeof(*lua_blame));
-    lua_blame->blame = NULL;
+/* Callable function name : luagit2_blame_buffer(lua_userdata luagit2_blame, lua_string buffer
+ *                                              , lua_integer length)
+ *
+ * Get blame data for a file that has been modified in memory.
+ *
+ * Params required : (lua_userdata) the reference luagit2_blame,
+                     (lua_string) the buffer string
+                     (lua_integer) the length of buffer string.
+ * Returns : luagit2_blame type user_data object.
+ */
+int lua_git_blame_buffer (lua_State *L);
 
-    luaL_getmetatable(L, "luagit2_blame");
+/* Callable function name : luagit2_blame_file(lua_userdata luagit2_repository, lua_string path_to_file)
+ *
+ * Get blame data for a single file.
+ *
+ * Params required : (lua_userdata) the repository to look into,
+                     (lua_string) the path to file.
+ * Returns : luagit2_blame type user_data object.
+ */
+int lua_git_blame_file (lua_State *L);
 
-    lua_setmetatable(L, -2);
+/* Callable function name : luagit2_blame_get_hunk_byindex(lua_userdata luagit2_blame, lua_integer index)
+ *
+ * Gets the blame hunk at the given index.
+ *
+ * Params required : (lua_userdata) the reference luagit2_blame,
+                     (lua_string) the index number
+                     .
+ * Returns : luagit2_blame type user_data object.
+ */
+int lua_git_blame_get_hunk_byindex (lua_State *L);
 
-    git_blame *local_blame ;
-    git_blame_buffer(&local_blame,reference->blame,buffer,buffer_len);
-   	lua_blame->blame  = local_blame;
+/* Callable function name : luagit2_blame_get_hunk_byline(lua_userdata luagit2_blame, lua_integer line_number)
+ *
+ * Gets the blame hunk at the given line number.
+ *
+ * Params required : (lua_userdata) the reference luagit2_blame,
+                     (lua_string) the line number
+                     .
+ * Returns : luagit2_blame type user_data object.
+ */
+int lua_git_blame_get_hunk_byline (lua_State *L);
 
-    return 1;
-}
+/* Callable function name : luagit2_blame_get_hunk_count(lua_userdata luagit2_blame)
+ *
+ * Gets the blame hunk at the given line number.
+ *
+ * Params required : (lua_userdata) the reference luagit2_blame,
+ * Returns : Hunk count for given luagit2_blame.
+ */
+int lua_git_blame_get_hunk_count (lua_State *L);
 
-static int lua_git_blame_file (lua_State *L) {
-	luagit2_blame *lua_blame;
-	const luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
-	const char *path = luaL_checkstring(L,2);
+/* Callable function name : luagit2_blame_free(lua_userdata luagit2_blame)
+ *
+ * Free memory allocated by luagit2_blame_file or luagit2_blame_buffer.
+ *
+ * Params required : (lua_userdata) the reference luagit2_blame,
+ * Returns : None.
+ */
+int lua_git_blame_free (lua_State *L);
 
-    lua_blame = (luagit2_blame *)lua_newuserdata(L, sizeof(*lua_blame));
-    lua_blame->blame = NULL;
-
-    luaL_getmetatable(L, "luagit2_blame");
-
-    lua_setmetatable(L, -2);
-
-    git_blame *local_blame ;
-    git_blame_file(&local_blame,Repo->repo,path,NULL);
-   	lua_blame->blame  = local_blame;
-
-    return 1;
-}
-
-static int lua_git_blame_get_hunk_byindex (lua_State *L) {
-	const luagit2_blame *reference = (luagit2_blame *)lua_touserdata(L, 1);
-	uint32_t index = luaL_checkinteger(L,2);
-
-	luagit2_blame_hunk *Blame_Hunk;
-
-	Blame_Hunk = (luagit2_blame_hunk *)lua_newuserdata(L, sizeof(*Blame_Hunk));
-
-    luaL_getmetatable(L, "luagit2_blame_hunk");
-
-    lua_setmetatable(L, -2);
-
-    Blame_Hunk->blame_hunk = git_blame_get_hunk_byindex(reference->blame,index);
-
-    return 1;
-}
-
-static int lua_git_blame_get_hunk_byline (lua_State *L) {
-	const luagit2_blame *reference = (luagit2_blame *)lua_touserdata(L, 1);
-	size_t line_no = luaL_checkinteger(L,2);
-
-	luagit2_blame_hunk *Blame_Hunk;
-
-	Blame_Hunk = (luagit2_blame_hunk *)lua_newuserdata(L, sizeof(*Blame_Hunk));
-
-    luaL_getmetatable(L, "luagit2_blame_hunk");
-
-    lua_setmetatable(L, -2);
-
-    Blame_Hunk->blame_hunk = git_blame_get_hunk_byline(reference->blame,line_no);
-
-    return 1;
-}
-
-static int lua_git_blame_get_hunk_count (lua_State *L) {
-	const luagit2_blame *reference = (luagit2_blame *)lua_touserdata(L, 1);
-    uint32_t count =  git_blame_get_hunk_count(reference->blame);
-
-	lua_pushinteger(L,count);
-
-    return 1;
-}
 #endif

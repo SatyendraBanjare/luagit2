@@ -53,6 +53,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_cred_ssh_key_new", lua_git_cred_ssh_key_new},
       {"luagit2_cred_username_new", lua_git_cred_username_new},
       {"luagit2_cred_userpass_plaintext_new", lua_git_cred_userpass_plaintext_new},
+      {"luagit2_cred_free", lua_git_cred_free},
       //---------------------------------------------------------------------------------------------//
 
       //----------------------------- config functions ----------------------------------------------//
@@ -82,6 +83,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_config_set_multivar", lua_git_config_set_multivar},
       {"luagit2_config_set_string", lua_git_config_set_string},
       {"luagit2_config_snapshot", lua_git_config_snapshot},
+      {"luagit2_config_free",lua_git_config_free},
       //----------------------------------------------------------------------------------------------//
 
       //---------------------------------------- Object Id (oid) functions ---------------------------//
@@ -103,6 +105,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_signature_dup", lua_git_signature_dup},
       {"luagit2_signature_from_buffer", lua_git_signature_from_buffer},
       {"luagit2_signature_now", lua_git_signature_now},
+      {"luagit2_signature_free", lua_git_signature_free},
       //----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Clone functions -----------------------------------//
@@ -142,6 +145,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_repository_state", lua_git_repository_state},
       {"luagit2_repository_state_cleanup", lua_git_repository_state_cleanup},
       {"luagit2_repository_workdir", lua_git_repository_workdir},
+      {"luagit2_repository_free",lua_git_repository_free},
       //-----------------------------------------------------------------------------------------------//
 
       //-------------------------------------------- Tree functions -----------------------------------//
@@ -161,6 +165,8 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_tree_lookup", lua_git_tree_lookup},
       {"luagit2_tree_lookup_prefix", lua_git_tree_lookup_prefix},
       {"luagit2_tree_owner", lua_git_tree_owner},
+      {"luagit2_tree_entry_free", lua_git_tree_entry_free},
+      {"luagit2_tree_free", lua_git_tree_free},
       //-----------------------------------------------------------------------------------------------//
 
       //--------------------------------------------- Commit functions --------------------------------//
@@ -183,6 +189,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_commit_time", lua_git_commit_time},
       {"luagit2_commit_tree", lua_git_commit_tree},
       {"luagit2_commit_tree_id", lua_git_commit_tree_id},
+      {"luagit2_commit_free", lua_git_commit_free},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Index methods -------------------------------------//
@@ -214,6 +221,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_index_write", lua_git_index_write},
       {"luagit2_index_write_tree", lua_git_index_write_tree},
       {"luagit2_index_write_tree_to", lua_git_index_write_tree_to},
+      {"luagit2_index_free",lua_git_index_free},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Reference Methods ---------------------------------//
@@ -249,6 +257,8 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_reference_target", lua_git_reference_target},
       {"luagit2_reference_target_peel", lua_git_reference_target_peel},
       {"luagit2_reference_type", lua_git_reference_type},
+      {"luagit2_reference_free",lua_git_reference_free},
+      {"luagit2_reference_iterator_free",lua_git_reference_iterator_free},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Branch Methods ---------------------------------//
@@ -272,6 +282,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_blame_get_hunk_byindex", lua_git_blame_get_hunk_byindex},
       {"luagit2_blame_get_hunk_byline", lua_git_blame_get_hunk_byline},
       {"luagit2_blame_get_hunk_count", lua_git_blame_get_hunk_count},
+      {"luagit2_blame_free", lua_git_blame_free},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------ Blob Methods ---------------------------------------//
@@ -284,6 +295,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_blob_lookup_prefix", lua_git_blob_lookup_prefix},
       {"luagit2_blob_owner", lua_git_blob_owner},
       {"luagit2_blob_rawsize", lua_git_blob_rawsize},
+      {"luagit2_blob_free", lua_git_blob_free},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//
