@@ -39,7 +39,7 @@ set (SOURCES
              ${src_dest}/main_wrapper.c 
  )
 
-set(lib_dest "lib/")
+set(lib_dest "lib/lua/5.3")
 
 OPTION(BUILD_SHARED_LIBS ON)
  
