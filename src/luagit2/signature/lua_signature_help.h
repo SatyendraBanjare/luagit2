@@ -1,14 +1,7 @@
 #ifndef _lua_signature_help
 #define _lua_signature_help
 
-#include "../../luaC-api/lua.h"
-#include "../../luaC-api/lualib.h"
-#include "../../luaC-api/lauxlib.h"
-#include "../lua_objects.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <git2.h>
+#include "../common/lua_common.h"
 
 /* This file contains some helper methods to luagit2's signature module
  * functions.

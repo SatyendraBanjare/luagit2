@@ -342,7 +342,7 @@ int lua_git_config_set_bool (lua_State *L) {
 
 	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
 	const char *name = luaL_checkstring(L, 2);
-	int value = luaL_checkint(L, 3);
+	int value = luaL_checkinteger(L, 3);
 
 	check_error_long(git_config_set_bool(parent_cfg->cfg, name, value),
 	    "Error setting bool in config", NULL);
@@ -356,7 +356,7 @@ int lua_git_config_set_int32 (lua_State *L) {
 
 	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
 	const char *name = luaL_checkstring(L, 2);
-	int32_t value = luaL_checkint(L, 3);
+	int32_t value = luaL_checkinteger(L, 3);
 
 	check_error_long(git_config_set_int32(parent_cfg->cfg, name, value),
 	    "Error setting long integer value in config", NULL);
@@ -370,7 +370,7 @@ int lua_git_config_set_int64 (lua_State *L) {
 
 	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
 	const char *name = luaL_checkstring(L, 2);
-	int64_t value = luaL_checkint(L, 3);
+	int64_t value = luaL_checkinteger(L, 3);
 
 	check_error_long(git_config_set_int64(parent_cfg->cfg, name, value),
 	    "Error setting long integer value in config", NULL);

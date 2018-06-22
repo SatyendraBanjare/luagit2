@@ -307,6 +307,6 @@ static const struct luaL_Reg luagit2 [] = {
 };
 
 int luaopen_luagit2 (lua_State *L) {
-      luaL_register(L, "luagit2", luagit2);
+      luaL_newlib(L, luagit2);
       return 1;
 };

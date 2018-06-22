@@ -27,11 +27,13 @@ void check_error_long(int error, const char *message, const char *extra) {
 	}
 
 	if (extra)
-		fprintf(stderr, "%s '%s' [%d]%s%s\n",
+		printf( "%s '%s' [%d]%s%s\n",
 		    message, extra, error, lg2spacer, lg2msg);
 	else
-		fprintf(stderr, "%s [%d]%s%s\n",
+		printf( "%s [%d]%s%s\n",
 		    message, error, lg2spacer, lg2msg);
+
+	printf("%s\n",  "Hello");
 
 	exit(1);
 }

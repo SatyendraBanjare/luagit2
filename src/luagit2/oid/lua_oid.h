@@ -1,16 +1,7 @@
 #ifndef _lua_oid_h
 #define _lua_oid_h
 
-#include "../../luaC-api/lua.h"
-#include "../../luaC-api/lualib.h"
-#include "../../luaC-api/lauxlib.h"
-#include "../lua_objects.h"
 #include "../common/lua_common.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <git2.h>
-
 /* Module OID
  * 
  * This file contains lua bindings to libgit2's OID module.
