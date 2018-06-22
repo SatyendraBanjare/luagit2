@@ -9,7 +9,7 @@ description = {
    license = "MIT/X11"
 }
 dependencies = {
-   "lua >= 5.1, < 5.4",
+   "lua == 5.3",
 }
 
 build = {
@@ -35,7 +35,7 @@ build = {
                      "src/luagit2/tree/lua_tree.c",
                      "src/main_wrapper.c" 
                    },
-         libraries = {"git2" , "lua5.1" , "lua5.2" , "lua5.3" },
+         libraries = {"git2" , "lua5.3" },
       }
    },
    
