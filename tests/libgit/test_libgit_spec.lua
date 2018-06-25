@@ -1,4 +1,4 @@
-describe("busted", function()
+describe("Libgit2 core methods Test", function()
   local lib , MWINDOW_SIZE , MWINDOW_MAPPED_LIMIT
 
   setup(function()
@@ -18,7 +18,8 @@ describe("busted", function()
   it("Prints libgit2 version",function ()
     version_data = lib.luagit2_version()
     assert.are.same("userdata",type(version_data))
-    print(" \n   Major Version Number is : " .. lib.luagit2_print_version_data(version_data, 1))
+    assert.are.same("libgit2_version_data",lib.get_userdata_name(version_data))
+    print(" \n   Major Version Number is : " .. lib.luagit2_print_version_data(version_data,1))
 
     print("   Minor Version Number is : " .. lib.luagit2_print_version_data(version_data, 2))
 
