@@ -14,7 +14,7 @@ int lua_git_repository_config (lua_State *L) {
 	lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
 	lua_cfg->cfg  = NULL;
 
-	luaL_getmetatable(L, "luagit2_config");
+	luaL_newmetatable(L, "luagit2_config");
 
 	lua_setmetatable(L, -2);
 
@@ -33,7 +33,7 @@ int lua_git_repository_config_snapshot (lua_State *L) {
 	lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
 	lua_cfg->cfg  = NULL;
 
-	luaL_getmetatable(L, "luagit2_config");
+	luaL_newmetatable(L, "luagit2_config");
 
 	lua_setmetatable(L, -2);
 
@@ -64,7 +64,7 @@ int lua_git_repository_head (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -91,7 +91,7 @@ int lua_git_repository_head_for_worktree (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -133,7 +133,7 @@ int lua_git_repository_index(lua_State *L) {
 	lua_index = (luagit2_index *)lua_newuserdata(L, sizeof(*lua_index));
 	lua_index->index  = NULL;
 
-	luaL_getmetatable(L, "luagit2_index");
+	luaL_newmetatable(L, "luagit2_index");
 	lua_setmetatable(L, -2);
 
 	git_index *local_index  = NULL;
@@ -159,7 +159,7 @@ int lua_git_repository_init (lua_State *L) {
 	lua_repo = (luagit2_repository *)lua_newuserdata(L, sizeof(*lua_repo));
 	lua_repo->repo  = NULL;
 
-	luaL_getmetatable(L, "luagit2_repository");
+	luaL_newmetatable(L, "luagit2_repository");
 	lua_setmetatable(L, -2);
 
 	git_repository *local_repository  = NULL;
@@ -205,7 +205,7 @@ int lua_git_repository_message (lua_State *L) {
 	lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
 	lua_buf->buf  = NULL;
 
-	luaL_getmetatable(L, "luagit2_buf");
+	luaL_newmetatable(L, "luagit2_buf");
 
 	lua_setmetatable(L, -2);
 
@@ -231,7 +231,7 @@ int lua_git_repository_odb (lua_State *L) {
 	lua_odb = (luagit2_odb *)lua_newuserdata(L, sizeof(*lua_odb));
 	lua_odb->odb  = NULL;
 
-	luaL_getmetatable(L, "luagit2_odb");
+	luaL_newmetatable(L, "luagit2_odb");
 
 	lua_setmetatable(L, -2);
 
@@ -254,7 +254,7 @@ int lua_git_repository_open(lua_State *L) {
 	lua_repo = (luagit2_repository *)lua_newuserdata(L, sizeof(*lua_repo));
 	lua_repo->repo  = NULL;
 
-	luaL_getmetatable(L, "luagit2_repository");
+	luaL_newmetatable(L, "luagit2_repository");
 	lua_setmetatable(L, -2);
 
 	git_repository *Repository  = NULL;
@@ -277,7 +277,7 @@ int lua_git_repository_open_bare(lua_State *L) {
 	lua_repo = (luagit2_repository *)lua_newuserdata(L, sizeof(*lua_repo));
 	lua_repo->repo  = NULL;
 
-	luaL_getmetatable(L, "luagit2_repository");
+	luaL_newmetatable(L, "luagit2_repository");
 	lua_setmetatable(L, -2);
 
 	git_repository *Repository  = NULL;
@@ -295,7 +295,7 @@ int lua_git_repository_open_from_worktree (lua_State *L) {
 	lua_repo = (luagit2_repository *)lua_newuserdata(L, sizeof(*lua_repo));
 	lua_repo->repo  = NULL;
 
-	luaL_getmetatable(L, "luagit2_repository");
+	luaL_newmetatable(L, "luagit2_repository");
 	lua_setmetatable(L, -2);
 
 	git_repository *Repository  = NULL;
@@ -320,7 +320,7 @@ int lua_git_repository_refdb (lua_State *L) {
 	lua_refdb = (luagit2_refdb *)lua_newuserdata(L, sizeof(*lua_refdb));
 	lua_refdb->refdb  = NULL;
 
-	luaL_getmetatable(L, "luagit2_refdb");
+	luaL_newmetatable(L, "luagit2_refdb");
 
 	lua_setmetatable(L, -2);
 

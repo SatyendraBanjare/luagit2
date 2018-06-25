@@ -37,3 +37,13 @@ void check_error_long(int error, const char *message, const char *extra) {
 
 	exit(1);
 }
+
+int get_userdata_name(lua_State *L) {
+	void *user_data = (void *)lua_touserdata(L, 1);
+
+	lua_getmetatable(L, 1);
+	lua_pushstring(L, "__name");
+	lua_rawget(L, 2);
+
+	return 1;
+}

@@ -27,7 +27,7 @@ int lua_git_libgit2_version (lua_State *L) {
 	version_data->rev = 0;
 
 
-	luaL_getmetatable(L, "libgit2_version_data");
+	luaL_newmetatable(L, "libgit2_version_data");
 
 	lua_setmetatable(L, -2);
 

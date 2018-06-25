@@ -11,7 +11,7 @@ int lua_git_reference_create (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -35,7 +35,7 @@ int lua_git_reference_create_matching (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -54,7 +54,7 @@ int lua_git_reference_dup (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -74,7 +74,7 @@ int lua_git_reference_dwim (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -152,7 +152,7 @@ int lua_git_reference_iterator_glob_new (lua_State *L) {
 	lua_ref_iterator = (luagit2_reference_iterator *)lua_newuserdata(L, sizeof(*lua_ref_iterator));
 	lua_ref_iterator->iterator = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference_iterator");
+	luaL_newmetatable(L, "luagit2_reference_iterator");
 
 	lua_setmetatable(L, -2);
 
@@ -171,7 +171,7 @@ int lua_git_reference_iterator_new (lua_State *L) {
 	lua_ref_iterator = (luagit2_reference_iterator *)lua_newuserdata(L, sizeof(*lua_ref_iterator));
 	lua_ref_iterator->iterator = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference_iterator");
+	luaL_newmetatable(L, "luagit2_reference_iterator");
 
 	lua_setmetatable(L, -2);
 
@@ -188,7 +188,7 @@ int lua_git_reference_list (lua_State *L) {
 	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
 
 	lua_array = (luagit2_strarray *)lua_newuserdata(L, sizeof(*lua_array));
-	luaL_getmetatable(L, "luagit2_strarray");
+	luaL_newmetatable(L, "luagit2_strarray");
 
 	lua_setmetatable(L, -2);
 
@@ -207,7 +207,7 @@ int lua_git_reference_lookup (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -234,7 +234,7 @@ int lua_git_reference_name_to_id (lua_State *L) {
 
 	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
-	luaL_getmetatable(L, "luagit2_oid");
+	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
 
 	git_oid local_id;
@@ -252,7 +252,7 @@ int lua_git_reference_next (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -280,7 +280,7 @@ int lua_git_reference_owner (lua_State *L) {
 	lua_repo = (luagit2_repository *)lua_newuserdata(L, sizeof(*lua_repo));
 	lua_repo->repo  = NULL;
 
-	luaL_getmetatable(L, "luagit2_repository");
+	luaL_newmetatable(L, "luagit2_repository");
 	lua_setmetatable(L, -2);
 
 	lua_repo->repo = git_reference_owner(lua_ref->reference);
@@ -295,7 +295,7 @@ int lua_git_reference_peel (lua_State *L) {
 	lua_git_obj = (luagit2_object *)lua_newuserdata(L, sizeof(*lua_git_obj));
 	lua_git_obj->object  = NULL;
 
-	luaL_getmetatable(L, "luagit2_object");
+	luaL_newmetatable(L, "luagit2_object");
 	lua_setmetatable(L, -2);
 
 	git_object *local_git_obj;
@@ -325,7 +325,7 @@ int lua_git_reference_rename (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -344,7 +344,7 @@ int lua_git_reference_resolve (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -365,7 +365,7 @@ int lua_git_reference_set_target (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -388,7 +388,7 @@ int lua_git_reference_symbolic_create (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -412,7 +412,7 @@ int lua_git_reference_symbolic_create_matching (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -433,7 +433,7 @@ int lua_git_reference_symbolic_set_target (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -457,7 +457,7 @@ int lua_git_reference_target (lua_State *L) {
 	luagit2_oid *target_oid ;
 	target_oid = (luagit2_oid *)lua_newuserdata(L, sizeof(*target_oid));
 
-	luaL_getmetatable(L, "luagit2_oid");
+	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
 	target_oid->oid = *(git_reference_target(lua_ref->reference));
 
@@ -469,7 +469,7 @@ int lua_git_reference_target_peel (lua_State *L) {
 	luagit2_oid *target_oid ;
 	target_oid = (luagit2_oid *)lua_newuserdata(L, sizeof(*target_oid));
 
-	luaL_getmetatable(L, "luagit2_oid");
+	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
 	target_oid->oid = *(git_reference_target_peel(lua_ref->reference));
 
@@ -481,7 +481,7 @@ int lua_git_reference_type (lua_State *L) {
 	luagit2_ref_type *lua_ref_type ;
 	lua_ref_type = (luagit2_ref_type *)lua_newuserdata(L, sizeof(*lua_ref_type));
 
-	luaL_getmetatable(L, "luagit2_oid");
+	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
 	lua_ref_type->ref_type = git_reference_type(lua_ref->reference);
 

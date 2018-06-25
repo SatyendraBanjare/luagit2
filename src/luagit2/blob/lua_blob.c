@@ -7,7 +7,7 @@ int lua_git_blob_create_fromdisk (lua_State *L) {
 
     obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
-    luaL_getmetatable(L, "luagit2_oid");
+    luaL_newmetatable(L, "luagit2_oid");
     lua_setmetatable(L, -2);
 
     git_oid local_id;
@@ -25,7 +25,7 @@ int lua_git_blob_create_fromworkdir (lua_State *L) {
 
     obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
-    luaL_getmetatable(L, "luagit2_oid");
+    luaL_newmetatable(L, "luagit2_oid");
     lua_setmetatable(L, -2);
 
     git_oid local_id;
@@ -46,7 +46,7 @@ int lua_git_blob_filtered_content (lua_State *L) {
     lua_out_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_out_buf));
     lua_out_buf->buf = NULL;
 
-    luaL_getmetatable(L, "luagit2_buf");
+    luaL_newmetatable(L, "luagit2_buf");
     lua_setmetatable(L, -2);
 
     git_buf *local_buf;
@@ -64,7 +64,7 @@ int lua_git_blob_id (lua_State *L) {
 
     obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
-    luaL_getmetatable(L, "luagit2_oid");
+    luaL_newmetatable(L, "luagit2_oid");
     lua_setmetatable(L, -2);
 
     obj_id->oid = *(git_blob_id(lua_blob->blob));
@@ -88,7 +88,7 @@ int lua_git_blob_lookup (lua_State *L) {
     lua_blob = (luagit2_blob *)lua_newuserdata(L, sizeof(*lua_blob));
     lua_blob->blob = NULL;
 
-    luaL_getmetatable(L, "luagit2_blob");
+    luaL_newmetatable(L, "luagit2_blob");
     lua_setmetatable(L, -2);
 
     git_blob *local_blob;
@@ -108,7 +108,7 @@ int lua_git_blob_lookup_prefix (lua_State *L) {
     lua_blob = (luagit2_blob *)lua_newuserdata(L, sizeof(*lua_blob));
     lua_blob->blob = NULL;
 
-    luaL_getmetatable(L, "luagit2_blob");
+    luaL_newmetatable(L, "luagit2_blob");
     lua_setmetatable(L, -2);
 
     git_blob *local_blob;
@@ -126,7 +126,7 @@ int lua_git_blob_owner(lua_State *L) {
     lua_repo = (luagit2_repository *)lua_newuserdata(L, sizeof(*lua_repo));
     lua_repo->repo  = NULL;
 
-    luaL_getmetatable(L, "luagit2_repository");
+    luaL_newmetatable(L, "luagit2_repository");
     lua_setmetatable(L, -2);
 
     lua_repo->repo = git_blob_owner(lua_blob->blob);
@@ -140,7 +140,7 @@ int lua_git_blob_rawsize(lua_State *L) {
 
     lua_blob_size = (luagit2_off_t *)lua_newuserdata(L, sizeof(*lua_blob_size));
 
-    luaL_getmetatable(L, "luagit2_off_t");
+    luaL_newmetatable(L, "luagit2_off_t");
     lua_setmetatable(L, -2);
 
     lua_blob_size->size = git_blob_rawsize(lua_blob->blob);

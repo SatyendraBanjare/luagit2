@@ -10,7 +10,7 @@ int lua_git_branch_create (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -33,7 +33,7 @@ int lua_git_branch_create_from_annotated (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -74,7 +74,7 @@ int lua_git_branch_iterator_new (lua_State *L) {
 	lua_branch_iterator = (luagit2_branch_iterator *)lua_newuserdata(L, sizeof(*lua_branch_iterator));
 	lua_branch_iterator->branch_iterator  = NULL;
 
-	luaL_getmetatable(L, "luagit2_branch_iterator");
+	luaL_newmetatable(L, "luagit2_branch_iterator");
 
 	lua_setmetatable(L, -2);
 
@@ -94,7 +94,7 @@ int lua_git_branch_lookup (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -116,7 +116,7 @@ int lua_git_branch_move (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -145,7 +145,7 @@ int lua_git_branch_next (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 
@@ -173,7 +173,7 @@ int lua_git_branch_upstream (lua_State *L) {
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
 
-	luaL_getmetatable(L, "luagit2_reference");
+	luaL_newmetatable(L, "luagit2_reference");
 
 	lua_setmetatable(L, -2);
 

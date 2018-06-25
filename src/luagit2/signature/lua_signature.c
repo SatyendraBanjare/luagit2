@@ -7,7 +7,7 @@ int lua_git_signature_default (lua_State *L) {
 	lua_sign = (luagit2_signature *)lua_newuserdata(L, sizeof(*lua_sign));
 	lua_sign->sign  = NULL;
 
-	luaL_getmetatable(L, "luagit2_signature");
+	luaL_newmetatable(L, "luagit2_signature");
 
 	lua_setmetatable(L, -2);
 
@@ -27,7 +27,7 @@ int lua_git_signature_dup (lua_State *L) {
 	lua_sign = (luagit2_signature *)lua_newuserdata(L, sizeof(*lua_sign));
 	lua_sign->sign  = NULL;
 
-	luaL_getmetatable(L, "luagit2_signature");
+	luaL_newmetatable(L, "luagit2_signature");
 
 	lua_setmetatable(L, -2);
 
@@ -47,7 +47,7 @@ int lua_git_signature_from_buffer (lua_State *L) {
 	lua_sign = (luagit2_signature *)lua_newuserdata(L, sizeof(*lua_sign));
 	lua_sign->sign  = NULL;
 
-	luaL_getmetatable(L, "luagit2_signature");
+	luaL_newmetatable(L, "luagit2_signature");
 
 	lua_setmetatable(L, -2);
 
@@ -69,7 +69,7 @@ int lua_git_signature_now (lua_State *L) {
 	lua_sign = (luagit2_signature *)lua_newuserdata(L, sizeof(*lua_sign));
 	lua_sign->sign  = NULL;
 
-	luaL_getmetatable(L, "luagit2_signature");
+	luaL_newmetatable(L, "luagit2_signature");
 
 	lua_setmetatable(L, -2);
 
