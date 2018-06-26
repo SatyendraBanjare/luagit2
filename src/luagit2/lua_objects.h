@@ -4,13 +4,13 @@
 #include <git2.h>
 
 typedef struct {
-   int major;
-   int minor;
-   int rev;
+	int major;
+	int minor;
+	int rev;
 } libgit_version_data;
 
 typedef struct {
-   git_cred *git_cred_object;
+	git_cred *git_cred_object;
 } luagit2_cred_object;
 
 typedef struct {
@@ -133,7 +133,12 @@ typedef struct {
 	git_index_conflict_iterator *index_conflict_iterator;
 } luagit2_index_conflict_iterator;
 
-typedef struct{
-  git_config_level_t level;
-}luagit2_config_level_t;
+typedef struct {
+	git_config_level_t level;
+} luagit2_config_level_t;
+
+typedef struct {
+	git_tag *tag;
+} luagit2_tag;
+
 #endif
