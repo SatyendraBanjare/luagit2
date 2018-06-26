@@ -12,6 +12,7 @@
 #include "luagit2/branch/lua_branch.h"
 #include "luagit2/blame/lua_blame.h"
 #include "luagit2/blob/lua_blob.h"
+#include "luagit2/tag/lua_tag.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/libgit2/lua_libgit2_help.h"
 #include "luagit2/signature/lua_signature_help.h"
@@ -296,6 +297,24 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_blob_owner", lua_git_blob_owner},
       {"luagit2_blob_rawsize", lua_git_blob_rawsize},
       {"luagit2_blob_free", lua_git_blob_free},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------ Tag Methods ----------------------------------------//
+      {"luagit2_tag_annotation_create",lua_git_tag_annotation_create},
+      {"luagit2_tag_create",lua_git_tag_create},
+      {"luagit2_tag_create_frombuffer",lua_git_tag_create_frombuffer},
+      {"luagit2_tag_create_lightweight",lua_git_tag_create_lightweight},
+      {"luagit2_tag_delete",lua_git_tag_delete},
+      {"luagit2_tag_free",lua_git_tag_free},
+      {"luagit2_tag_id",lua_git_tag_id},
+      {"luagit2_tag_list",lua_git_tag_list},
+      {"luagit2_tag_list_match",lua_git_tag_list_match},
+      {"luagit2_tag_lookup",lua_git_tag_lookup},
+      {"luagit2_tag_owner",lua_git_tag_owner},
+      {"luagit2_tag_tagger",lua_git_tag_tagger},
+      {"luagit2_tag_target",lua_git_tag_target},
+      {"luagit2_tag_target_id",lua_git_tag_target_id},
+      {"luagit2_tag_target_type",lua_git_tag_target_type},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//
