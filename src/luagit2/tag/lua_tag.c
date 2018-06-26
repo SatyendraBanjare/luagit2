@@ -34,7 +34,7 @@ int lua_git_tag_create(lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	check_error_long(git_tag_create(&(obj_id->oid), Repository->repo, tag_name, target_obj->object,
-	        tagger->sign, tag_message), "Error creating tag for given object", NULL);
+	        tagger->sign, tag_message, force), "Error creating tag for given object", NULL);
 
 	return 1;
 }
@@ -149,7 +149,7 @@ int lua_git_tag_lookup (lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	git_tag *local_tag;
-	check_error_long(git_tag_lookup(&local_tag, lua_repo->repo, lua_oid->oid),
+	check_error_long(git_tag_lookup(&local_tag, lua_repo->repo, &(lua_oid->oid)),
 	    "Error looking up the tag in the given repo", NULL);
 	lua_tag->tag  = local_tag;
 	git_tag_free(local_tag);
@@ -170,7 +170,7 @@ int lua_git_tag_lookup_prefix (lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	git_tag *local_tag;
-	check_error_long(git_tag_lookup_prefix(&local_tag, lua_repo->repo, lua_oid->oid, length),
+	check_error_long(git_tag_lookup_prefix(&local_tag, lua_repo->repo, &(lua_oid->oid), length),
 	    "Error looking up the tag in the given repo using prefix", NULL);
 	lua_tag->tag  = local_tag;
 	git_tag_free(local_tag);
