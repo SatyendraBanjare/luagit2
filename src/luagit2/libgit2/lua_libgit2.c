@@ -131,19 +131,19 @@ int lua_GIT_OPT_SET_SEARCH_PATH(lua_State *L) {
 
 
 int lua_GIT_OPT_GET_CACHED_MEMORY(lua_State *L) {
-	ssize_t *current;
-	ssize_t *allowed ;
+	ssize_t current;
+	ssize_t allowed ;
 	int option_number = luaL_checkinteger(L, 1);
 
-	check_error_long(git_libgit2_opts(GIT_OPT_GET_CACHED_MEMORY, current, allowed),
+	check_error_long(git_libgit2_opts(GIT_OPT_GET_CACHED_MEMORY, &current, &allowed),
 	    "Error getting cached memory size", NULL);
 
 	switch (option_number) {
 		case 1:
-			lua_pushinteger(L, *current);
+			lua_pushinteger(L, current);
 			break;
 		case 2:
-			lua_pushinteger(L, *allowed);
+			lua_pushinteger(L, allowed);
 			break;
 	}
 
@@ -197,12 +197,11 @@ int lua_GIT_OPT_SET_USER_AGENT(lua_State *L) {
 }
 
 int lua_GIT_OPT_GET_WINDOWS_SHAREMODE(lua_State *L) {
-	unsigned long *value ;
-	check_error_long(git_libgit2_opts(GIT_OPT_GET_WINDOWS_SHAREMODE, value),
+	unsigned long value ;
+	check_error_long(git_libgit2_opts(GIT_OPT_GET_WINDOWS_SHAREMODE, &value),
 	    "Error getting windows share mode", NULL);
 
-	int Value = *value;
-	lua_pushnumber(L, Value);
+	lua_pushnumber(L, value);
 	return 1;
 }
 
