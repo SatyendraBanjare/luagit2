@@ -13,3 +13,6 @@ tests/luacov.stats.out
 
 # gcc generated objects
 *.o
+
+# The test repository files (in tests/Fixtures)
+*.gitted/
