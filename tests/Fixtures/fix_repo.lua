@@ -7,11 +7,12 @@ local fix_repo = {}
 -- Requires a string argument of testrepo's name
 
 function fix_repo.set_repo(repo_name)
-	os.execute( string.format( [[mv "%s" "%s"]], "Fixtures/" .. repo_name .. "/.gitted/", "Fixtures/" .. repo_name .. "/.git/" ))
+	os.execute(string.format( [[cp -r "%s" "%s"]], "Fixtures/" .. repo_name , "Fixtures/WORKON_REPO" ))
+	os.execute( "mv Fixtures/WORKON_REPO/.gitted/ Fixtures/WORKON_REPO/.git/ " )
 end
 
-function fix_repo.set_back(repo_name)
-	os.execute( string.format( [[mv "%s" "%s"]], "Fixtures/" .. repo_name .. "/.git/", "Fixtures/" .. repo_name .. "/.gitted/" ))
+function fix_repo.set_back()
+	os.execute("rm -rf Fixtures/WORKON_REPO/")
 end
 
 return fix_repo

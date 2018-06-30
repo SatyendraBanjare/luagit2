@@ -15,8 +15,11 @@ describe(" Commit Methods Tests ", function()
 	setup(function()
 		lib = require("luagit2")
 		lib.luagit2_init()
+	end)
+
+	before_each(function()
 		fixer.set_repo("new_test_repo")
-		repo = lib.luagit2_repository_open("Fixtures/new_test_repo/.git")
+		repo = lib.luagit2_repository_open("Fixtures/WORKON_REPO/.git")
 		Commit_Id_A = lib.luagit2_oid_fromstr(Commit_Id_A_string)
 		Commit_Id_B = lib.luagit2_oid_fromstr(Commit_Id_B_string)
 		Commit_A = lib.luagit2_commit_lookup(repo,Commit_Id_A)
@@ -27,11 +30,15 @@ describe(" Commit Methods Tests ", function()
 		Commmitter_Sign_B = lib.luagit2_commit_committer(Commit_B)
 	end)
 
-	teardown(function()
+	after_each(function()
 		lib.luagit2_commit_free(Commit_A)
 		lib.luagit2_commit_free(Commit_B)
+		lib.luagit2_repository_free(repo)
+		fixer.set_back()
+	end)
+
+	teardown(function()
 		lib.luagit2_shutdown()
-		fixer.set_back("new_test_repo")
 	end)
 
 	--[[ A simple output of 'git log' on Fixtures/new_test_repo 
@@ -224,28 +231,51 @@ describe(" Commit Methods Tests ", function()
 		assert.are.equal(Commit_Id_A_string, lib.luagit2_oid_tostr_s(tree_id))
 	end)
 
-	-- it("Tests Creating a Commmit and update head ",function ()
-	-- 	-- Get parent from most recent commit
-	-- 	local parent_tree_id = lib.luagit2_oid_fromstr("619f9935957e010c419cb9d15621916ddfcc0b96")
-	-- 	local parent_tree = lib.luagit2_tree_lookup(repo,parent_tree_id)
+	it("Tests Creating a Commmit and update head ",function ()
+		-- Get parent from most recent commit
+		local parent_tree_id = lib.luagit2_oid_fromstr("1b49a09ae5e707b8ed48e6048aa1901138838944")
+		local parent_tree = lib.luagit2_tree_lookup(repo,parent_tree_id)
 
-	-- 	-- Create a new Commit and get commit Id
-	-- 	local new_commit_id =  lib.luagit2_commit_create_update_head(repo,Author_Sign_A,
-	-- 		Commmitter_Sign_A,"New Commit From luagit2",parent_tree,Commit_A)
+		-- Create a new Commit and get commit Id
+		local new_commit_id =  lib.luagit2_commit_create_update_head(repo,Author_Sign_A,
+			Commmitter_Sign_A,"New Commit From luagit2",parent_tree,Commit_A)
 
-	-- 	print("\n New Commit Id : " .. lib.luagit2_oid_tostr_s(new_commit_id) .. "\n")
+		print("\n New Commit Id : " .. lib.luagit2_oid_tostr_s(new_commit_id) .. "\n")
 
-	-- 	local new_commit_string = lib.luagit2_oid_tostr_s(new_commit_id)
+		local new_commit_string = lib.luagit2_oid_tostr_s(new_commit_id)
 		
-	-- 	-- Try to lookup that Id in repo
-	-- 	-- A test of whether the commit was actually created or not
-	-- 	local new_commit = lib.luagit2_commit_lookup(repo,new_commit_id)
-	-- 	-- Check the lookedup Commit is the one that we created
-	-- 	local lookedup_commit_id = lib.luagit2_commit_id(new_commit)
+		-- Try to lookup that Id in repo
+		-- A test of whether the commit was actually created or not
+		local new_commit = lib.luagit2_commit_lookup(repo,new_commit_id)
+		-- Check the lookedup Commit is the one that we created
+		local lookedup_commit_id = lib.luagit2_commit_id(new_commit)
 
-	-- 	assert.are.equal(new_commit_string,lib.luagit2_oid_tostr_s(lookedup_commit_id))
+		assert.are.equal(new_commit_string,lib.luagit2_oid_tostr_s(lookedup_commit_id))
 
-	-- end)
+	end)
+
+	it("Tests Creating a Commmit and update none ",function ()
+		-- Get parent from most recent commit
+		local parent_tree_id = lib.luagit2_oid_fromstr("1b49a09ae5e707b8ed48e6048aa1901138838944")
+		local parent_tree = lib.luagit2_tree_lookup(repo,parent_tree_id)
+
+		-- Create a new Commit and get commit Id
+		local new_commit_id =  lib.luagit2_commit_create_update_none(repo,Author_Sign_A,
+			Commmitter_Sign_A,"New Commit From luagit2",parent_tree,Commit_A)
+
+		print("\n New Commit Id : " .. lib.luagit2_oid_tostr_s(new_commit_id) .. "\n")
+
+		local new_commit_string = lib.luagit2_oid_tostr_s(new_commit_id)
+		
+		-- Try to lookup that Id in repo
+		-- A test of whether the commit was actually created or not
+		local new_commit = lib.luagit2_commit_lookup(repo,new_commit_id)
+		-- Check the lookedup Commit is the one that we created
+		local lookedup_commit_id = lib.luagit2_commit_id(new_commit)
+
+		assert.are.equal(new_commit_string,lib.luagit2_oid_tostr_s(lookedup_commit_id))
+
+	end)
 
 	pending(" Tests extract commit signature ", function()
 		local sign_buf = lib.luagit2_commit_extract_signature(repo,Commit_Id_A)

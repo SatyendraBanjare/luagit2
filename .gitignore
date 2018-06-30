@@ -17,3 +17,5 @@ tests/luacov.stats.out
 # The test repository files (in tests/Fixtures)
 tests/Fixtures/testrepo2
 
+WORKON_REPO
+

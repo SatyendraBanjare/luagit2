@@ -290,6 +290,7 @@ int lua_git_commit_create_update_head (lua_State *L) {
 	const luagit2_signature *Commiter_sign = (luagit2_signature *)lua_touserdata(L, 3);
 	const char *commit_message = luaL_checkstring(L, 4);
 	const luagit2_tree *Tree = (luagit2_tree *)lua_touserdata(L, 5);
+	const luagit2_commit *Parent_Commit = (luagit2_commit *)lua_touserdata(L,6);
 
 	luagit2_oid *new_commit_id;
 
@@ -307,7 +308,8 @@ int lua_git_commit_create_update_head (lua_State *L) {
 	        NULL,
 	        commit_message,
 	        Tree->tree,
-	        1)
+	        1,
+	        Parent_Commit->commit)
 	    , "Unable to create commit & update ", NULL);
 
 	new_commit_id->oid = local_oid;
@@ -320,6 +322,7 @@ int lua_git_commit_create_update_none (lua_State *L) {
 	const luagit2_signature *Commiter_sign = (luagit2_signature *)lua_touserdata(L, 3);
 	const char *commit_message = luaL_checkstring(L, 4);
 	const luagit2_tree *Tree = (luagit2_tree *)lua_touserdata(L, 5);
+	const luagit2_commit *Parent_Commit = (luagit2_commit *)lua_touserdata(L,6);
 
 	luagit2_oid *new_commit_id;
 
@@ -337,7 +340,8 @@ int lua_git_commit_create_update_none (lua_State *L) {
 	        NULL,
 	        commit_message,
 	        Tree->tree,
-	        1)
+	        1,
+	        Parent_Commit->commit)
 	    , "Unable to create commit", NULL);
 
 	new_commit_id->oid = local_oid;
