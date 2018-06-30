@@ -19,7 +19,8 @@ int lua_git_repository_config (lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	git_config *local_config;
-	git_repository_config(&local_config, lua_repo->repo);
+	check_error_long(git_repository_config(&local_config, lua_repo->repo),
+	    "Error getting config file for given repo", NULL);
 	lua_cfg->cfg  = local_config;
 
 	return 1;
@@ -37,7 +38,8 @@ int lua_git_repository_config_snapshot (lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	git_config *local_config;
-	git_repository_config_snapshot(&local_config, lua_repo->repo);
+	check_error_long(git_repository_config_snapshot(&local_config, lua_repo->repo),
+	    "Error getting config snapshot for the file", NULL);
 	lua_cfg->cfg  = local_config;
 
 	return 1;
@@ -95,7 +97,8 @@ int lua_git_repository_head_for_worktree (lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	git_reference *local_ref;
-	git_repository_head_for_worktree(&local_ref, lua_repo->repo, name);
+	check_error_long(git_repository_head_for_worktree(&local_ref, lua_repo->repo, name),
+	    "Error retrieving Head for worktree", NULL);
 	lua_ref->reference  = local_ref;
 
 	return 1;
@@ -135,7 +138,8 @@ int lua_git_repository_index(lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	git_index *local_index  = NULL;
-	git_repository_index(&local_index, lua_repo->repo);
+	check_error_long(git_repository_index(&local_index, lua_repo->repo),
+	    "Error getting INdex for given repo", NULL);
 
 	lua_index->index  = local_index;
 
@@ -160,7 +164,8 @@ int lua_git_repository_init (lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	git_repository *local_repository  = NULL;
-	git_repository_init(&local_repository, path, is_bare);
+	check_error_long(git_repository_init(&local_repository, path, is_bare),
+	    "Error initializing repository", NULL);
 
 	lua_repo->repo = local_repository ;
 
@@ -207,7 +212,8 @@ int lua_git_repository_message (lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	git_buf local_buf = {0};
-	git_repository_message(&local_buf, lua_repo->repo);
+	check_error_long(git_repository_message(&local_buf, lua_repo->repo),
+	    "Error getting repository message", NULL);
 	lua_buf->buf  = &local_buf;
 
 	return 1;
@@ -232,7 +238,8 @@ int lua_git_repository_odb (lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	git_odb *local_odb;
-	git_repository_odb(&local_odb, lua_repo->repo);
+	check_error_long(git_repository_odb(&local_odb, lua_repo->repo),
+	    "Error Getting Object databse for the given repo", NULL);
 	lua_odb->odb  = local_odb;
 
 	return 1;
@@ -254,7 +261,8 @@ int lua_git_repository_open(lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	git_repository *Repository  = NULL;
-	git_repository_open(&Repository, path);
+	check_error_long(git_repository_open(&Repository, path),
+	    "Error opening the given repo from given path", NULL);
 
 	lua_repo->repo = Repository ;
 
@@ -277,7 +285,8 @@ int lua_git_repository_open_bare(lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	git_repository *Repository  = NULL;
-	git_repository_open_bare(&Repository, bare_path);
+	check_error_long(git_repository_open_bare(&Repository, bare_path),
+	    "Error Opening bare repository", NULL);
 
 	lua_repo->repo = Repository ;
 
@@ -295,7 +304,8 @@ int lua_git_repository_open_from_worktree (lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	git_repository *Repository  = NULL;
-	git_repository_open_from_worktree(&Repository, lua_worktree->worktree);
+	check_error_long(git_repository_open_from_worktree(&Repository, lua_worktree->worktree),
+	    "Error Opening repository from worktree", NULL);
 
 	lua_repo->repo = Repository ;
 
@@ -321,7 +331,8 @@ int lua_git_repository_refdb (lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	git_refdb *local_refdb;
-	git_repository_refdb(&local_refdb, lua_repo->repo);
+	check_error_long(git_repository_refdb(&local_refdb, lua_repo->repo),
+	    "Unable to get refdb for repository", NULL);
 	lua_refdb->refdb  = local_refdb;
 
 	return 1;
@@ -337,7 +348,8 @@ int lua_git_repository_set_head (lua_State *L) {
 int lua_git_repository_set_head_detached (lua_State *L) {
 	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
 	const luagit2_oid *lua_oid = (luagit2_oid *)lua_touserdata(L, 2);
-	git_repository_set_head_detached(lua_repo->repo, &(lua_oid->oid));
+	check_error_long(git_repository_set_head_detached(lua_repo->repo, &(lua_oid->oid)),
+	    "Unable to set HEAD", NULL);
 	return 1;
 }
 
@@ -345,14 +357,16 @@ int lua_git_repository_set_ident (lua_State *L) {
 	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
 	const char *name = luaL_checkstring(L, 2);
 	const char *email = luaL_checkstring(L, 3);
-	git_repository_set_ident(lua_repo->repo, name, email);
+	check_error_long(git_repository_set_ident(lua_repo->repo, name, email),
+	    "Unable to set Identity variables ", NULL);
 	return 1;
 }
 
 int lua_git_repository_set_namespace (lua_State *L) {
 	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
 	const char *name_space = luaL_checkstring(L, 2);
-	git_repository_set_namespace(lua_repo->repo, name_space);
+	check_error_long(git_repository_set_namespace(lua_repo->repo, name_space),
+	    "Unable to set name space", NULL);
 	return 1;
 }
 
@@ -360,7 +374,8 @@ int lua_git_repository_set_workdir (lua_State *L) {
 	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
 	const char *work_dir = luaL_checkstring(L, 2);
 	int update_gitlink = luaL_checkinteger(L, 3);
-	git_repository_set_workdir(lua_repo->repo, work_dir, update_gitlink);
+	check_error_long(git_repository_set_workdir(lua_repo->repo, work_dir, update_gitlink),
+	    "Unable to set the workdir path", NULL);
 	return 1;
 }
 
@@ -385,10 +400,10 @@ int lua_git_repository_workdir (lua_State *L) {
 	return 1;
 }
 
-int lua_git_repository_free (lua_State *L){
+int lua_git_repository_free (lua_State *L) {
 	luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
 	git_repository_free(lua_repo->repo);
-	return 1;	
+	return 1;
 }
 
 /*
