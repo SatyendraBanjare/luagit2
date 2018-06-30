@@ -19,7 +19,6 @@ int lua_git_branch_create (lua_State *L) {
 	    "Error creating new branch for target commit", NULL);
 	lua_ref->reference  = local_ref;
 
-	git_reference_free(local_ref);
 	return 1;
 }
 
@@ -42,7 +41,6 @@ int lua_git_branch_create_from_annotated (lua_State *L) {
 	        lua_annotated_commit->annotated_commit, force), "Error creating new branch for target annotated commit", NULL);
 	lua_ref->reference  = local_ref;
 
-	git_reference_free(local_ref);
 	return 1;
 }
 
@@ -103,7 +101,6 @@ int lua_git_branch_lookup (lua_State *L) {
 	    "Failed to find the branch in the given repository", NULL);
 	lua_ref->reference  = local_ref;
 
-	git_reference_free(local_ref);
 	return 1;
 }
 
@@ -125,7 +122,6 @@ int lua_git_branch_move (lua_State *L) {
 	    "Failed to rename/move the branch", NULL);
 	lua_ref->reference  = local_ref;
 
-	git_reference_free(local_ref);
 	return 1;
 }
 
@@ -154,7 +150,6 @@ int lua_git_branch_next (lua_State *L) {
 	    "Failed to get next branch name", NULL);
 	lua_ref->reference  = local_ref;
 
-	git_reference_free(local_ref);
 	return 1;
 }
 
@@ -182,6 +177,5 @@ int lua_git_branch_upstream (lua_State *L) {
 		"Error in getting branch upstream",NULL);
 	lua_ref->reference  = local_ref;
 
-	git_reference_free(local_ref);
 	return 1;
 }

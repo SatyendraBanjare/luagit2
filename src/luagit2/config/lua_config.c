@@ -41,7 +41,6 @@ int lua_git_config_find_global (lua_State *L) {
 	check_error_long(git_config_find_global(&local_buf),
 	    "Unable to find global config ", NULL);
 	lua_buf->buf  = &local_buf;
-	git_buf_free(&local_buf);
 	return 1;
 }
 
@@ -60,7 +59,7 @@ int lua_git_config_find_programdata (lua_State *L) {
 	check_error_long(git_config_find_programdata(&local_buf),
 	    "Unable to find locate the path to the configuration file in ProgramData", NULL);
 	lua_buf->buf  = &local_buf;
-	git_buf_free(&local_buf);
+
 
 	return 1;
 }
@@ -80,7 +79,7 @@ int lua_git_config_find_system (lua_State *L) {
 	check_error_long(git_config_find_system(&local_buf),
 	    "Unable to locate the path to the system configuration file", NULL);
 	lua_buf->buf  = &local_buf;
-	git_buf_free(&local_buf);
+
 
 	return 1;
 }
@@ -100,7 +99,7 @@ int lua_git_config_find_xdg (lua_State *L) {
 	check_error_long(git_config_find_xdg(&local_buf),
 	    "Unable to Locate the path to the global xdg compatible configuration file", NULL);
 	lua_buf->buf  = &local_buf;
-	git_buf_free(&local_buf);
+
 
 	return 1;
 }
@@ -164,7 +163,7 @@ int lua_git_config_get_path (lua_State *L) {
 	check_error_long(git_config_get_path(&local_buf, parent_cfg->cfg, name),
 	    "Unable to get path for the config file", NULL);
 	lua_buf->buf  = &local_buf;
-	git_buf_free(&local_buf);
+
 
 	return 1;
 }
@@ -200,7 +199,6 @@ int lua_git_config_get_string_buf (lua_State *L) {
 	check_error_long(git_config_get_string_buf(&local_buf, parent_cfg->cfg, name),
 	    "Unable to get string buffer from the config", NULL);
 	lua_buf->buf  = &local_buf;
-	git_buf_free(&local_buf);
 
 	return 1;
 }
@@ -219,7 +217,7 @@ int lua_git_config_open_default (lua_State *L) {
 	check_error_long(git_config_open_default(&local_config),
 	    "Unable to open default config", NULL);
 	lua_cfg->cfg  = local_config;
-	git_config_free(local_config);
+
 	return 1;
 }
 
@@ -240,7 +238,7 @@ int lua_git_config_open_global (lua_State *L) {
 	check_error_long(git_config_open_global(&local_config, parent_cfg->cfg),
 	    "Unable to open global configuration", NULL);
 	lua_cfg->cfg  = local_config;
-	git_config_free(local_config);
+
 	return 1;
 }
 
@@ -262,7 +260,7 @@ int lua_git_config_open_level (lua_State *L) {
 	check_error_long(git_config_open_level(&local_config, parent_cfg->cfg, Level->level),
 	    "Unable to open specified configuration", NULL);
 	lua_cfg->cfg  = local_config;
-	git_config_free(local_config);
+
 	return 1;
 }
 
@@ -282,7 +280,7 @@ int lua_git_config_open_ondisk (lua_State *L) {
 	check_error_long(git_config_open_ondisk(&local_config, path),
 	    "Unable to open cifiguration file from disk", NULL);
 	lua_cfg->cfg  = local_config;
-	git_config_free(local_config);
+
 	return 1;
 }
 
@@ -331,7 +329,6 @@ int lua_git_config_parse_path (lua_State *L) {
 	check_error_long(git_config_parse_path(&local_buf, path_value),
 	    "Error parsing string as path value", NULL);
 	lua_buf->buf  = &local_buf;
-	git_buf_free(&local_buf);
 
 	return 1;
 }
@@ -424,7 +421,7 @@ int lua_git_config_snapshot (lua_State *L) {
 	check_error_long(git_config_snapshot(&local_config, parent_cfg->cfg),
 	    "Error getting config snapshot", NULL);
 	lua_cfg->cfg  = local_config;
-	git_config_free(local_config);
+
 	return 1;
 }
 

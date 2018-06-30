@@ -35,7 +35,6 @@ int lua_git_commit_committer (lua_State *L) {
 
 	git_signature *Signature = git_commit_committer(lua_commit->commit);
 	lua_sign->sign = Signature;
-	git_signature_free(Signature);
 
 	return 1;
 }
@@ -59,7 +58,7 @@ int lua_git_commit_extract_signature (lua_State *L) {
 	        Repo->repo, &(Commit_id->oid), field), "Error extracting signature from given commit id", NULL);
 
 	lua_signature_buf->buf  = local_sign_buf;
-	git_buf_free(local_sign_buf);
+
 	return 1;
 }
 
@@ -80,7 +79,7 @@ int lua_git_commit_header_field (lua_State *L) {
 	    "Error getting header field for the given commit", NULL);
 
 	lua_header_buf->buf  = local_out_buf;
-	git_buf_free(local_out_buf);
+
 	return 1;
 }
 
@@ -101,7 +100,7 @@ int lua_git_commit_lookup (lua_State *L) {
 	    "Failed to look up the commit in the given repo", NULL);
 
 	lua_Commit->commit  = local_commit;
-	git_commit_free(local_commit);
+
 	return 1;
 }
 
@@ -123,7 +122,7 @@ int lua_git_commit_lookup_prefix (lua_State *L) {
 	    "Failed to look up th commit in given repo using length of prefix", NULL);
 
 	lua_Commit->commit  = local_commit;
-	git_commit_free(local_commit);
+
 	return 1;
 }
 
@@ -168,7 +167,7 @@ int lua_git_commit_nth_gen_ancestor (lua_State *L) {
 	    "Failed to get the nth generation ancestor for the given commit", NULL);
 
 	lua_ancesstor_commit->commit  = local_commit;
-	git_commit_free(local_commit);
+
 	return 1;
 }
 
@@ -189,7 +188,7 @@ int lua_git_commit_parent (lua_State *L) {
 	    "Failed to get the parent commit for the given commit", NULL);
 
 	lua_Commit->commit  = local_commit;
-	git_commit_free(local_commit);
+
 	return 1;
 }
 
@@ -261,7 +260,7 @@ int lua_git_commit_tree (lua_State *L) {
 	    "Failed to get the tree for given commit", NULL);
 
 	lua_tree->tree  = local_tree_obj;
-	git_tree_free(local_tree_obj);
+
 	return 1;
 }
 

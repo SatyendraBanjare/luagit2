@@ -19,7 +19,6 @@ int lua_git_reference_create (lua_State *L) {
 	check_error_long(git_reference_create(&local_ref, lua_repo->repo, name,
 	        &(lua_oid->oid), force, log_message), "Error creating reference with details provided", NULL);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
 	return 1;
 }
 
@@ -43,7 +42,7 @@ int lua_git_reference_create_matching (lua_State *L) {
 	check_error_long(git_reference_create_matching(&local_ref, lua_repo->repo, name, &(lua_oid->oid),
 	        force, &(current_oid->oid), log_message), "Error creating matching reference", NULL);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
+
 	return 1;
 }
 
@@ -62,7 +61,7 @@ int lua_git_reference_dup (lua_State *L) {
 	check_error_long(git_reference_dup(&local_ref, lua_ref_source->reference),
 	    "Error creating duplicate reference", NULL);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
+
 	return 1;
 }
 
@@ -82,7 +81,7 @@ int lua_git_reference_dwim (lua_State *L) {
 	check_error_long(git_reference_dwim(&local_ref, lua_repo->repo, shorthand),
 	    "Unable to Lookup a reference by DWIMing its short name", NULL);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
+
 	return 1;
 }
 
@@ -160,7 +159,7 @@ int lua_git_reference_iterator_glob_new (lua_State *L) {
 	check_error_long(git_reference_iterator_glob_new(&local_ref_iterator, lua_repo->repo, glob),
 	    "Error creating a global reference iterator ", NULL);
 	lua_ref_iterator->iterator  = local_ref_iterator;
-	git_reference_iterator_free(local_ref_iterator);
+
 	return 1;
 }
 
@@ -179,7 +178,7 @@ int lua_git_reference_iterator_new (lua_State *L) {
 	check_error_long(git_reference_iterator_new(&local_ref_iterator, lua_repo->repo),
 	    "Error creating new reference iterator", NULL);
 	lua_ref_iterator->iterator  = local_ref_iterator;
-	git_reference_iterator_free(local_ref_iterator);
+
 	return 1;
 }
 
@@ -215,7 +214,7 @@ int lua_git_reference_lookup (lua_State *L) {
 	check_error_long(git_reference_lookup(&local_ref, lua_repo->repo, name),
 	    "Error looking up the reference in the given repo", NULL);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
+
 	return 1;
 }
 
@@ -260,7 +259,7 @@ int lua_git_reference_next (lua_State *L) {
 	check_error_long(git_reference_next(&local_ref, lua_ref_iterator->iterator),
 	    "Error in finding next reference object", NULL);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
+
 	return 1;
 }
 
@@ -302,7 +301,7 @@ int lua_git_reference_peel (lua_State *L) {
 	check_error_long(git_reference_peel(&local_git_obj, lua_ref->reference, type->otype),
 	    "Unable to do a reference peel", NULL);
 	lua_git_obj->object = local_git_obj;
-	git_object_free(local_git_obj);
+
 	return 1;
 }
 
@@ -333,7 +332,7 @@ int lua_git_reference_rename (lua_State *L) {
 	check_error_long(git_reference_rename(&local_ref, lua_ref_old->reference, new_name, force, log_message),
 	    "Unable to rename the reference", NULL);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
+
 	return 1;
 }
 
@@ -352,7 +351,7 @@ int lua_git_reference_resolve (lua_State *L) {
 	check_error_long(git_reference_resolve(&local_ref, lua_ref_old->reference),
 	    "Unable to resolve old reference to a new one", NULL);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
+
 	return 1;
 }
 
@@ -373,7 +372,7 @@ int lua_git_reference_set_target (lua_State *L) {
 	check_error_long(git_reference_set_target(&local_ref, lua_ref_old->reference, &(lua_oid->oid), log_message),
 	    "Unable to set target reference", NULL);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
+
 	return 1;
 }
 
@@ -396,7 +395,7 @@ int lua_git_reference_symbolic_create (lua_State *L) {
 	check_error_long(git_reference_symbolic_create(&local_ref, lua_repo->repo, name, target, force, log_message),
 	    "Unable to create symbolic reference", NULL);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
+
 	return 1;
 }
 
@@ -420,7 +419,7 @@ int lua_git_reference_symbolic_create_matching (lua_State *L) {
 	check_error_long(git_reference_symbolic_create_matching(&local_ref, lua_repo->repo, name, target,
 	        force, current_value, log_message), "Unable to create matching symbolic reference", NULL);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
+
 	return 1;
 }
 
@@ -441,7 +440,7 @@ int lua_git_reference_symbolic_set_target (lua_State *L) {
 	check_error_long(git_reference_symbolic_set_target(&local_ref, lua_ref_old->reference, target, log_message),
 		"Unable to set a symbolic target", NULL);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
+
 	return 1;
 }
 

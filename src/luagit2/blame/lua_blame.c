@@ -18,8 +18,6 @@ int lua_git_blame_buffer (lua_State *L) {
 	    "Error in generating blame buffer", NULL);
 	lua_blame->blame  = local_blame;
 
-	git_blame_free(local_blame);
-
 	return 1;
 }
 
@@ -39,8 +37,6 @@ int lua_git_blame_file (lua_State *L) {
 	check_error_long(git_blame_file(&local_blame, Repo->repo, path, NULL),
 	    "Error In generating blame for the given file", NULL);
 	lua_blame->blame  = local_blame;
-
-	git_blame_free(local_blame);
 
 	return 1;
 }

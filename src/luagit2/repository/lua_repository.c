@@ -22,7 +22,6 @@ int lua_git_repository_config (lua_State *L) {
 	git_repository_config(&local_config, lua_repo->repo);
 	lua_cfg->cfg  = local_config;
 
-	git_config_free(local_config);
 	return 1;
 }
 
@@ -40,7 +39,7 @@ int lua_git_repository_config_snapshot (lua_State *L) {
 	git_config *local_config;
 	git_repository_config_snapshot(&local_config, lua_repo->repo);
 	lua_cfg->cfg  = local_config;
-	git_config_free(local_config);
+
 	return 1;
 }
 
@@ -71,7 +70,7 @@ int lua_git_repository_head (lua_State *L) {
 	git_reference *local_ref;
 	git_repository_head(&local_ref, lua_repo->repo);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
+
 
 	return 1;
 }
@@ -98,7 +97,6 @@ int lua_git_repository_head_for_worktree (lua_State *L) {
 	git_reference *local_ref;
 	git_repository_head_for_worktree(&local_ref, lua_repo->repo, name);
 	lua_ref->reference  = local_ref;
-	git_reference_free(local_ref);
 
 	return 1;
 }
@@ -140,7 +138,6 @@ int lua_git_repository_index(lua_State *L) {
 	git_repository_index(&local_index, lua_repo->repo);
 
 	lua_index->index  = local_index;
-	git_index_free(local_index);
 
 	return 1;
 }
@@ -166,7 +163,7 @@ int lua_git_repository_init (lua_State *L) {
 	git_repository_init(&local_repository, path, is_bare);
 
 	lua_repo->repo = local_repository ;
-	git_repository_free(local_repository);
+
 	return 1;
 }
 
@@ -212,7 +209,6 @@ int lua_git_repository_message (lua_State *L) {
 	git_buf local_buf = {0};
 	git_repository_message(&local_buf, lua_repo->repo);
 	lua_buf->buf  = &local_buf;
-	git_buf_free(&local_buf);
 
 	return 1;
 }
@@ -238,7 +234,7 @@ int lua_git_repository_odb (lua_State *L) {
 	git_odb *local_odb;
 	git_repository_odb(&local_odb, lua_repo->repo);
 	lua_odb->odb  = local_odb;
-	git_odb_free(local_odb);
+
 	return 1;
 }
 
@@ -261,7 +257,7 @@ int lua_git_repository_open(lua_State *L) {
 	git_repository_open(&Repository, path);
 
 	lua_repo->repo = Repository ;
-	git_repository_free(Repository);
+
 	return 1;
 }
 
@@ -284,7 +280,7 @@ int lua_git_repository_open_bare(lua_State *L) {
 	git_repository_open_bare(&Repository, bare_path);
 
 	lua_repo->repo = Repository ;
-	git_repository_free(Repository);
+
 	return 1;
 }
 
@@ -302,7 +298,7 @@ int lua_git_repository_open_from_worktree (lua_State *L) {
 	git_repository_open_from_worktree(&Repository, lua_worktree->worktree);
 
 	lua_repo->repo = Repository ;
-	git_repository_free(Repository);
+
 	return 1;
 }
 
@@ -327,7 +323,7 @@ int lua_git_repository_refdb (lua_State *L) {
 	git_refdb *local_refdb;
 	git_repository_refdb(&local_refdb, lua_repo->repo);
 	lua_refdb->refdb  = local_refdb;
-	git_refdb_free(local_refdb);
+
 	return 1;
 }
 
