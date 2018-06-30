@@ -35,6 +35,8 @@ build = {
                      "src/luagit2/tree/lua_tree.c",
                      "src/luagit2/tag/lua_tag.c",
                      "src/luagit2/object/lua_object.c",
+                     "src/luagit2/buf/lua_buf.c",
+                     "src/luagit2/buf/lua_buf_help.c",
                      "src/main_wrapper.c" 
                    },
          libraries = {"git2" , "lua5.3" },

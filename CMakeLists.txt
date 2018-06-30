@@ -38,6 +38,8 @@ set (SOURCES
              ${src_dest}/luagit2/tree/lua_tree.c
              ${src_dest}/luagit2/tag/lua_tag.c
              ${src_dest}/luagit2/object/lua_object.c
+             ${src_dest}/luagit2/buf/lua_buf.c
+             ${src_dest}/luagit2/buf/lua_buf_help.c
              ${src_dest}/main_wrapper.c 
  )
 
