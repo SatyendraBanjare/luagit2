@@ -42,7 +42,6 @@ int lua_git_commit_committer (lua_State *L) {
 int lua_git_commit_extract_signature (lua_State *L) {
 	luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
 	luagit2_oid *Commit_id = (luagit2_oid *)lua_touserdata(L, 2);
-	const char *field = luaL_checkstring(L, 3);
 
 	luagit2_buf *lua_signature_buf;
 
@@ -52,12 +51,12 @@ int lua_git_commit_extract_signature (lua_State *L) {
 	luaL_newmetatable(L, "luagit2_buf");
 	lua_setmetatable(L, -2);
 
-	git_buf *local_sign_buf;
-	git_buf *local_extra_buf;
-	check_error_long(git_commit_extract_signature(local_sign_buf, local_extra_buf,
-	        Repo->repo, &(Commit_id->oid), field), "Error extracting signature from given commit id", NULL);
+	git_buf local_sign_buf = {0};
+	git_buf local_extra_buf = {0};
+	check_error_long(git_commit_extract_signature(&local_sign_buf, &local_extra_buf,
+	        Repo->repo, &(Commit_id->oid), NULL), "Error extracting signature from given commit id", NULL);
 
-	lua_signature_buf->buf  = local_sign_buf;
+	lua_signature_buf->buf  = &local_sign_buf;
 
 	return 1;
 }
@@ -74,11 +73,11 @@ int lua_git_commit_header_field (lua_State *L) {
 	luaL_newmetatable(L, "luagit2_buf");
 	lua_setmetatable(L, -2);
 
-	git_buf *local_out_buf;
-	check_error_long(git_commit_header_field(local_out_buf, Commit->commit, field),
+	git_buf local_out_buf = {0};
+	check_error_long(git_commit_header_field(&local_out_buf, Commit->commit, field),
 	    "Error getting header field for the given commit", NULL);
 
-	lua_header_buf->buf  = local_out_buf;
+	lua_header_buf->buf  = &local_out_buf;
 
 	return 1;
 }
@@ -119,7 +118,7 @@ int lua_git_commit_lookup_prefix (lua_State *L) {
 
 	git_commit *local_commit;
 	check_error_long(git_commit_lookup_prefix(&(local_commit), Repo->repo, &(Commit_id->oid), length),
-	    "Failed to look up th commit in given repo using length of prefix", NULL);
+	    "Failed to look up the commit in given repo using length of prefix", NULL);
 
 	lua_Commit->commit  = local_commit;
 
@@ -237,7 +236,7 @@ int lua_git_commit_time (lua_State *L) {
 
 	commit_time = (luagit2_time *)lua_newuserdata(L, sizeof(*commit_time));
 
-	luaL_newmetatable(L, "luagit2_oid");
+	luaL_newmetatable(L, "luagit2_time");
 	lua_setmetatable(L, -2);
 
 	commit_time->time = git_commit_time(lua_commit->commit);
@@ -282,5 +281,77 @@ int lua_git_commit_free (lua_State *L) {
 	const luagit2_commit *lua_commit = (luagit2_commit *)lua_touserdata(L, 1);
 	git_commit_free(lua_commit->commit);
 
+	return 1;
+}
+
+int lua_git_commit_create_update_head (lua_State *L) {
+	const luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
+	const luagit2_signature *Author_sign = (luagit2_signature *)lua_touserdata(L, 2);
+	const luagit2_signature *Commiter_sign = (luagit2_signature *)lua_touserdata(L, 3);
+	const char *commit_message = luaL_checkstring(L, 4);
+	const luagit2_tree *Tree = (luagit2_tree *)lua_touserdata(L, 5);
+
+	luagit2_oid *new_commit_id;
+
+	new_commit_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*new_commit_id));
+
+	luaL_newmetatable(L, "luagit2_oid");
+	lua_setmetatable(L, -2);
+
+	git_oid local_oid;
+	check_error_long(git_commit_create_v(&local_oid,
+	        Repo->repo,
+	        "HEAD",
+	        Author_sign->sign,
+	        Commiter_sign->sign,
+	        NULL,
+	        commit_message,
+	        Tree->tree,
+	        1)
+	    , "Unable to create commit & update ", NULL);
+
+	new_commit_id->oid = local_oid;
+	return 1;
+}
+
+int lua_git_commit_create_update_none (lua_State *L) {
+	const luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
+	const luagit2_signature *Author_sign = (luagit2_signature *)lua_touserdata(L, 2);
+	const luagit2_signature *Commiter_sign = (luagit2_signature *)lua_touserdata(L, 3);
+	const char *commit_message = luaL_checkstring(L, 4);
+	const luagit2_tree *Tree = (luagit2_tree *)lua_touserdata(L, 5);
+
+	luagit2_oid *new_commit_id;
+
+	new_commit_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*new_commit_id));
+
+	luaL_newmetatable(L, "luagit2_oid");
+	lua_setmetatable(L, -2);
+
+	git_oid local_oid;
+	check_error_long(git_commit_create_v(&local_oid,
+	        Repo->repo,
+	        NULL,
+	        Author_sign->sign,
+	        Commiter_sign->sign,
+	        NULL,
+	        commit_message,
+	        Tree->tree,
+	        1)
+	    , "Unable to create commit", NULL);
+
+	new_commit_id->oid = local_oid;
+	return 1;
+}
+
+int lua_git_commit_id(lua_State *L) {
+	const luagit2_commit *lua_commit = (luagit2_commit *)lua_touserdata(L, 1);
+	luagit2_oid *commit_id;
+	commit_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*commit_id));
+
+	luaL_newmetatable(L, "luagit2_oid");
+	lua_setmetatable(L, -2);
+
+	commit_id->oid = *(git_commit_id(lua_commit->commit));
 	return 1;
 }

@@ -23,6 +23,9 @@ int lua_git_commit_time (lua_State *L);
 int lua_git_commit_tree (lua_State *L);
 int lua_git_commit_tree_id (lua_State *L);
 int lua_git_commit_free (lua_State *L);
+int lua_git_commit_id(lua_State *L);
 
+int lua_git_commit_create_update_head (lua_State *L);
+int lua_git_commit_create_update_none (lua_State *L);
 
 #endif

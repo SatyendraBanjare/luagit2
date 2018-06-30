@@ -14,9 +14,11 @@
 #include "luagit2/blob/lua_blob.h"
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
+#include "luagit2/buf/lua_buf.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/libgit2/lua_libgit2_help.h"
 #include "luagit2/signature/lua_signature_help.h"
+#include "luagit2/buf/lua_buf_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -192,6 +194,9 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_commit_tree", lua_git_commit_tree},
       {"luagit2_commit_tree_id", lua_git_commit_tree_id},
       {"luagit2_commit_free", lua_git_commit_free},
+      {"luagit2_commit_id",lua_git_commit_id},
+      {"luagit2_commit_create_update_head",lua_git_commit_create_update_head},
+      {"luagit2_commit_create_update_none",lua_git_commit_create_update_none},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Index methods -------------------------------------//
@@ -333,11 +338,17 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_object_typeisloose",lua_git_object_typeisloose},
       //-----------------------------------------------------------------------------------------------//
 
+      //------------------------------------------- Buf Methods ---------------------------------------//
+      {"luagit2_buf_set_char",lua_git_buf_set_char},
+      {"luagit2_buf_free",lua_git_buf_free},
+      //-----------------------------------------------------------------------------------------------//
+
       //------------------------------------------- Helper Methods ------------------------------------//
       {"luagit2_print_version_data", lua_git_libgit2_print_version_data},
       {"luagit2_get_signature_details", lua_get_signature_details},
       {"luagit2_print_complete_signature_details", lua_print_complete_signature_details},
       {"get_userdata_name",get_userdata_name},
+      {"luagit2_buf_details",lua_git_buf_details},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}
 };
