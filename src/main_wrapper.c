@@ -19,6 +19,7 @@
 #include "luagit2/libgit2/lua_libgit2_help.h"
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
+#include "luagit2/branch/lua_branch_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -87,7 +88,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_config_set_multivar", lua_git_config_set_multivar},
       {"luagit2_config_set_string", lua_git_config_set_string},
       {"luagit2_config_snapshot", lua_git_config_snapshot},
-      {"luagit2_config_free",lua_git_config_free},
+      {"luagit2_config_free", lua_git_config_free},
       //----------------------------------------------------------------------------------------------//
 
       //---------------------------------------- Object Id (oid) functions ---------------------------//
@@ -149,7 +150,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_repository_state", lua_git_repository_state},
       {"luagit2_repository_state_cleanup", lua_git_repository_state_cleanup},
       {"luagit2_repository_workdir", lua_git_repository_workdir},
-      {"luagit2_repository_free",lua_git_repository_free},
+      {"luagit2_repository_free", lua_git_repository_free},
       //-----------------------------------------------------------------------------------------------//
 
       //-------------------------------------------- Tree functions -----------------------------------//
@@ -194,9 +195,9 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_commit_tree", lua_git_commit_tree},
       {"luagit2_commit_tree_id", lua_git_commit_tree_id},
       {"luagit2_commit_free", lua_git_commit_free},
-      {"luagit2_commit_id",lua_git_commit_id},
-      {"luagit2_commit_create_update_head",lua_git_commit_create_update_head},
-      {"luagit2_commit_create_update_none",lua_git_commit_create_update_none},
+      {"luagit2_commit_id", lua_git_commit_id},
+      {"luagit2_commit_create_update_head", lua_git_commit_create_update_head},
+      {"luagit2_commit_create_update_none", lua_git_commit_create_update_none},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Index methods -------------------------------------//
@@ -228,7 +229,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_index_write", lua_git_index_write},
       {"luagit2_index_write_tree", lua_git_index_write_tree},
       {"luagit2_index_write_tree_to", lua_git_index_write_tree_to},
-      {"luagit2_index_free",lua_git_index_free},
+      {"luagit2_index_free", lua_git_index_free},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Reference Methods ---------------------------------//
@@ -264,8 +265,8 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_reference_target", lua_git_reference_target},
       {"luagit2_reference_target_peel", lua_git_reference_target_peel},
       {"luagit2_reference_type", lua_git_reference_type},
-      {"luagit2_reference_free",lua_git_reference_free},
-      {"luagit2_reference_iterator_free",lua_git_reference_iterator_free},
+      {"luagit2_reference_free", lua_git_reference_free},
+      {"luagit2_reference_iterator_free", lua_git_reference_iterator_free},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Branch Methods ---------------------------------//
@@ -306,49 +307,51 @@ static const struct luaL_Reg luagit2 [] = {
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------ Tag Methods ----------------------------------------//
-      {"luagit2_tag_annotation_create",lua_git_tag_annotation_create},
-      {"luagit2_tag_create",lua_git_tag_create},
-      {"luagit2_tag_create_frombuffer",lua_git_tag_create_frombuffer},
-      {"luagit2_tag_create_lightweight",lua_git_tag_create_lightweight},
-      {"luagit2_tag_delete",lua_git_tag_delete},
-      {"luagit2_tag_free",lua_git_tag_free},
-      {"luagit2_tag_id",lua_git_tag_id},
-      {"luagit2_tag_list",lua_git_tag_list},
-      {"luagit2_tag_list_match",lua_git_tag_list_match},
-      {"luagit2_tag_lookup",lua_git_tag_lookup},
-      {"luagit2_tag_owner",lua_git_tag_owner},
-      {"luagit2_tag_tagger",lua_git_tag_tagger},
-      {"luagit2_tag_target",lua_git_tag_target},
-      {"luagit2_tag_target_id",lua_git_tag_target_id},
-      {"luagit2_tag_target_type",lua_git_tag_target_type},
+      {"luagit2_tag_annotation_create", lua_git_tag_annotation_create},
+      {"luagit2_tag_create", lua_git_tag_create},
+      {"luagit2_tag_create_frombuffer", lua_git_tag_create_frombuffer},
+      {"luagit2_tag_create_lightweight", lua_git_tag_create_lightweight},
+      {"luagit2_tag_delete", lua_git_tag_delete},
+      {"luagit2_tag_free", lua_git_tag_free},
+      {"luagit2_tag_id", lua_git_tag_id},
+      {"luagit2_tag_list", lua_git_tag_list},
+      {"luagit2_tag_list_match", lua_git_tag_list_match},
+      {"luagit2_tag_lookup", lua_git_tag_lookup},
+      {"luagit2_tag_owner", lua_git_tag_owner},
+      {"luagit2_tag_tagger", lua_git_tag_tagger},
+      {"luagit2_tag_target", lua_git_tag_target},
+      {"luagit2_tag_target_id", lua_git_tag_target_id},
+      {"luagit2_tag_target_type", lua_git_tag_target_type},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Object Methods ------------------------------------//
-      {"luagit2_object_size",lua_git_object__size},
-      {"luagit2_object_free",lua_git_object_free},
-      {"luagit2_object_id",lua_git_object_id},
-      {"luagit2_object_lookup",lua_git_object_lookup},
-      {"luagit2_object_lookup_bypath",lua_git_object_lookup_bypath},
-      {"luagit2_object_lookup_prefix",lua_git_object_lookup_prefix},
-      {"luagit2_object_owner",lua_git_object_owner},
-      {"luagit2_object_short_id",lua_git_object_short_id},
-      {"luagit2_object_string2type",lua_git_object_string2type},
-      {"luagit2_object_type",lua_git_object_type},
-      {"luagit2_object_type2string",lua_git_object_type2string},
-      {"luagit2_object_typeisloose",lua_git_object_typeisloose},
+      {"luagit2_object_size", lua_git_object__size},
+      {"luagit2_object_free", lua_git_object_free},
+      {"luagit2_object_id", lua_git_object_id},
+      {"luagit2_object_lookup", lua_git_object_lookup},
+      {"luagit2_object_lookup_bypath", lua_git_object_lookup_bypath},
+      {"luagit2_object_lookup_prefix", lua_git_object_lookup_prefix},
+      {"luagit2_object_owner", lua_git_object_owner},
+      {"luagit2_object_short_id", lua_git_object_short_id},
+      {"luagit2_object_string2type", lua_git_object_string2type},
+      {"luagit2_object_type", lua_git_object_type},
+      {"luagit2_object_type2string", lua_git_object_type2string},
+      {"luagit2_object_typeisloose", lua_git_object_typeisloose},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Buf Methods ---------------------------------------//
-      {"luagit2_buf_set_char",lua_git_buf_set_char},
-      {"luagit2_buf_free",lua_git_buf_free},
+      {"luagit2_buf_set_char", lua_git_buf_set_char},
+      {"luagit2_buf_free", lua_git_buf_free},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//
       {"luagit2_print_version_data", lua_git_libgit2_print_version_data},
       {"luagit2_get_signature_details", lua_get_signature_details},
       {"luagit2_print_complete_signature_details", lua_print_complete_signature_details},
-      {"get_userdata_name",get_userdata_name},
-      {"luagit2_buf_details",lua_git_buf_details},
+      {"get_userdata_name", get_userdata_name},
+      {"luagit2_buf_details", lua_git_buf_details},
+      {"luagit2_get_type_GIT_BRANCH_LOCAL", get_type_GIT_BRANCH_LOCAL},
+      {"luagit2_get_type_GIT_BRANCH_REMOTE", get_type_GIT_BRANCH_REMOTE},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}
 };

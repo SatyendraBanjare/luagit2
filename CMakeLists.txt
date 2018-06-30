@@ -25,6 +25,7 @@ set (SOURCES
              ${src_dest}/luagit2/blame/lua_blame.c
              ${src_dest}/luagit2/blob/lua_blob.c
              ${src_dest}/luagit2/branch/lua_branch.c
+             ${src_dest}/luagit2/branch/lua_branch_help.c
              ${src_dest}/luagit2/clone/lua_clone.c
              ${src_dest}/luagit2/commit/lua_commit.c
              ${src_dest}/luagit2/config/lua_config.c
