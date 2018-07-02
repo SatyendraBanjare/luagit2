@@ -26,6 +26,7 @@ build = {
                      "src/luagit2/clone/lua_clone.c",
                      "src/luagit2/commit/lua_commit.c",
                      "src/luagit2/config/lua_config.c",
+                     "src/luagit2/config/lua_config_help.c",
                      "src/luagit2/cred/lua_cred.c",
                      "src/luagit2/index/lua_index.c",
                      "src/luagit2/oid/lua_oid.c",
