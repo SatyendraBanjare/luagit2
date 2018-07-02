@@ -37,7 +37,7 @@ int lua_git_config_find_global (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_buf local_buf = {0};
+	git_buf local_buf = GIT_BUF_INIT_CONST(NULL, 0);
 	check_error_long(git_config_find_global(&local_buf),
 	    "Unable to find global config ", NULL);
 	lua_buf->buf  = &local_buf;
@@ -55,7 +55,7 @@ int lua_git_config_find_programdata (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_buf local_buf = {0};
+	git_buf local_buf = GIT_BUF_INIT_CONST(NULL, 0);
 	check_error_long(git_config_find_programdata(&local_buf),
 	    "Unable to find locate the path to the configuration file in ProgramData", NULL);
 	lua_buf->buf  = &local_buf;
@@ -75,7 +75,7 @@ int lua_git_config_find_system (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_buf local_buf = {0};
+	git_buf local_buf = GIT_BUF_INIT_CONST(NULL, 0);
 	check_error_long(git_config_find_system(&local_buf),
 	    "Unable to locate the path to the system configuration file", NULL);
 	lua_buf->buf  = &local_buf;
@@ -95,7 +95,7 @@ int lua_git_config_find_xdg (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_buf local_buf = {0};
+	git_buf local_buf = GIT_BUF_INIT_CONST(NULL, 0);
 	check_error_long(git_config_find_xdg(&local_buf),
 	    "Unable to Locate the path to the global xdg compatible configuration file", NULL);
 	lua_buf->buf  = &local_buf;
@@ -159,7 +159,7 @@ int lua_git_config_get_path (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_buf local_buf = {0};
+	git_buf local_buf = GIT_BUF_INIT_CONST(NULL, 0);
 	check_error_long(git_config_get_path(&local_buf, parent_cfg->cfg, name),
 	    "Unable to get path for the config file", NULL);
 	lua_buf->buf  = &local_buf;
@@ -195,7 +195,7 @@ int lua_git_config_get_string_buf (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_buf local_buf = {0};
+	git_buf local_buf = GIT_BUF_INIT_CONST(NULL, 0);
 	check_error_long(git_config_get_string_buf(&local_buf, parent_cfg->cfg, name),
 	    "Unable to get string buffer from the config", NULL);
 	lua_buf->buf  = &local_buf;
@@ -325,7 +325,7 @@ int lua_git_config_parse_path (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_buf local_buf = {0};
+	git_buf local_buf = GIT_BUF_INIT_CONST(NULL, 0);
 	check_error_long(git_config_parse_path(&local_buf, path_value),
 	    "Error parsing string as path value", NULL);
 	lua_buf->buf  = &local_buf;
@@ -428,5 +428,104 @@ int lua_git_config_snapshot (lua_State *L) {
 int lua_git_config_free (lua_State *L) {
 	const luagit2_config *lua_cfg  = (luagit2_config *)lua_touserdata(L, 1);
 	git_config_free(lua_cfg->cfg);
+	return 1;
+}
+
+int lua_git_config_add_file_ondisk (lua_State *L) {
+	const luagit2_config *Config_to_write = (luagit2_config *)lua_touserdata(L, 1);
+	const char *path = luaL_checkstring(L, 2);
+	const luagit2_config_level_t *cfg_lvl = (luagit2_config_level_t *)lua_touserdata(L, 3);
+	const luagit2_repository *Repository = (luagit2_repository *)lua_touserdata(L, 4);
+	const int force = luaL_checkinteger(L, 5);
+
+	check_error_long(git_config_add_file_ondisk(Config_to_write->cfg,
+	        path, cfg_lvl->level, Repository->repo, force), "Unable to add file ondisk", NULL);
+	return 1;
+}
+
+int lua_git_config_new(lua_State *L) {
+	luagit2_config *lua_cfg;
+
+	lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
+	lua_cfg->cfg  = NULL;
+
+	luaL_newmetatable(L, "luagit2_config");
+	lua_setmetatable(L, -2);
+
+	git_config *local_config;
+	check_error_long(git_config_new(&local_config),
+	    "Error creating new config", NULL);
+	lua_cfg->cfg  = local_config;
+
+	return 1;
+}
+
+int lua_git_config_iterator_new(lua_State *L) {
+	luagit2_config_iterator *lua_cfg_itr;
+	const luagit2_config *parent_cfg;
+
+	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+
+	lua_cfg_itr = (luagit2_config_iterator *)lua_newuserdata(L, sizeof(*lua_cfg_itr));
+	lua_cfg_itr->config_iterator  = NULL;
+
+	luaL_newmetatable(L, "luagit2_config_iterator");
+	lua_setmetatable(L, -2);
+
+	git_config_iterator *local_config_itr;
+	check_error_long(git_config_iterator_new(&local_config_itr, parent_cfg->cfg),
+	    "Error creating new iterator", NULL);
+	lua_cfg_itr->config_iterator  = local_config_itr;
+
+	return 1;
+}
+
+int lua_git_config_entry_free(lua_State *L) {
+	luagit2_config_entry *cfg_entry = (luagit2_config_entry *)lua_touserdata(L, 1);
+	git_config_entry_free(cfg_entry->config_entry);
+	return 1;
+}
+
+int lua_git_config_get_entry(lua_State *L) {
+	luagit2_config_entry *lua_cfg_entry;
+	const luagit2_config *parent_cfg;
+
+	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	const char *name = luaL_checkstring(L, 2);
+
+	lua_cfg_entry = (luagit2_config_entry *)lua_newuserdata(L, sizeof(*lua_cfg_entry));
+	lua_cfg_entry->config_entry  = NULL;
+
+	luaL_newmetatable(L, "luagit2_config_entry");
+	lua_setmetatable(L, -2);
+
+	git_config_entry *local_config_entry;
+	check_error_long(git_config_get_entry(&local_config_entry, parent_cfg->cfg, name),
+	    "Unable to get the entry", NULL);
+	lua_cfg_entry->config_entry  = local_config_entry;
+	return 1;
+}
+
+int lua_git_config_next(lua_State *L) {
+	luagit2_config_entry *lua_cfg_entry;
+	const luagit2_config_iterator *cfg_itr = (luagit2_config_iterator *)lua_touserdata(L, 1);
+
+	lua_cfg_entry = (luagit2_config_entry *)lua_newuserdata(L, sizeof(*lua_cfg_entry));
+	lua_cfg_entry->config_entry  = NULL;
+
+	luaL_newmetatable(L, "luagit2_config_entry");
+	lua_setmetatable(L, -2);
+
+	git_config_entry *local_config_entry;
+	check_error_long(git_config_next(&local_config_entry, cfg_itr->config_iterator),
+	    "Unable to get next entry", NULL);
+	lua_cfg_entry->config_entry  = local_config_entry;
+
+	return 1;
+}
+
+int lua_git_config_iterator_free(lua_State *L){
+	luagit2_config_iterator *cfg_itr = (luagit2_config_iterator *)lua_touserdata(L,1);
+	git_config_iterator_free(cfg_itr->config_iterator);
 	return 1;
 }

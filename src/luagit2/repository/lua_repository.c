@@ -211,7 +211,7 @@ int lua_git_repository_message (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_buf local_buf = {0};
+	git_buf local_buf = GIT_BUF_INIT_CONST(NULL, 0);
 	check_error_long(git_repository_message(&local_buf, lua_repo->repo),
 	    "Error getting repository message", NULL);
 	lua_buf->buf  = &local_buf;
