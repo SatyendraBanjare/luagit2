@@ -1,7 +1,7 @@
 -- Tests for luagit2's Blob module functions
 
 local fixer = require("Fixtures.fix_repo")
-local lfs = require("lfs")
+
 
 describe(" Blob Methods Tests ", function()
 	local lib = require("luagit2")
@@ -13,7 +13,6 @@ describe(" Blob Methods Tests ", function()
 	local current_directory_path = lfs.currentdir()
 
 	setup(function()
-		lib = require("luagit2")
 		lib.luagit2_init()
 	end)
 
