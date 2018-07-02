@@ -20,6 +20,7 @@
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
 #include "luagit2/branch/lua_branch_help.h"
+#include "luagit2/config/lua_config_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -89,6 +90,13 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_config_set_string", lua_git_config_set_string},
       {"luagit2_config_snapshot", lua_git_config_snapshot},
       {"luagit2_config_free", lua_git_config_free},
+      {"luagit2_config_add_file_ondisk",lua_git_config_add_file_ondisk},
+      {"luagit2_config_new",lua_git_config_new},
+      {"luagit2_config_iterator_new",lua_git_config_iterator_new},
+      {"luagit2_config_entry_free",lua_git_config_entry_free},
+      {"luagit2_config_get_entry",lua_git_config_get_entry},
+      {"luagit2_config_next",lua_git_config_next},
+      {"luagit2_config_iterator_free",lua_git_config_iterator_free},
       //----------------------------------------------------------------------------------------------//
 
       //---------------------------------------- Object Id (oid) functions ---------------------------//
@@ -352,6 +360,13 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_buf_details", lua_git_buf_details},
       {"luagit2_get_type_GIT_BRANCH_LOCAL", get_type_GIT_BRANCH_LOCAL},
       {"luagit2_get_type_GIT_BRANCH_REMOTE", get_type_GIT_BRANCH_REMOTE},
+      {"luagit2_config_level_program_data", lua_get_config_level_program_data},
+      {"luagit2_config_level_system", lua_get_config_level_system},
+      {"luagit2_config_level_global", lua_get_config_level_global},
+      {"luagit2_config_level_xdg", lua_get_config_level_xdg},
+      {"luagit2_config_level_local",lua_get_config_level_local},
+      {"luagit2_config_entry_name",lua_get_config_entry_name},
+      {"luagit2_config_entry_value",lua_get_config_entry_value},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}
 };
