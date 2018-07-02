@@ -8,7 +8,6 @@ describe(" Branch Methods Tests ", function()
 	local type_local, type_remote
 
 	setup(function()
-		lib = require("luagit2")
 		lib.luagit2_init()
 	end)
 

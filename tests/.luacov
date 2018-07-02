@@ -13,6 +13,9 @@ modules = {
 	["branch"] = "test_branch_spec.lua",
 
 	["blob.*"] = ".",
-	["blob"] = "test_blob_spec.lua"
+	["blob"] = "test_blob_spec.lua",
+
+	["buf.*"] = ".",
+	["buf"] = "test_buf_spec.lua"
 
 }
