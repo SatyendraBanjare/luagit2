@@ -19,6 +19,9 @@ modules = {
 	["buf"] = "test_buf_spec.lua",
 
 	["config.*"] = ".",
-	["config"] = "test_config_spec.lua"
+	["config"] = "test_config_spec.lua",
+
+	["tree.*"] = ".",
+	["tree"] = "test_tree_spec.lua"
 
 }
