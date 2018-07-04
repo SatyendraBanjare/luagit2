@@ -67,9 +67,9 @@ describe(" Blob Methods Tests ", function()
 		-- Be careful that to pass only
 		-- the name of file from the root of 
 		-- used git repository 
-		local workdir_blob = lib.luagit2_blob_create_fromworkdir(repo,"README")
+		local workdir_blob_id = lib.luagit2_blob_create_fromworkdir(repo,"README")
 		-- Check if it is correct
-		assert.are.equal(README_oid_string,lib.luagit2_oid_tostr_s(workdir_blob))
+		assert.are.equal(README_oid_string,lib.luagit2_oid_tostr_s(workdir_blob_id))
 	end)
 
 	it("Tests Blob lookup prefix",function()
@@ -78,6 +78,7 @@ describe(" Blob Methods Tests ", function()
 		local readme_lookup_prefix = lib.luagit2_blob_lookup_prefix(repo,README_blob_oid,5)
 		local readme_lookup_prefix_oid = lib.luagit2_blob_id(readme_lookup_prefix)
 		assert.are.equal(README_oid_string,lib.luagit2_oid_tostr_s(readme_lookup_prefix_oid))
+		lib.luagit2_blob_free(readme_lookup_prefix)
 	end)
 
 	it("Tests Blob Owner Repository",function()
