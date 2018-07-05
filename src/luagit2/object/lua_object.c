@@ -116,11 +116,11 @@ int lua_git_object_short_id (lua_State *L) {
 	luaL_newmetatable(L, "luagit2_buf");
 	lua_setmetatable(L, -2);
 
-	git_buf *local_buf;
-	check_error_long(git_object_short_id(local_buf, lua_object->object),
+	git_buf local_buf = GIT_BUF_INIT_CONST(NULL,0);
+	check_error_long(git_object_short_id(&local_buf, lua_object->object),
 	    "Unable to get abbreviated OID", NULL);
 
-	lua_out_buf->buf  = local_buf;
+	lua_out_buf->buf  = &local_buf;
 	return 1;
 }
 
