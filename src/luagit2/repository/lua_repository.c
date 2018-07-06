@@ -406,45 +406,50 @@ int lua_git_repository_free (lua_State *L) {
 	return 1;
 }
 
-/*
-  int lua_git_repository_submodule_cache_all (lua_State *L) {
-    const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-    int result = git_repository_submodule_cache_all(lua_repo->repo);
-    lua_pushinteger(L,result);
-    return 1;
+int lua_git_repository_submodule_cache_all (lua_State *L) {
+	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
+	check_error_long( git_repository_submodule_cache_all(lua_repo->repo),
+	    "Error in doing repository cache all", NULL);
+	return 1;
 }
 
-  int lua_git_repository_submodule_cache_clear (lua_State *L) {
-    const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-    int result = git_repository_submodule_cache_clear(lua_repo->repo);
-    lua_pushinteger(L,result);
-    return 1;
+int lua_git_repository_submodule_cache_clear (lua_State *L) {
+	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
+	check_error_long( git_repository_submodule_cache_clear(lua_repo->repo),
+	    "Error in clearing sublodule cache clear", NULL);
+	return 1;
 }
 
-  int lua_git_repository_set_bare (lua_State *L) {
-    const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-    git_repository_set_bare(lua_repo->repo);
-    return 1;
+int lua_git_repository_set_index (lua_State *L) {
+	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
+	const luagit2_index *lua_index = (luagit2_index *)lua_touserdata(L, 2);
+	git_repository_set_index(lua_repo->repo, lua_index->index);
+	return 1;
 }
 
-  int lua_git_repository_set_config (lua_State *L) {
-    const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-    const luagit2_config *lua_cfg = (luagit2_config *)lua_touserdata(L, 2);
-    git_repository_set_config(lua_repo->repo,lua_cfg->cfg);
-    return 1;
+int lua_git_repository_set_bare (lua_State *L) {
+	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
+	check_error_long( git_repository_set_bare(lua_repo->repo),
+	    "Error in setting repository bare", NULL);
+	return 1;
 }
 
-  int lua_git_repository_set_index (lua_State *L) {
-    const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-    const luagit2_index *lua_index = (luagit2_index *)lua_touserdata(L, 2);
-    git_repository_set_index(lua_repo->repo,lua_index->index);
-    return 1;
+int lua_git_repository_set_config (lua_State *L) {
+	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
+	const luagit2_config *lua_cfg = (luagit2_config *)lua_touserdata(L, 2);
+	git_repository_set_config(lua_repo->repo, lua_cfg->cfg);
+	return 1;
 }
 
-  int lua_git_repository_set_odb (lua_State *L) {
-    const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-    const luagit2_odb *lua_odb = (luagit2_odb *)lua_touserdata(L, 2);
-    git_repository_set_odb(lua_repo->repo,lua_odb->odb) ;
-    return 1;
+int lua_git_repository_set_odb (lua_State *L) {
+	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
+	const luagit2_odb *lua_odb = (luagit2_odb *)lua_touserdata(L, 2);
+	git_repository_set_odb(lua_repo->repo, lua_odb->odb) ;
+	return 1;
 }
-*/
+
+int lua_git_repository__cleanup(lua_State *L) {
+	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
+	git_repository__cleanup(lua_repo->repo);
+	return 1;
+}
