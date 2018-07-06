@@ -160,6 +160,13 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_repository_state_cleanup", lua_git_repository_state_cleanup},
       {"luagit2_repository_workdir", lua_git_repository_workdir},
       {"luagit2_repository_free", lua_git_repository_free},
+      {"luagit2_repository_submodule_cache_all",lua_git_repository_submodule_cache_all},
+      {"luagit2_repository_submodule_cache_clear",lua_git_repository_submodule_cache_clear},
+      {"luagit2_repository_set_index",lua_git_repository_set_index},
+      {"luagit2_repository_set_bare",lua_git_repository_set_bare},
+      {"luagit2_repository_set_config",lua_git_repository_set_config},
+      {"luagit2_repository_set_odb",lua_git_repository_set_odb},
+      {"luagit2_repository_cleanup",lua_git_repository__cleanup},
       //-----------------------------------------------------------------------------------------------//
 
       //-------------------------------------------- Tree functions -----------------------------------//
