@@ -10,7 +10,7 @@ int lua_git_cred_default_new (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_cred *out;
+	git_cred *out = NULL;
 	check_error_long(git_cred_default_new(&out),
 	    "Error creating a default luagit2_cred object", NULL);
 
@@ -30,7 +30,7 @@ int lua_git_cred_ssh_key_from_agent (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_cred *out;
+	git_cred *out = NULL;
 	check_error_long(git_cred_ssh_key_from_agent(&out, username),
 	    "Error creating SSH key credential from agent name", NULL);
 
@@ -53,7 +53,7 @@ int lua_git_cred_ssh_key_memory_new (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_cred *out;
+	git_cred *out = NULL;
 	check_error_long(git_cred_ssh_key_memory_new(&out, username, publickey, privatekey, passphrase),
 	    "Error creating in memory SSH key credentials from given details", NULL);
 
@@ -76,7 +76,7 @@ int lua_git_cred_ssh_key_new (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_cred *out;
+	git_cred *out = NULL;
 	check_error_long(git_cred_ssh_key_new(&out, username, publickey, privatekey, passphrase),
 	    "Error creating SSH key credentials from given details", NULL);
 
@@ -96,7 +96,7 @@ int lua_git_cred_username_new (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_cred *out;
+	git_cred *out = NULL;
 	check_error_long(git_cred_username_new(&out, username),
 	    "Error generating credentials from given user name", NULL);
 
@@ -117,7 +117,7 @@ int lua_git_cred_userpass_plaintext_new (lua_State *L) {
 
 	lua_setmetatable(L, -2);
 
-	git_cred *out;
+	git_cred *out = NULL;
 	check_error_long(git_cred_userpass_plaintext_new(&out, username, password),
 	    "Error generating credentials from given username and password ", NULL);
 

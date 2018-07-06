@@ -21,6 +21,7 @@
 #include "luagit2/buf/lua_buf_help.h"
 #include "luagit2/branch/lua_branch_help.h"
 #include "luagit2/config/lua_config_help.h"
+#include "luagit2/cred/lua_cred_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -369,6 +370,9 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_config_level_local",lua_get_config_level_local},
       {"luagit2_config_entry_name",lua_get_config_entry_name},
       {"luagit2_config_entry_value",lua_get_config_entry_value},
+      {"luagit2_cred_username_details",lua_git_cred_username_details},
+      {"luagit2_cred_userpass_details",lua_git_cred_userpass_details},
+      {"luagit2_cred_ssh_key_from_agent_details",lua_git_cred_ssh_key_from_agent_details},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}
 };
