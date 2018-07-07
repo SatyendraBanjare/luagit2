@@ -1,6 +1,8 @@
 #ifndef _lua_common_h
 #define _lua_common_h
 
+#define null_err "NULL_ERROR"
+
 #include <lua.h>
 #include <lualib.h>
 #include <lauxlib.h>
