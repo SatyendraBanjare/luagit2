@@ -22,6 +22,7 @@
 #include "luagit2/branch/lua_branch_help.h"
 #include "luagit2/config/lua_config_help.h"
 #include "luagit2/cred/lua_cred_help.h"
+#include "luagit2/index/lua_index_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -380,6 +381,13 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_cred_username_details",lua_git_cred_username_details},
       {"luagit2_cred_userpass_details",lua_git_cred_userpass_details},
       {"luagit2_cred_ssh_key_from_agent_details",lua_git_cred_ssh_key_from_agent_details},
+      {"luagit2_index_entry_get_path",lua_git_index_entry_get_path},
+      {"luagit2_index_entry_get_filemode",lua_git_index_entry_get_filemode},
+      {"luagit2_index_entry_get_filesize",lua_git_index_entry_get_filesize},
+      {"luagit2_index_entry_get_stage",lua_git_index_entry_get_stage},
+      {"luagit2_index_entry_get_oid_str",lua_git_index_entry_get_oid_str},
+      {"luagit2_index_entry_get_dev_inode",lua_git_index_entry_get_dev_inode},
+      {"luagit2_index_entry_get_UID_GID",lua_git_index_entry_get_UID_GID},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}
 };
