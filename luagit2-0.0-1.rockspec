@@ -18,7 +18,6 @@ build = {
       luagit2 = {
          sources = { "src/luagit2/common/lua_common.c",
                      "src/luagit2/libgit2/lua_libgit2.c",
-                     "src/luagit2/libgit2/lua_libgit2_help.c",
                      "src/luagit2/blame/lua_blame.c",
                      "src/luagit2/blob/lua_blob.c",
                      "src/luagit2/branch/lua_branch.c",

@@ -21,7 +21,6 @@ set(src_dest "src/")
 set (SOURCES
              ${src_dest}/luagit2/common/lua_common.c
              ${src_dest}/luagit2/libgit2/lua_libgit2.c
-             ${src_dest}/luagit2/libgit2/lua_libgit2_help.c
              ${src_dest}/luagit2/blame/lua_blame.c
              ${src_dest}/luagit2/blob/lua_blob.c
              ${src_dest}/luagit2/branch/lua_branch.c
