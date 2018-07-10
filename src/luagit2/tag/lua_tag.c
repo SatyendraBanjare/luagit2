@@ -1,14 +1,19 @@
 #include "lua_tag.h"
 
 int lua_git_tag_annotation_create(lua_State *L) {
-	luagit2_oid *obj_id;
-	const luagit2_repository *Repository = (luagit2_repository *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 5) {
+		return luaL_error(L, "expecting exactly 5 arguments : luagit2_repository,string_name,\
+		        luagit2_object, luagit2_signature, string, message");
+	}
+
+	const luagit2_repository *Repository = (luagit2_repository *)luaL_checkudata(L, 1, "luagit2_repository");
 	const char *tag_name = luaL_checkstring(L, 2);
-	const luagit2_object *target_obj = (luagit2_object *)lua_touserdata(L, 3);
-	const luagit2_signature *tagger = (luagit2_signature *)lua_touserdata(L, 4);
+	const luagit2_object *target_obj = (luagit2_object *)luaL_checkudata(L, 3, "luagit2_object");
+	const luagit2_signature *tagger = (luagit2_signature *)luaL_checkudata(L, 4, "luagit2_signature");
 	const char *tag_message = luaL_checkstring(L, 5);
 
-	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
+	luagit2_oid *obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
 	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
@@ -20,15 +25,20 @@ int lua_git_tag_annotation_create(lua_State *L) {
 }
 
 int lua_git_tag_create(lua_State *L) {
-	luagit2_oid *obj_id;
-	const luagit2_repository *Repository = (luagit2_repository *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 6) {
+		return luaL_error(L, "expecting exactly 6 arguments : luagit2_repository,string_name,\
+		        luagit2_object, luagit2_signature, string, message, int_force");
+	}
+
+	const luagit2_repository *Repository = (luagit2_repository *)luaL_checkudata(L, 1, "luagit2_repository");
 	const char *tag_name = luaL_checkstring(L, 2);
-	const luagit2_object *target_obj = (luagit2_object *)lua_touserdata(L, 3);
-	const luagit2_signature *tagger = (luagit2_signature *)lua_touserdata(L, 4);
+	const luagit2_object *target_obj = (luagit2_object *)luaL_checkudata(L, 3, "luagit2_object");
+	const luagit2_signature *tagger = (luagit2_signature *)luaL_checkudata(L, 4, "luagit2_signature");
 	const char *tag_message = luaL_checkstring(L, 5);
 	const int force = luaL_checkinteger(L, 6);
 
-	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
+	luagit2_oid *obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
 	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
@@ -40,12 +50,16 @@ int lua_git_tag_create(lua_State *L) {
 }
 
 int lua_git_tag_create_frombuffer(lua_State *L) {
-	luagit2_oid *obj_id;
-	const luagit2_repository *Repository = (luagit2_repository *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 3) {
+		return luaL_error(L, "expecting exactly 3 arguments : luagit2_repository,string_name,int_force");
+	}
+
+	const luagit2_repository *Repository = (luagit2_repository *)luaL_checkudata(L, 1, "luagit2_repository");
 	const char *buffer = luaL_checkstring(L, 2);
 	const int force = luaL_checkinteger(L, 3);
 
-	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
+	luagit2_oid *obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
 	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
@@ -57,13 +71,17 @@ int lua_git_tag_create_frombuffer(lua_State *L) {
 }
 
 int lua_git_tag_create_lightweight(lua_State *L) {
-	luagit2_oid *obj_id;
-	const luagit2_repository *Repository = (luagit2_repository *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 4) {
+		return luaL_error(L, "expecting exactly 4 arguments : luagit2_repository,string_name,luagit2_object,int_force");
+	}
+
+	const luagit2_repository *Repository = (luagit2_repository *)luaL_checkudata(L, 1, "luagit2_repository");
 	const char *tag_name = luaL_checkstring(L, 2);
-	const luagit2_object *target_obj = (luagit2_object *)lua_touserdata(L, 3);
+	const luagit2_object *target_obj = (luagit2_object *)luaL_checkudata(L, 3, "luagit2_object");
 	const int force = luaL_checkinteger(L, 4);
 
-	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
+	luagit2_oid *obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
 	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
@@ -75,7 +93,12 @@ int lua_git_tag_create_lightweight(lua_State *L) {
 }
 
 int lua_git_tag_delete(lua_State *L) {
-	const luagit2_repository *Repository = (luagit2_repository *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 2) {
+		return luaL_error(L, "expecting exactly 2 arguments : luagit2_repository,string_name");
+	}
+
+	const luagit2_repository *Repository = (luagit2_repository *)luaL_checkudata(L, 1, "luagit2_repository");
 	const char *tag_name = luaL_checkstring(L, 2);
 
 	check_error_long(git_tag_delete( Repository->repo, tag_name),
@@ -85,17 +108,26 @@ int lua_git_tag_delete(lua_State *L) {
 }
 
 int lua_git_tag_free(lua_State *L) {
-	const luagit2_tag *Tag = (luagit2_tag *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : luagit2_tag");
+	}
+
+	const luagit2_tag *Tag = (luagit2_tag *)luaL_checkudata(L, 1, "luagit2_tag");
 	git_tag_free( Tag->tag);
 
 	return 1;
 }
 
 int lua_git_tag_id(lua_State *L) {
-	luagit2_oid *obj_id;
-	const luagit2_tag *Tag = (luagit2_tag *)lua_touserdata(L, 1);
 
-	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : luagit2_tag");
+	}
+
+	const luagit2_tag *Tag = (luagit2_tag *)luaL_checkudata(L, 1, "luagit2_tag");
+
+	luagit2_oid *obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
 	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
@@ -106,10 +138,14 @@ int lua_git_tag_id(lua_State *L) {
 }
 
 int lua_git_tag_list (lua_State *L) {
-	luagit2_strarray *lua_array;
-	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
 
-	lua_array = (luagit2_strarray *)lua_newuserdata(L, sizeof(*lua_array));
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : luagit2_repository");
+	}
+
+	const luagit2_repository *lua_repo = (luagit2_repository *)luaL_checkudata(L, 1, "luagit2_repository");
+
+	luagit2_strarray *lua_array = (luagit2_strarray *)lua_newuserdata(L, sizeof(*lua_array));
 	luaL_newmetatable(L, "luagit2_strarray");
 	lua_setmetatable(L, -2);
 
@@ -121,11 +157,15 @@ int lua_git_tag_list (lua_State *L) {
 }
 
 int lua_git_tag_list_match (lua_State *L) {
-	luagit2_strarray *lua_array;
-	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 2) {
+		return luaL_error(L, "expecting exactly 2 arguments : luagit2_repository,string_pattern");
+	}
+
+	const luagit2_repository *lua_repo = (luagit2_repository *)luaL_checkudata(L, 1, "luagit2_repository");
 	const char *pattern = luaL_checkstring(L, 2);
 
-	lua_array = (luagit2_strarray *)lua_newuserdata(L, sizeof(*lua_array));
+	luagit2_strarray *lua_array = (luagit2_strarray *)lua_newuserdata(L, sizeof(*lua_array));
 	luaL_newmetatable(L, "luagit2_strarray");
 	lua_setmetatable(L, -2);
 
@@ -137,11 +177,15 @@ int lua_git_tag_list_match (lua_State *L) {
 }
 
 int lua_git_tag_lookup (lua_State *L) {
-	luagit2_tag *lua_tag;
-	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-	const luagit2_oid *lua_oid = (luagit2_oid *)lua_touserdata(L, 2);
 
-	lua_tag = (luagit2_tag *)lua_newuserdata(L, sizeof(*lua_tag));
+	if (lua_gettop(L) != 2) {
+		return luaL_error(L, "expecting exactly 2 arguments : luagit2_repository,luagit2_oid");
+	}
+
+	const luagit2_repository *lua_repo = (luagit2_repository *)luaL_checkudata(L, 1, "luagit2_repository");
+	const luagit2_oid *lua_oid = (luagit2_oid *)luaL_checkudata(L, 2, "luagit2_oid");
+
+	luagit2_tag *lua_tag = (luagit2_tag *)lua_newuserdata(L, sizeof(*lua_tag));
 	lua_tag->tag  = NULL;
 
 	luaL_newmetatable(L, "luagit2_tag");
@@ -156,12 +200,16 @@ int lua_git_tag_lookup (lua_State *L) {
 }
 
 int lua_git_tag_lookup_prefix (lua_State *L) {
-	luagit2_tag *lua_tag;
-	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-	const luagit2_oid *lua_oid = (luagit2_oid *)lua_touserdata(L, 2);
+
+	if (lua_gettop(L) != 3) {
+		return luaL_error(L, "expecting exactly 3 arguments : luagit2_repository,luagit2_oid,int_length");
+	}
+
+	const luagit2_repository *lua_repo = (luagit2_repository *)luaL_checkudata(L, 1, "luagit2_repository");
+	const luagit2_oid *lua_oid = (luagit2_oid *)luaL_checkudata(L, 2, "luagit2_oid");
 	const size_t length = luaL_checkinteger(L, 3);
 
-	lua_tag = (luagit2_tag *)lua_newuserdata(L, sizeof(*lua_tag));
+	luagit2_tag *lua_tag = (luagit2_tag *)lua_newuserdata(L, sizeof(*lua_tag));
 	lua_tag->tag  = NULL;
 
 	luaL_newmetatable(L, "luagit2_tag");
@@ -177,7 +225,12 @@ int lua_git_tag_lookup_prefix (lua_State *L) {
 }
 
 int lua_git_tag_message(lua_State *L) {
-	const luagit2_tag *Tag = (luagit2_tag *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : luagit2_tag");
+	}
+
+	const luagit2_tag *Tag = (luagit2_tag *)luaL_checkudata(L, 1, "luagit2_tag");
 	const char *tag_message = git_tag_message( Tag->tag);
 
 	lua_pushstring(L, tag_message);
@@ -186,7 +239,12 @@ int lua_git_tag_message(lua_State *L) {
 }
 
 int lua_git_tag_name(lua_State *L) {
-	const luagit2_tag *Tag = (luagit2_tag *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : luagit2_tag");
+	}
+
+	const luagit2_tag *Tag = (luagit2_tag *)luaL_checkudata(L, 1, "luagit2_tag");
 	const char *tag_name = git_tag_name( Tag->tag);
 
 	lua_pushstring(L, tag_name);
@@ -195,10 +253,14 @@ int lua_git_tag_name(lua_State *L) {
 }
 
 int lua_git_tag_owner(lua_State *L) {
-	luagit2_repository *lua_repo;
-	const luagit2_tag *lua_tag = (luagit2_tag *)lua_touserdata(L, 1);
 
-	lua_repo = (luagit2_repository *)lua_newuserdata(L, sizeof(*lua_repo));
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : luagit2_tag");
+	}
+
+	const luagit2_tag *lua_tag = (luagit2_tag *)luaL_checkudata(L, 1, "luagit2_tag");
+
+	luagit2_repository *lua_repo = (luagit2_repository *)lua_newuserdata(L, sizeof(*lua_repo));
 	lua_repo->repo  = NULL;
 
 	luaL_newmetatable(L, "luagit2_repository");
@@ -210,7 +272,12 @@ int lua_git_tag_owner(lua_State *L) {
 }
 
 int lua_git_tag_tagger (lua_State *L) {
-	const luagit2_tag *lua_tag = (luagit2_tag *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : luagit2_tag");
+	}
+
+	const luagit2_tag *lua_tag = (luagit2_tag *)luaL_checkudata(L, 1, "luagit2_tag");
 
 	luagit2_signature *lua_sign;
 	lua_sign = (luagit2_signature *)lua_newuserdata(L, sizeof(*lua_sign));
@@ -225,10 +292,13 @@ int lua_git_tag_tagger (lua_State *L) {
 }
 
 int lua_git_tag_target (lua_State *L) {
-	luagit2_object *lua_git_obj;
-	const luagit2_tag *lua_tag = (luagit2_tag *)lua_touserdata(L, 1);
 
-	lua_git_obj = (luagit2_object *)lua_newuserdata(L, sizeof(*lua_git_obj));
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : luagit2_tag");
+	}
+
+	const luagit2_tag *lua_tag = (luagit2_tag *)luaL_checkudata(L, 1, "luagit2_tag");
+	luagit2_object *lua_git_obj = (luagit2_object *)lua_newuserdata(L, sizeof(*lua_git_obj));
 	lua_git_obj->object  = NULL;
 
 	luaL_newmetatable(L, "luagit2_object");
@@ -243,10 +313,13 @@ int lua_git_tag_target (lua_State *L) {
 }
 
 int lua_git_tag_target_id(lua_State *L) {
-	luagit2_oid *obj_id;
-	const luagit2_tag *Tag = (luagit2_tag *)lua_touserdata(L, 1);
 
-	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : luagit2_tag");
+	}
+
+	const luagit2_tag *Tag = (luagit2_tag *)luaL_checkudata(L, 1, "luagit2_tag");
+	luagit2_oid *obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
 	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
@@ -257,10 +330,14 @@ int lua_git_tag_target_id(lua_State *L) {
 }
 
 int lua_git_tag_target_type (lua_State *L) {
-	luagit2_otype *target_type;
-	const luagit2_tag *lua_tag = (luagit2_tag *)lua_touserdata(L, 1);
 
-	target_type = (luagit2_otype *)lua_newuserdata(L, sizeof(*target_type));
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : luagit2_tag");
+	}
+
+	const luagit2_tag *lua_tag = (luagit2_tag *)luaL_checkudata(L, 1, "luagit2_tag");
+
+	luagit2_otype *target_type = (luagit2_otype *)lua_newuserdata(L, sizeof(*target_type));
 
 	luaL_newmetatable(L, "luagit2_otype");
 	lua_setmetatable(L, -2);
