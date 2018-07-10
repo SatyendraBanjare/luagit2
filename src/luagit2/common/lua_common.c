@@ -27,11 +27,23 @@ void check_error_long(int error, const char *message, const char *extra) {
 	}
 
 	if (extra)
-		fprintf(stderr, "%s '%s' [%d]%s%s\n",
+		printf( "%s '%s' [%d]%s%s\n",
 		    message, extra, error, lg2spacer, lg2msg);
 	else
-		fprintf(stderr, "%s [%d]%s%s\n",
+		printf( "%s [%d]%s%s\n",
 		    message, error, lg2spacer, lg2msg);
 
+	printf("%s\n",  "Hello");
+
 	exit(1);
+}
+
+int get_userdata_name(lua_State *L) {
+	void *user_data = (void *)lua_touserdata(L, 1);
+
+	lua_getmetatable(L, 1);
+	lua_pushstring(L, "__name");
+	lua_rawget(L, 2);
+
+	return 1;
 }

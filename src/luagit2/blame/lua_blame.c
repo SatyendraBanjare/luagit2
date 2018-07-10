@@ -9,7 +9,7 @@ int lua_git_blame_buffer (lua_State *L) {
 	lua_blame = (luagit2_blame *)lua_newuserdata(L, sizeof(*lua_blame));
 	lua_blame->blame = NULL;
 
-	luaL_getmetatable(L, "luagit2_blame");
+	luaL_newmetatable(L, "luagit2_blame");
 
 	lua_setmetatable(L, -2);
 
@@ -31,7 +31,7 @@ int lua_git_blame_file (lua_State *L) {
 	lua_blame = (luagit2_blame *)lua_newuserdata(L, sizeof(*lua_blame));
 	lua_blame->blame = NULL;
 
-	luaL_getmetatable(L, "luagit2_blame");
+	luaL_newmetatable(L, "luagit2_blame");
 
 	lua_setmetatable(L, -2);
 
@@ -53,7 +53,7 @@ int lua_git_blame_get_hunk_byindex (lua_State *L) {
 
 	Blame_Hunk = (luagit2_blame_hunk *)lua_newuserdata(L, sizeof(*Blame_Hunk));
 
-	luaL_getmetatable(L, "luagit2_blame_hunk");
+	luaL_newmetatable(L, "luagit2_blame_hunk");
 
 	lua_setmetatable(L, -2);
 
@@ -70,7 +70,7 @@ int lua_git_blame_get_hunk_byline (lua_State *L) {
 
 	Blame_Hunk = (luagit2_blame_hunk *)lua_newuserdata(L, sizeof(*Blame_Hunk));
 
-	luaL_getmetatable(L, "luagit2_blame_hunk");
+	luaL_newmetatable(L, "luagit2_blame_hunk");
 
 	lua_setmetatable(L, -2);
 

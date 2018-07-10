@@ -1,15 +1,7 @@
 #ifndef _lua_config_h
 #define _lua_config_h
 
-#include "../../luaC-api/lua.h"
-#include "../../luaC-api/lualib.h"
-#include "../../luaC-api/lauxlib.h"
-#include "../lua_objects.h"
 #include "../common/lua_common.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <git2.h>
 
 int lua_git_config_delete_entry (lua_State *L);
 int lua_git_config_delete_multivar (lua_State *L);

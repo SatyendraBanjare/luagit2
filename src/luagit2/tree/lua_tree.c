@@ -9,7 +9,7 @@ int lua_git_tree_entry_byid(lua_State *L) {
 	lua_tree_entry = (luagit2_tree_entry *)lua_newuserdata(L, sizeof(*lua_tree_entry));
 	lua_tree_entry->tree_entry = NULL;
 
-	luaL_getmetatable(L, "luagit2_tree_entry");
+	luaL_newmetatable(L, "luagit2_tree_entry");
 	lua_setmetatable(L, -2);
 
 	lua_tree_entry->tree_entry = git_tree_entry_byid(Tree->tree, &(obj_id->oid));
@@ -26,7 +26,7 @@ int lua_git_tree_entry_byindex(lua_State *L) {
 	lua_tree_entry = (luagit2_tree_entry *)lua_newuserdata(L, sizeof(*lua_tree_entry));
 	lua_tree_entry->tree_entry = NULL;
 
-	luaL_getmetatable(L, "luagit2_tree_entry");
+	luaL_newmetatable(L, "luagit2_tree_entry");
 	lua_setmetatable(L, -2);
 
 	lua_tree_entry->tree_entry = git_tree_entry_byindex(Tree->tree, index);
@@ -43,7 +43,7 @@ int lua_git_tree_entry_byname(lua_State *L) {
 	lua_tree_entry = (luagit2_tree_entry *)lua_newuserdata(L, sizeof(*lua_tree_entry));
 	lua_tree_entry->tree_entry = NULL;
 
-	luaL_getmetatable(L, "luagit2_tree_entry");
+	luaL_newmetatable(L, "luagit2_tree_entry");
 	lua_setmetatable(L, -2);
 
 	lua_tree_entry->tree_entry = git_tree_entry_byname(Tree->tree, filename);
@@ -60,7 +60,7 @@ int lua_git_tree_entry_bypath(lua_State *L) {
 	lua_tree_entry = (luagit2_tree_entry *)lua_newuserdata(L, sizeof(*lua_tree_entry));
 	lua_tree_entry->tree_entry = NULL;
 
-	luaL_getmetatable(L, "luagit2_tree_entry");
+	luaL_newmetatable(L, "luagit2_tree_entry");
 	lua_setmetatable(L, -2);
 
 	git_tree_entry *local_tree_entry;
@@ -88,7 +88,7 @@ int lua_git_tree_entry_filemode(lua_State *L) {
 
 	File_Mode = (luagit2_filemode *)lua_newuserdata(L, sizeof(*File_Mode));
 
-	luaL_getmetatable(L, "luagit2_filemode");
+	luaL_newmetatable(L, "luagit2_filemode");
 	lua_setmetatable(L, -2);
 	File_Mode->filemode = git_tree_entry_filemode(Tree_entry->tree_entry);
 
@@ -101,7 +101,7 @@ int lua_git_tree_entry_filemode_raw(lua_State *L) {
 
 	File_Mode = (luagit2_filemode *)lua_newuserdata(L, sizeof(*File_Mode));
 
-	luaL_getmetatable(L, "luagit2_filemode");
+	luaL_newmetatable(L, "luagit2_filemode");
 	lua_setmetatable(L, -2);
 	File_Mode->filemode = git_tree_entry_filemode_raw(Tree_entry->tree_entry);
 
@@ -114,7 +114,7 @@ int lua_git_tree_entry_id(lua_State *L) {
 
 	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
-	luaL_getmetatable(L, "luagit2_oid");
+	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
 
 	const git_oid *local_id = git_tree_entry_id(Tree_entry->tree_entry);
@@ -140,7 +140,7 @@ int lua_git_tree_entry_to_object (lua_State *L) {
 	lua_obj = (luagit2_object *)lua_newuserdata(L, sizeof(*lua_obj));
 	lua_obj->object = NULL;
 
-	luaL_getmetatable(L, "luagit2_object");
+	luaL_newmetatable(L, "luagit2_object");
 	lua_setmetatable(L, -2);
 
 	git_object *local_obj;
@@ -158,7 +158,7 @@ int lua_git_tree_entry_type(lua_State *L) {
 
 	obj_type = (luagit2_otype *)lua_newuserdata(L, sizeof(*obj_type));
 
-	luaL_getmetatable(L, "luagit2_otype");
+	luaL_newmetatable(L, "luagit2_otype");
 	lua_setmetatable(L, -2);
 
 	obj_type->otype = git_tree_entry_type(Tree_entry->tree_entry);
@@ -180,7 +180,7 @@ int lua_git_tree_id(lua_State *L) {
 
 	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
-	luaL_getmetatable(L, "luagit2_oid");
+	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
 
 	const git_oid *local_id = git_tree_id(Tree->tree);
@@ -197,7 +197,7 @@ int lua_git_tree_lookup (lua_State *L) {
 	lua_tree = (luagit2_tree *)lua_newuserdata(L, sizeof(*lua_tree));
 	lua_tree->tree = NULL;
 
-	luaL_getmetatable(L, "luagit2_tree");
+	luaL_newmetatable(L, "luagit2_tree");
 	lua_setmetatable(L, -2);
 
 	git_tree *local_tree_obj;
@@ -219,7 +219,7 @@ int lua_git_tree_lookup_prefix (lua_State *L) {
 	lua_tree = (luagit2_tree *)lua_newuserdata(L, sizeof(*lua_tree));
 	lua_tree->tree = NULL;
 
-	luaL_getmetatable(L, "luagit2_tree");
+	luaL_newmetatable(L, "luagit2_tree");
 	lua_setmetatable(L, -2);
 
 	git_tree *local_tree_obj;
@@ -238,7 +238,7 @@ int lua_git_tree_owner(lua_State *L) {
 	lua_repo = (luagit2_repository *)lua_newuserdata(L, sizeof(*lua_repo));
 	lua_repo->repo  = NULL;
 
-	luaL_getmetatable(L, "luagit2_repository");
+	luaL_newmetatable(L, "luagit2_repository");
 	lua_setmetatable(L, -2);
 
 	git_repository *Repository  = git_tree_owner(Tree->tree);

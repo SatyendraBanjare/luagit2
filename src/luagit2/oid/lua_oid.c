@@ -6,7 +6,7 @@ int lua_git_oid_fromstr (lua_State *L) {
 
 	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
-	luaL_getmetatable(L, "luagit2_oid");
+	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
 
 	git_oid local_id;
@@ -24,7 +24,7 @@ int lua_git_oid_fromstrn (lua_State *L) {
 
 	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
-	luaL_getmetatable(L, "luagit2_oid");
+	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
 
 	git_oid local_id;

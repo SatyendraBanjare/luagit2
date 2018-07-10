@@ -33,7 +33,7 @@ int lua_git_config_find_global (lua_State *L) {
 	lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
 	lua_buf->buf  = NULL;
 
-	luaL_getmetatable(L, "luagit2_buf");
+	luaL_newmetatable(L, "luagit2_buf");
 
 	lua_setmetatable(L, -2);
 
@@ -52,7 +52,7 @@ int lua_git_config_find_programdata (lua_State *L) {
 	lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
 	lua_buf->buf  = NULL;
 
-	luaL_getmetatable(L, "luagit2_buf");
+	luaL_newmetatable(L, "luagit2_buf");
 
 	lua_setmetatable(L, -2);
 
@@ -72,7 +72,7 @@ int lua_git_config_find_system (lua_State *L) {
 	lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
 	lua_buf->buf  = NULL;
 
-	luaL_getmetatable(L, "luagit2_buf");
+	luaL_newmetatable(L, "luagit2_buf");
 
 	lua_setmetatable(L, -2);
 
@@ -92,7 +92,7 @@ int lua_git_config_find_xdg (lua_State *L) {
 	lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
 	lua_buf->buf  = NULL;
 
-	luaL_getmetatable(L, "luagit2_buf");
+	luaL_newmetatable(L, "luagit2_buf");
 
 	lua_setmetatable(L, -2);
 
@@ -156,7 +156,7 @@ int lua_git_config_get_path (lua_State *L) {
 	lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
 	lua_buf->buf  = NULL;
 
-	luaL_getmetatable(L, "luagit2_buf");
+	luaL_newmetatable(L, "luagit2_buf");
 
 	lua_setmetatable(L, -2);
 
@@ -192,7 +192,7 @@ int lua_git_config_get_string_buf (lua_State *L) {
 	lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
 	lua_buf->buf  = NULL;
 
-	luaL_getmetatable(L, "luagit2_buf");
+	luaL_newmetatable(L, "luagit2_buf");
 
 	lua_setmetatable(L, -2);
 
@@ -211,7 +211,7 @@ int lua_git_config_open_default (lua_State *L) {
 	lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
 	lua_cfg->cfg  = NULL;
 
-	luaL_getmetatable(L, "luagit2_config");
+	luaL_newmetatable(L, "luagit2_config");
 
 	lua_setmetatable(L, -2);
 
@@ -232,7 +232,7 @@ int lua_git_config_open_global (lua_State *L) {
 	lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
 	lua_cfg->cfg  = NULL;
 
-	luaL_getmetatable(L, "luagit2_config");
+	luaL_newmetatable(L, "luagit2_config");
 
 	lua_setmetatable(L, -2);
 
@@ -254,7 +254,7 @@ int lua_git_config_open_level (lua_State *L) {
 	lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
 	lua_cfg->cfg  = NULL;
 
-	luaL_getmetatable(L, "luagit2_config");
+	luaL_newmetatable(L, "luagit2_config");
 
 	lua_setmetatable(L, -2);
 
@@ -274,7 +274,7 @@ int lua_git_config_open_ondisk (lua_State *L) {
 	lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
 	lua_cfg->cfg  = NULL;
 
-	luaL_getmetatable(L, "luagit2_config");
+	luaL_newmetatable(L, "luagit2_config");
 
 	lua_setmetatable(L, -2);
 
@@ -323,7 +323,7 @@ int lua_git_config_parse_path (lua_State *L) {
 	lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
 	lua_buf->buf  = NULL;
 
-	luaL_getmetatable(L, "luagit2_buf");
+	luaL_newmetatable(L, "luagit2_buf");
 
 	lua_setmetatable(L, -2);
 
@@ -342,7 +342,7 @@ int lua_git_config_set_bool (lua_State *L) {
 
 	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
 	const char *name = luaL_checkstring(L, 2);
-	int value = luaL_checkint(L, 3);
+	int value = luaL_checkinteger(L, 3);
 
 	check_error_long(git_config_set_bool(parent_cfg->cfg, name, value),
 	    "Error setting bool in config", NULL);
@@ -356,7 +356,7 @@ int lua_git_config_set_int32 (lua_State *L) {
 
 	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
 	const char *name = luaL_checkstring(L, 2);
-	int32_t value = luaL_checkint(L, 3);
+	int32_t value = luaL_checkinteger(L, 3);
 
 	check_error_long(git_config_set_int32(parent_cfg->cfg, name, value),
 	    "Error setting long integer value in config", NULL);
@@ -370,7 +370,7 @@ int lua_git_config_set_int64 (lua_State *L) {
 
 	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
 	const char *name = luaL_checkstring(L, 2);
-	int64_t value = luaL_checkint(L, 3);
+	int64_t value = luaL_checkinteger(L, 3);
 
 	check_error_long(git_config_set_int64(parent_cfg->cfg, name, value),
 	    "Error setting long integer value in config", NULL);
@@ -416,7 +416,7 @@ int lua_git_config_snapshot (lua_State *L) {
 	lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
 	lua_cfg->cfg  = NULL;
 
-	luaL_getmetatable(L, "luagit2_config");
+	luaL_newmetatable(L, "luagit2_config");
 
 	lua_setmetatable(L, -2);
 

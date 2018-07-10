@@ -2,15 +2,7 @@
 #define _lua_clone_h
 #define PRIuZ "zu" //for non windows system for now.
 
-#include "../../luaC-api/lua.h"
-#include "../../luaC-api/lualib.h"
-#include "../../luaC-api/lauxlib.h"
-#include "../lua_objects.h"
 #include "../common/lua_common.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <git2.h>
 
 /* Module Clone
  *

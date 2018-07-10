@@ -6,7 +6,7 @@ int lua_git_cred_default_new (lua_State *L) {
 	cred_obj = (luagit2_cred_object *)lua_newuserdata(L, sizeof(*cred_obj));
 	cred_obj->git_cred_object  = NULL;
 
-	luaL_getmetatable(L, "luagit2_cred_object");
+	luaL_newmetatable(L, "luagit2_cred_object");
 
 	lua_setmetatable(L, -2);
 
@@ -27,7 +27,7 @@ int lua_git_cred_ssh_key_from_agent (lua_State *L) {
 	cred_obj = (luagit2_cred_object *)lua_newuserdata(L, sizeof(*cred_obj));
 	cred_obj->git_cred_object  = NULL;
 
-	luaL_getmetatable(L, "luagit2_cred_object");
+	luaL_newmetatable(L, "luagit2_cred_object");
 
 	lua_setmetatable(L, -2);
 
@@ -51,7 +51,7 @@ int lua_git_cred_ssh_key_memory_new (lua_State *L) {
 	cred_obj = (luagit2_cred_object *)lua_newuserdata(L, sizeof(*cred_obj));
 	cred_obj->git_cred_object  = NULL;
 
-	luaL_getmetatable(L, "luagit2_cred_object");
+	luaL_newmetatable(L, "luagit2_cred_object");
 
 	lua_setmetatable(L, -2);
 
@@ -75,7 +75,7 @@ int lua_git_cred_ssh_key_new (lua_State *L) {
 	cred_obj = (luagit2_cred_object *)lua_newuserdata(L, sizeof(*cred_obj));
 	cred_obj->git_cred_object  = NULL;
 
-	luaL_getmetatable(L, "luagit2_cred_object");
+	luaL_newmetatable(L, "luagit2_cred_object");
 
 	lua_setmetatable(L, -2);
 
@@ -96,7 +96,7 @@ int lua_git_cred_username_new (lua_State *L) {
 	cred_obj = (luagit2_cred_object *)lua_newuserdata(L, sizeof(*cred_obj));
 	cred_obj->git_cred_object  = NULL;
 
-	luaL_getmetatable(L, "luagit2_cred_object");
+	luaL_newmetatable(L, "luagit2_cred_object");
 
 	lua_setmetatable(L, -2);
 
@@ -118,7 +118,7 @@ int lua_git_cred_userpass_plaintext_new (lua_State *L) {
 	cred_obj = (luagit2_cred_object *)lua_newuserdata(L, sizeof(*cred_obj));
 	cred_obj->git_cred_object  = NULL;
 
-	luaL_getmetatable(L, "luagit2_cred_object");
+	luaL_newmetatable(L, "luagit2_cred_object");
 
 	lua_setmetatable(L, -2);
 

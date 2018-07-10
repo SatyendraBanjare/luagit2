@@ -38,7 +38,7 @@ int lua_git_index_checksum(lua_State *L) {
 
 	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
-	luaL_getmetatable(L, "luagit2_oid");
+	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
 
 	obj_id->oid = *(git_index_checksum(Index->index));
@@ -131,7 +131,7 @@ int lua_git_index_get_byindex(lua_State *L) {
 	luagit2_index_entry *Index_entry;
 	Index_entry = (luagit2_index_entry *)lua_newuserdata(L, sizeof(*Index_entry));
 
-	luaL_getmetatable(L, "luagit2_index_entry");
+	luaL_newmetatable(L, "luagit2_index_entry");
 	lua_setmetatable(L, -2);
 
 
@@ -148,7 +148,7 @@ int lua_git_index_get_bypath(lua_State *L) {
 	luagit2_index_entry *Index_entry;
 	Index_entry = (luagit2_index_entry *)lua_newuserdata(L, sizeof(*Index_entry));
 
-	luaL_getmetatable(L, "luagit2_index_entry");
+	luaL_newmetatable(L, "luagit2_index_entry");
 	lua_setmetatable(L, -2);
 
 
@@ -174,7 +174,7 @@ int lua_git_index_open(lua_State *L) {
 	lua_index = (luagit2_index *)lua_newuserdata(L, sizeof(*lua_index));
 	lua_index->index = NULL;
 
-	luaL_getmetatable(L, "luagit2_index");
+	luaL_newmetatable(L, "luagit2_index");
 	lua_setmetatable(L, -2);
 
 	git_index *local_index;
@@ -192,7 +192,7 @@ int lua_git_index_owner (lua_State *L) {
 	lua_repo = (luagit2_repository *)lua_newuserdata(L, sizeof(*lua_repo));
 	lua_repo->repo  = NULL;
 
-	luaL_getmetatable(L, "luagit2_repository");
+	luaL_newmetatable(L, "luagit2_repository");
 	lua_setmetatable(L, -2);
 
 	lua_repo->repo = git_index_owner(Index->index);
@@ -305,7 +305,7 @@ int lua_git_index_write_tree(lua_State *L) {
 
 	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
-	luaL_getmetatable(L, "luagit2_oid");
+	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
 
 	git_oid local_id;
@@ -324,7 +324,7 @@ int lua_git_index_write_tree_to(lua_State *L) {
 
 	obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
-	luaL_getmetatable(L, "luagit2_oid");
+	luaL_newmetatable(L, "luagit2_oid");
 	lua_setmetatable(L, -2);
 
 	git_oid local_id;

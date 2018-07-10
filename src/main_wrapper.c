@@ -302,11 +302,12 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_print_version_data", lua_git_libgit2_print_version_data},
       {"luagit2_get_signature_details", lua_get_signature_details},
       {"luagit2_print_complete_signature_details", lua_print_complete_signature_details},
+      {"get_userdata_name",get_userdata_name},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}
 };
 
 int luaopen_luagit2 (lua_State *L) {
-      luaL_register(L, "luagit2", luagit2);
+      luaL_newlib(L, luagit2);
       return 1;
 };
