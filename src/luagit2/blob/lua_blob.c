@@ -54,7 +54,6 @@ int lua_git_blob_filtered_content (lua_State *L) {
         "Error getting filteres content of the blob", NULL);
 
     lua_out_buf->buf  = local_buf;
-    git_buf_free(local_buf);
     return 1;
 }
 
