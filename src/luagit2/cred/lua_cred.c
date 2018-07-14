@@ -1,6 +1,11 @@
 #include "lua_cred.h"
 
 int lua_git_cred_default_new (lua_State *L) {
+
+	if (lua_gettop(L) != 0) {
+		return luaL_error(L, "expecting exactly no arguments");
+	}
+
 	luagit2_cred_object *cred_obj;
 
 	cred_obj = (luagit2_cred_object *)lua_newuserdata(L, sizeof(*cred_obj));
@@ -20,6 +25,11 @@ int lua_git_cred_default_new (lua_State *L) {
 }
 
 int lua_git_cred_ssh_key_from_agent (lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : (string)username");
+	}
+
 	luagit2_cred_object *cred_obj;
 	const char *username = luaL_checkstring(L, 1);
 
@@ -40,6 +50,12 @@ int lua_git_cred_ssh_key_from_agent (lua_State *L) {
 }
 
 int lua_git_cred_ssh_key_memory_new (lua_State *L) {
+
+	if (lua_gettop(L) != 4) {
+		return luaL_error(L, "expecting exactly 1 argument : (string)username,(string)publickey,\
+			(string)privatekey,(string)passphrase");
+	}
+
 	luagit2_cred_object *cred_obj;
 	const char *username = luaL_checkstring(L, 1);
 	const char *publickey = luaL_checkstring(L, 2);
@@ -63,6 +79,12 @@ int lua_git_cred_ssh_key_memory_new (lua_State *L) {
 }
 
 int lua_git_cred_ssh_key_new (lua_State *L) {
+
+	if (lua_gettop(L) != 4) {
+		return luaL_error(L, "expecting exactly 1 argument : (string)username,(string)publickey,\
+			(string)privatekey,(string)passphrase");
+	}
+
 	luagit2_cred_object *cred_obj;
 	const char *username = luaL_checkstring(L, 1);
 	const char *publickey = luaL_checkstring(L, 2);
@@ -86,6 +108,11 @@ int lua_git_cred_ssh_key_new (lua_State *L) {
 }
 
 int lua_git_cred_username_new (lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : (string)username");
+	}
+
 	luagit2_cred_object *cred_obj;
 	const char *username = luaL_checkstring(L, 1);
 
@@ -106,6 +133,11 @@ int lua_git_cred_username_new (lua_State *L) {
 }
 
 int lua_git_cred_userpass_plaintext_new (lua_State *L) {
+
+	if (lua_gettop(L) != 2) {
+		return luaL_error(L, "expecting exactly 2 arguments : (string)username,(string)password");
+	}
+
 	luagit2_cred_object *cred_obj;
 	const char *username = luaL_checkstring(L, 1);
 	const char *password = luaL_checkstring(L, 2);
@@ -127,7 +159,12 @@ int lua_git_cred_userpass_plaintext_new (lua_State *L) {
 }
 
 int lua_git_cred_free (lua_State *L) {
-	const luagit2_cred_object *cred_obj = (luagit2_cred_object *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : luagit2_cred_object");
+	}
+
+	const luagit2_cred_object *cred_obj = (luagit2_cred_object *)luaL_checkudata(L, 1, "luagit2_cred_object");
 	git_cred_free(cred_obj->git_cred_object);
 	return 1;
 
