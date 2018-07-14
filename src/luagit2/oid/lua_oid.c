@@ -125,10 +125,10 @@ int lua_git_oid_tostr (lua_State *L) {
 	const luagit2_oid *oid_A;
 
 	oid_A = (luagit2_oid *)lua_touserdata(L, 1);
-	size_t size_value = luaL_checkinteger(L, 2);
-	char *string_value = git_oid_tostr(string_value, size_value, &(oid_A->oid));
+	char buffer[1024] = {0};
+	char *string_value = git_oid_tostr(buffer, sizeof(buffer), &(oid_A->oid));
 	lua_pushstring(L, string_value);
-
+	*buffer = NULL;
 	return 1;
 }
 

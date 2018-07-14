@@ -46,7 +46,6 @@ int lua_git_object_lookup(lua_State *L) {
 	check_error_long(git_object_lookup(&local_obj, Repository->repo, &(object_id->oid), Type->otype)
 	    , "Error looking up the object in given repo", NULL);
 	lua_object->object = local_obj;
-	git_object_free(local_obj);
 
 	return 1;
 }
@@ -67,7 +66,6 @@ int lua_git_object_lookup_bypath(lua_State *L) {
 	check_error_long(git_object_lookup_bypath(&local_obj, treeish->object, path, Type->otype)
 	    , "Error looking up the object in given repo by its path", NULL);
 	lua_object->object = local_obj;
-	git_object_free(local_obj);
 
 	return 1;
 }
@@ -89,7 +87,6 @@ int lua_git_object_lookup_prefix(lua_State *L) {
 	check_error_long(git_object_lookup_prefix(&local_obj, Repository->repo, &(object_id->oid), length,
 	        Type->otype), "Error looking up the object in given repo for given length prefix", NULL);
 	lua_object->object = local_obj;
-	git_object_free(local_obj);
 
 	return 1;
 }
@@ -124,7 +121,6 @@ int lua_git_object_short_id (lua_State *L) {
 	    "Unable to get abbreviated OID", NULL);
 
 	lua_out_buf->buf  = local_buf;
-	git_buf_free(local_buf);
 	return 1;
 }
 

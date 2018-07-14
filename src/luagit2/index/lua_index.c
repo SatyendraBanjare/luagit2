@@ -181,7 +181,6 @@ int lua_git_index_open(lua_State *L) {
 	check_error_long(git_index_open(&local_index, path),
 	    "Unable to create git object of index type from file at given path", NULL);
 	lua_index->index = local_index;
-	git_index_free(local_index);
 	return 1;
 }
 
