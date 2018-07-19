@@ -40,6 +40,7 @@ build = {
                      "src/luagit2/object/lua_object.c",
                      "src/luagit2/buf/lua_buf.c",
                      "src/luagit2/buf/lua_buf_help.c",
+                     "src/luagit2/annotated/lua_annotated.c",
                      "src/main_wrapper.c" 
                    },
          libraries = {"git2" , "lua5.3" },
