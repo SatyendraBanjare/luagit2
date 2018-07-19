@@ -143,4 +143,8 @@ typedef struct {
 	git_config_iterator *config_iterator;
 }luagit2_config_iterator;
 
+typedef struct {
+	git_checkout_options checkout_opts;
+}luagit2_checkout_options;
+
 #endif
