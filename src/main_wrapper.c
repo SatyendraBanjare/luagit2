@@ -15,6 +15,7 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/annotated/lua_annotated.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -360,6 +361,15 @@ static const struct luaL_Reg luagit2 [] = {
       //------------------------------------------- Buf Methods ---------------------------------------//
       {"buf_set_str", lua_git_buf_set_str},
       {"buf_free", lua_git_buf_free},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Annotated Methods ---------------------------------//
+      {"annotated_commit_from_ref",lua_git_annotated_commit_from_ref},
+      {"annotated_commit_from_revspec",lua_git_annotated_commit_from_revspec},
+      {"annotated_commit_lookup",lua_git_annotated_commit_lookup},
+      {"annotated_commit_from_fetchhead",lua_git_annotated_commit_from_fetchhead},
+      {"annotated_commit_id",lua_git_annotated_commit_id},
+      {"annotated_commit_free",lua_git_annotated_commit_free},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//
