@@ -55,7 +55,7 @@ int lua_git_annotated_commit_lookup (lua_State *L) {
 	}
 
 	const luagit2_repository *Repo = (luagit2_repository *)luaL_checkudata(L, 1, "luagit2_repository");
-	const luagit2_oid *lua_oid = (luagit2_reference *)luaL_checkudata(L, 2, "luagit2_oid");
+	const luagit2_oid *lua_oid = (luagit2_oid *)luaL_checkudata(L, 2, "luagit2_oid");
 
 	luagit2_annotated_commit *lua_annotated_commit = (luagit2_annotated_commit *)lua_newuserdata(L, sizeof(*lua_annotated_commit));
 	lua_annotated_commit->annotated_commit  = NULL;
@@ -74,14 +74,14 @@ int lua_git_annotated_commit_lookup (lua_State *L) {
 
 int lua_git_annotated_commit_from_fetchhead (lua_State *L) {
 
-	if (lua_gettop(L) != 2) {
-		return luaL_error(L, "expecting exactly 2 arguments : luagit2_repository,luagit2_oid");
+	if (lua_gettop(L) != 4) {
+		return luaL_error(L, "expecting exactly 4 arguments : luagit2_repository,(string)branch_name,(string)remote_url,luagit2_oid");
 	}
 
 	const luagit2_repository *Repo = (luagit2_repository *)luaL_checkudata(L, 1, "luagit2_repository");
 	const char *branch_name = luaL_checkstring(L, 2);
 	const char *remote_url = luaL_checkstring(L, 3);
-	const luagit2_oid *lua_oid = (luagit2_reference *)luaL_checkudata(L, 4, "luagit2_oid");
+	const luagit2_oid *lua_oid = (luagit2_oid *)luaL_checkudata(L, 4, "luagit2_oid");
 
 	luagit2_annotated_commit *lua_annotated_commit = (luagit2_annotated_commit *)lua_newuserdata(L, sizeof(*lua_annotated_commit));
 	lua_annotated_commit->annotated_commit  = NULL;
