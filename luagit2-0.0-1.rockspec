@@ -32,6 +32,7 @@ build = {
                      "src/luagit2/index/lua_index_help.c",
                      "src/luagit2/oid/lua_oid.c",
                      "src/luagit2/reference/lua_reference.c",
+                     "src/luagit2/reflog/lua_reflog.c",
                      "src/luagit2/repository/lua_repository.c",
                      "src/luagit2/signature/lua_signature.c",
                      "src/luagit2/signature/lua_signature_help.c",

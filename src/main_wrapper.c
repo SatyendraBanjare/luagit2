@@ -15,6 +15,7 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/reflog/lua_reflog.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -361,6 +362,21 @@ static const struct luaL_Reg luagit2 [] = {
       {"buf_set_str", lua_git_buf_set_str},
       {"buf_free", lua_git_buf_free},
       //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Reflog Methods ------------------------------------//
+      {"reflog_read",lua_git_reflog_read},
+      {"reflog_entrycount",lua_git_reflog_entrycount},
+      {"reflog_free",lua_git_reflog_free},
+      {"reflog_entry_byindex",lua_git_reflog_entry_byindex},
+      {"reflog_entry_committer",lua_git_reflog_entry_committer},
+      {"reflog_entry_message",lua_git_reflog_entry_message},
+      {"reflog_entry_id_new",lua_git_reflog_entry_id_new},
+      {"reflog_entry_id_old",lua_git_reflog_entry_id_old},
+      {"reflog_delete",lua_git_reflog_delete},
+      {"reflog_drop",lua_git_reflog_drop},
+      {"reflog_append",lua_git_reflog_append},
+      //-----------------------------------------------------------------------------------------------//
+
 
       //------------------------------------------- Helper Methods ------------------------------------//
       {"get_signature_details", lua_get_signature_details},
