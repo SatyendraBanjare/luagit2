@@ -31,6 +31,8 @@ set (SOURCES
              ${src_dest}/luagit2/config/lua_config.c
              ${src_dest}/luagit2/cred/lua_cred.c
              ${src_dest}/luagit2/cred/lua_cred_help.c
+             ${src_dest}/luagit2/hashsig/lua_hashsig.c
+             ${src_dest}/luagit2/hashsig/lua_hashsig_help.c
              ${src_dest}/luagit2/index/lua_index.c
              ${src_dest}/luagit2/index/lua_index_help.c
              ${src_dest}/luagit2/oid/lua_oid.c

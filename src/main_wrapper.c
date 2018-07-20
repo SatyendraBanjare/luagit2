@@ -15,6 +15,7 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/hashsig/lua_hashsig.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -22,6 +23,7 @@
 #include "luagit2/config/lua_config_help.h"
 #include "luagit2/cred/lua_cred_help.h"
 #include "luagit2/index/lua_index_help.h"
+#include "luagit2/hashsig/lua_hashsig_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -362,6 +364,12 @@ static const struct luaL_Reg luagit2 [] = {
       {"buf_free", lua_git_buf_free},
       //-----------------------------------------------------------------------------------------------//
 
+      //------------------------------------------- Hashsig Methods -----------------------------------//
+      {"hashsig_create_fromfile",lua_git_hashsig_create_fromfile},
+      {"hashsig_compare",lua_git_hashsig_compare},
+      {"hashsig_free",lua_git_hashsig_free},
+      //-----------------------------------------------------------------------------------------------//
+
       //------------------------------------------- Helper Methods ------------------------------------//
       {"get_signature_details", lua_get_signature_details},
       {"print_complete_signature_details", lua_print_complete_signature_details},
@@ -386,6 +394,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"index_entry_get_oid_str",lua_git_index_entry_get_oid_str},
       {"index_entry_get_dev_inode",lua_git_index_entry_get_dev_inode},
       {"index_entry_get_UID_GID",lua_git_index_entry_get_UID_GID},
+      {"hashsig_option_init",lua_hashsig_option_init},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}
 };
