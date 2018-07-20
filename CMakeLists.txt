@@ -36,6 +36,7 @@ set (SOURCES
              ${src_dest}/luagit2/oid/lua_oid.c
              ${src_dest}/luagit2/reference/lua_reference.c
              ${src_dest}/luagit2/repository/lua_repository.c
+             ${src_dest}/luagit2/revert/lua_revert.c
              ${src_dest}/luagit2/signature/lua_signature.c
              ${src_dest}/luagit2/signature/lua_signature_help.c
              ${src_dest}/luagit2/tree/lua_tree.c
