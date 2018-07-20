@@ -137,10 +137,14 @@ typedef struct {
 
 typedef struct {
 	git_config_entry *config_entry;
-}luagit2_config_entry;
+} luagit2_config_entry;
 
 typedef struct {
 	git_config_iterator *config_iterator;
-}luagit2_config_iterator;
+} luagit2_config_iterator;
+
+typedef struct {
+	git_revspec *revspec;
+} luagit2_revspec;
 
 #endif
