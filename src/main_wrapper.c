@@ -15,6 +15,7 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/describe/lua_describe.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -360,6 +361,13 @@ static const struct luaL_Reg luagit2 [] = {
       //------------------------------------------- Buf Methods ---------------------------------------//
       {"buf_set_str", lua_git_buf_set_str},
       {"buf_free", lua_git_buf_free},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Describe Mehthods ---------------------------------//
+      {"describe_commit",lua_git_describe_commit},
+      {"describe_workdir",lua_git_describe_workdir},
+      {"describe_format",lua_git_describe_format},
+      {"describe_result_free",lua_git_describe_result_free},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//
