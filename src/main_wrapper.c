@@ -15,6 +15,7 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/odb/lua_odb.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -360,6 +361,21 @@ static const struct luaL_Reg luagit2 [] = {
       //------------------------------------------- Buf Methods ---------------------------------------//
       {"buf_set_str", lua_git_buf_set_str},
       {"buf_free", lua_git_buf_free},
+      //-----------------------------------------------------------------------------------------------//
+
+      //-------------------------------------------- Odb Methods --------------------------------------//
+      {"odb_exists",lua_git_odb_exists},
+      {"odb_free",lua_git_odb_free},
+      {"odb_hash",lua_git_odb_hash},
+      {"odb_hashfile",lua_git_odb_hashfile},
+      {"odb_object_free",lua_git_odb_object_free},
+      {"odb_object_id",lua_git_odb_object_id},
+      {"odb_object_size",lua_git_odb_object_size},
+      {"odb_object_type",lua_git_odb_object_type},
+      {"odb_open",lua_git_odb_open},
+      {"odb_read",lua_git_odb_read},
+      {"odb_refresh",lua_git_odb_refresh},
+      {"odb_write",lua_git_odb_write},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//

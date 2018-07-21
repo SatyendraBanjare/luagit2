@@ -143,4 +143,8 @@ typedef struct {
 	git_config_iterator *config_iterator;
 }luagit2_config_iterator;
 
+typedef struct {
+	git_odb_object *odb_object;
+} luagit2_odb_object;
+
 #endif
