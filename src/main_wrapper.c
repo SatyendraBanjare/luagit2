@@ -15,6 +15,7 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/revwalk/lua_revwalk.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -360,6 +361,17 @@ static const struct luaL_Reg luagit2 [] = {
       //------------------------------------------- Buf Methods ---------------------------------------//
       {"buf_set_str", lua_git_buf_set_str},
       {"buf_free", lua_git_buf_free},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Revwalk Methods -----------------------------------//
+      {"revwalk_new",lua_git_revwalk_new},
+      {"revwalk_next",lua_git_revwalk_next},
+      {"revwalk_push",lua_git_revwalk_push},
+      {"revwalk_push_ref",lua_git_revwalk_push_ref},
+      {"revwalk_free",lua_git_revwalk_free},
+      {"revwalk_reset",lua_git_revwalk_reset},
+      {"revwalk_push_head",lua_git_revwalk_push_head},
+      {"revwalk_repository",lua_git_revwalk_repository},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//
