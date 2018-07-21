@@ -15,6 +15,7 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/diff/lua_diff.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -22,6 +23,7 @@
 #include "luagit2/config/lua_config_help.h"
 #include "luagit2/cred/lua_cred_help.h"
 #include "luagit2/index/lua_index_help.h"
+#include "luagit2/diff/lua_diff_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -362,6 +364,25 @@ static const struct luaL_Reg luagit2 [] = {
       {"buf_free", lua_git_buf_free},
       //-----------------------------------------------------------------------------------------------//
 
+      //------------------------------------------- Diff Methods --------------------------------------//
+      {"diff_init_options",lua_git_diff_init_options},
+      {"diff_get_stats",lua_git_diff_get_stats},
+      {"diff_index_to_index",lua_git_diff_index_to_index},
+      {"diff_index_to_workdir",lua_git_diff_index_to_workdir},
+      {"diff_is_sorted_icase",lua_git_diff_is_sorted_icase},
+      {"diff_merge",lua_git_diff_merge},
+      {"diff_num_deltas",lua_git_diff_num_deltas},
+      {"diff_stats_deletions",lua_git_diff_stats_deletions},
+      {"diff_stats_files_changed",lua_git_diff_stats_files_changed},
+      {"diff_stats_insertions",lua_git_diff_stats_insertions},
+      {"diff_stats_to_buf",lua_git_diff_stats_to_buf},
+      {"diff_to_buf",lua_git_diff_to_buf},
+      {"diff_tree_to_index",lua_git_diff_tree_to_index},
+      {"diff_tree_to_tree",lua_git_diff_tree_to_tree},
+      {"diff_tree_to_workdir",lua_git_diff_tree_to_workdir},
+      {"diff_tree_to_workdir_with_index",lua_git_diff_tree_to_workdir_with_index},
+      //-----------------------------------------------------------------------------------------------//
+
       //------------------------------------------- Helper Methods ------------------------------------//
       {"get_signature_details", lua_get_signature_details},
       {"print_complete_signature_details", lua_print_complete_signature_details},
@@ -386,6 +407,8 @@ static const struct luaL_Reg luagit2 [] = {
       {"index_entry_get_oid_str",lua_git_index_entry_get_oid_str},
       {"index_entry_get_dev_inode",lua_git_index_entry_get_dev_inode},
       {"index_entry_get_UID_GID",lua_git_index_entry_get_UID_GID},
+      {"diff_format_init",lua_diff_format_init},
+      {"diff_stats_format_init",lua_diff_stats_format_init},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}
 };
