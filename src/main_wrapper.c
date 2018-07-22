@@ -26,6 +26,9 @@
 #include "luagit2/revparse/lua_revparse.h"
 #include "luagit2/diff/lua_diff.h"
 #include "luagit2/status/lua_status.h"
+#include "luagit2/diff/lua_diff.h"
+#include "luagit2/diff/lua_diff.h
+#include "luagit2/graph/lua_graph.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -478,6 +481,11 @@ static const struct luaL_Reg luagit2 [] = {
       {"status_list_free",lua_git_status_list_free},
       {"status_list_entrycount",lua_git_status_list_entrycount},
       {"status_byindex",lua_git_status_byindex},
+      //-----------------------------------------------------------------------------------------------//
+
+      //-------------------------------------------- Graph Methods ------------------------------------//
+      {"graph_ahead_behind",lua_git_graph_ahead_behind},
+      {"graph_descendant_of",lua_git_graph_descendant_of},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//
