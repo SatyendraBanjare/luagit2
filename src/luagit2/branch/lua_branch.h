@@ -1,179 +1,140 @@
 #ifndef _lua_branch_h
 #define _lua_branch_h
 
-#include "../../luaC-api/lua.h"
-#include "../../luaC-api/lualib.h"
-#include "../../luaC-api/lauxlib.h"
-#include "../lua_objects.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <git2.h>
+#include "../common/lua_common.h"
 
-static int lua_git_branch_create (lua_State *L) {
-    luagit2_reference *lua_ref;
-    const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-    const char *branch_name = luaL_checkstring(L,2);
-    const luagit2_commit *lua_commit = (luagit2_commit *)lua_touserdata(L,3);
-    const int force = luaL_checkinteger(L,4);
+/* Module Branch
+ *
+ * This file contains lua-Bindings to libgit2's Branch module.
+ * 
+ */
 
-    lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
-    lua_ref->reference  = NULL;
+/* Callable function name : luagit2_branch_create(lua_userdata luagit2_repository, lua_string branch_name,
+                                                lua_userdata luagit2_commit , lua_integer force )
+ *
+ * Create a new branch pointing at a target commit
+ *
+ * Params required : (lua_userdata) the repository,
+                     (lua_string) new branch name.
+                     (lua_userdata) luagit2_commit the target commit.
+                     (lua_integer) integer equivalent of bool.
+ * Returns : luagit2_reference type user_data object.
+ */
+int lua_git_branch_create (lua_State *L);
 
-    luaL_getmetatable(L, "luagit2_reference");
+/* Callable function name : luagit2_branch_create_from_annotated(lua_userdata luagit2_repository,
+                        lua_string branch_name, lua_userdata luagit2_annotated_commit , lua_integer force )
+ *
+ * Create a new branch pointing at a target annotated commit.
+ *
+ * Params required : (lua_userdata) the repository,
+                     (lua_string) new branch name.
+                     (lua_userdata) luagit2_annotated_commit the target annotated commit.
+                     (lua_integer) integer equivalent of bool.
+ * Returns : luagit2_reference type user_data object.
+ */
+int lua_git_branch_create_from_annotated (lua_State *L);
 
-    lua_setmetatable(L, -2);
+/* Callable function name : luagit2_branch_delete(lua_userdata luagit2_reference )
+ *
+ * Delete an existing branch reference.
+ *
+ * Params required : (lua_userdata) the luagit2_reference , the reference object for the branch,
+ * Returns : None.
+ */
+int lua_git_branch_delete (lua_State *L);
 
-    git_reference *local_ref;
-    git_branch_create(&local_ref,lua_repo->repo,branch_name,lua_commit->commit,force);
-    lua_ref->reference  = local_ref;
-    return 1;
-}
+/* Callable function name : luagit2_branch_is_checked_out(lua_userdata luagit2_reference )
+ *
+ * check if an existing branch reference is checked out.
+ *
+ * Params required : (lua_userdata) the luagit2_reference , the reference object for the branch,
+ * Returns : Integer equivalent of bool, true / false.
+ */
+int lua_git_branch_is_checked_out (lua_State *L);
 
-static int lua_git_branch_create_from_annotated (lua_State *L) {
-    luagit2_reference *lua_ref;
-    const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-    const char *branch_name = luaL_checkstring(L,2);
-    const luagit2_annotated_commit *lua_annotated_commit = (luagit2_annotated_commit *)lua_touserdata(L,3);
-    const int force = luaL_checkinteger(L,4);
+/* Callable function name : luagit2_branch_is_head(lua_userdata luagit2_reference )
+ *
+ * check if an existing branch reference is being pointed by head.
+ *
+ * Params required : (lua_userdata) the luagit2_reference , the reference object for the branch,
+ * Returns : Integer equivalent of bool, true / false.
+ */
+int lua_git_branch_is_head (lua_State *L);
 
-    lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
-    lua_ref->reference  = NULL;
+/* Callable function name : luagit2_branch_iterator_new(lua_userdata luagit2_repository ,
+                                                        lua_userdata luagit2_branch_type )
+ *
+ * Create an iterator which loops over the requested branches.
+ *
+ * Params required : (lua_userdata) the luagit2_repository ,
+                     (lua_userdata) luagit2_branch_type
+ * Returns : luagit2_branch_iterator type user data.
+ */
+int lua_git_branch_iterator_new (lua_State *L);
 
-    luaL_getmetatable(L, "luagit2_reference");
+/* Callable function name : luagit2_branch_lookup(lua_userdata luagit2_repository ,
+                            lua_string branch_name, lua_userdata luagit2_branch_type )
+ *
+ * Lookup a branch by its name in a repository.
+ *
+ * Params required : (lua_userdata) the luagit2_repository ,
+                     (lua_string) branch name,
+                     (lua_userdata) luagit2_branch_type
+ * Returns : luagit2_reference type user data for the branch.
+ */
+int lua_git_branch_lookup (lua_State *L);
 
-    lua_setmetatable(L, -2);
+/* Callable function name : luagit2_branch_lookup(lua_userdata luagit2_reference ,
+                            lua_string new_branch_name, lua_integer force )
+ *
+ * Move/rename an existing local branch reference..
+ *
+ * Params required : (lua_userdata) the luagit2_reference for the branch,
+                     (lua_string) new branch name,
+                     (lua_integer) integer equivalent for the bool.
+ * Returns : luagit2_reference type user data for the newed branch.
+ */
+int lua_git_branch_move (lua_State *L);
 
-    git_reference *local_ref;
-    git_branch_create_from_annotated(&local_ref,lua_repo->repo,branch_name,
-    				lua_annotated_commit->annotated_commit,force);
-    lua_ref->reference  = local_ref;
-    return 1;
-}
+/* Callable function name : luagit2_branch_name(lua_userdata luagit2_reference )
+ *
+ * get the name for the local branch reference.
+ *
+ * Params required : (lua_userdata) the luagit2_reference for the branch.
+ * Returns : luagit2_string name of branch.
+ */
+int lua_git_branch_name (lua_State *L);
 
-static int lua_git_branch_delete (lua_State *L) {
-    const luagit2_reference *lua_ref_branch = (luagit2_reference *)lua_touserdata(L, 1);
-    git_branch_delete(lua_ref_branch->reference);
-    return 1;
-}
+/* Callable function name : luagit2_branch_next(lua_userdata luagit2_branch_type,
+                                                lua_userdata luagit2_branch_iterator )
+ *
+ * get the next branch in the luagit2_iterator.
+ *
+ * Params required : (lua_userdata) the luagit2_branch type.
+                     (lua_userdata) the luagit2 branch iterator to do the iteration.
+ * Returns : luagit2_reference type user data for the next branch.
+ */
+int lua_git_branch_next (lua_State *L);
 
-static int lua_git_branch_is_checked_out (lua_State *L) {
-    const luagit2_reference *lua_ref_branch = (luagit2_reference *)lua_touserdata(L, 1);
-    int is_checked_out = git_branch_is_checked_out(lua_ref_branch->reference);
-    lua_pushinteger(L,is_checked_out);
-    return 1;
-}
+/* Callable function name : luagit2_branch_next(lua_userdata luagit2_reference,
+                                                lua_string upstream_name )
+ *
+ * Set the upstream configuration for a given local branch.
+ *
+ * Params required : (lua_userdata) the luagit2_reference object for the branch .
+                     (lua_string) the the upstream name.
+ * Returns : None.
+ */
+int lua_git_branch_set_upstream (lua_State *L);
 
-static int lua_git_branch_is_head (lua_State *L) {
-    const luagit2_reference *lua_ref_branch = (luagit2_reference *)lua_touserdata(L, 1);
-    int is_head = git_branch_is_head(lua_ref_branch->reference);
-    lua_pushinteger(L,is_head);
-    return 1;
-}
+/* Callable function name : luagit2_branch_next(lua_userdata luagit2_reference)
+ *
+ * get the upstream refernce , given a local branch reference.
+ *
+ * Params required : (lua_userdata) the luagit2_reference reference branch.
+ * Returns : luagit2_reference type user data for upstream.
+ */
+int lua_git_branch_upstream (lua_State *L);
 
-static int lua_git_branch_iterator_new (lua_State *L) {
-    luagit2_branch_iterator *lua_branch_iterator;
-    const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-    const luagit2_branch_type *list_flags = (luagit2_branch_type *)lua_touserdata(L,2);
-
-    lua_branch_iterator = (luagit2_branch_iterator *)lua_newuserdata(L, sizeof(*lua_branch_iterator));
-    lua_branch_iterator->branch_iterator  = NULL;
-
-    luaL_getmetatable(L, "luagit2_branch_iterator");
-
-    lua_setmetatable(L, -2);
-
-    git_branch_iterator *local_branch_iter;
-    git_branch_iterator_new(&local_branch_iter,lua_repo->repo,list_flags->branch_type);
-    lua_branch_iterator->branch_iterator  = local_branch_iter;
-    return 1;
-}
-
-static int lua_git_branch_lookup (lua_State *L) {
-    luagit2_reference *lua_ref;
-    const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-    const char *branch_name = luaL_checkstring(L,2);
-    const luagit2_branch_type *lua_branch_type = (luagit2_branch_type *)lua_touserdata(L,3);
-
-    lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
-    lua_ref->reference  = NULL;
-
-    luaL_getmetatable(L, "luagit2_reference");
-
-    lua_setmetatable(L, -2);
-
-    git_reference *local_ref;
-    git_branch_lookup(&local_ref,lua_repo->repo,branch_name,lua_branch_type->branch_type);
-    lua_ref->reference  = local_ref;
-    return 1;
-}
-
-static int lua_git_branch_move (lua_State *L) {
-    luagit2_reference *lua_ref;
-    const luagit2_reference *lua_branch_from = (luagit2_reference *)lua_touserdata(L, 1);
-    const char *new_branch_name = luaL_checkstring(L,2);
-    const int force = luaL_checkinteger(L,3);
-
-    lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
-    lua_ref->reference  = NULL;
-
-    luaL_getmetatable(L, "luagit2_reference");
-
-    lua_setmetatable(L, -2);
-
-    git_reference *local_ref;
-    git_branch_move(&local_ref,lua_branch_from->reference,new_branch_name,force);
-    lua_ref->reference  = local_ref;
-    return 1;
-}
-
-static int lua_git_branch_name (lua_State *L) {
-    const luagit2_reference *lua_branch_from = (luagit2_reference *)lua_touserdata(L, 1);
-    const char *branch_name;
-    git_branch_name(&branch_name,lua_branch_from->reference);
-    lua_pushstring(L,branch_name);
-    return 1;
-}
-
-static int lua_git_branch_next (lua_State *L) {
-    luagit2_reference *lua_ref;
-    luagit2_branch_type *lua_branch_t = (luagit2_branch_type *)lua_touserdata(L, 1);
-    luagit2_branch_iterator *lua_branch_iterator = (luagit2_branch_iterator *)lua_touserdata(L,3);
-
-    lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
-    lua_ref->reference  = NULL;
-
-    luaL_getmetatable(L, "luagit2_reference");
-
-    lua_setmetatable(L, -2);
-
-    git_reference *local_ref;
-    git_branch_next(&local_ref,&(lua_branch_t->branch_type),lua_branch_iterator->branch_iterator);
-    lua_ref->reference  = local_ref;
-    return 1;
-}
-
-static int lua_git_branch_set_upstream (lua_State *L) {
-    const luagit2_reference *lua_branch_from = (luagit2_reference *)lua_touserdata(L, 1);
-    const char *upstream_name = luaL_checkstring(L,2);
-    git_branch_set_upstream(lua_branch_from->reference,upstream_name);
-    return 1;
-}
-
-static int lua_git_branch_upstream (lua_State *L) {
-    luagit2_reference *lua_ref;
-    const luagit2_reference *lua_branch_base = (luagit2_reference *)lua_touserdata(L, 1);
-
-    lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
-    lua_ref->reference  = NULL;
-
-    luaL_getmetatable(L, "luagit2_reference");
-
-    lua_setmetatable(L, -2);
-
-    git_reference *local_ref;
-    git_branch_upstream(&local_ref,lua_branch_base->reference);
-    lua_ref->reference  = local_ref;
-    return 1;
-}
 #endif

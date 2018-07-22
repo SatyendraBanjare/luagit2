@@ -10,3 +10,6 @@ luagit2.so
 #lua-cov report and stats file
 tests/luacov.report.out
 tests/luacov.stats.out
+
+# gcc generated objects
+*.o

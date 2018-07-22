@@ -5,7 +5,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${luagit2_SOURCE_DIR}/cmake")
 
 MESSAGE("${CMAKE_MODULE_PATH}")
  
-find_package(Lua REQUIRED)
+find_package(Lua 5.3 EXACT REQUIRED)
 find_package(LibGit2 REQUIRED)
  
 include_directories (
@@ -18,9 +18,28 @@ include_directories (
 
 set(src_dest "src/")
  
-set (SOURCES ${src_dest}/main_wrapper.c )
+set (SOURCES
+             ${src_dest}/luagit2/common/lua_common.c
+             ${src_dest}/luagit2/libgit2/lua_libgit2.c
+             ${src_dest}/luagit2/libgit2/lua_libgit2_help.c
+             ${src_dest}/luagit2/blame/lua_blame.c
+             ${src_dest}/luagit2/blob/lua_blob.c
+             ${src_dest}/luagit2/branch/lua_branch.c
+             ${src_dest}/luagit2/clone/lua_clone.c
+             ${src_dest}/luagit2/commit/lua_commit.c
+             ${src_dest}/luagit2/config/lua_config.c
+             ${src_dest}/luagit2/cred/lua_cred.c
+             ${src_dest}/luagit2/index/lua_index.c
+             ${src_dest}/luagit2/oid/lua_oid.c
+             ${src_dest}/luagit2/reference/lua_reference.c
+             ${src_dest}/luagit2/repository/lua_repository.c
+             ${src_dest}/luagit2/signature/lua_signature.c
+             ${src_dest}/luagit2/signature/lua_signature_help.c
+             ${src_dest}/luagit2/tree/lua_tree.c
+             ${src_dest}/main_wrapper.c 
+ )
 
-set(lib_dest "lib/")
+set(lib_dest "lib/lua/5.3")
 
 OPTION(BUILD_SHARED_LIBS ON)
  

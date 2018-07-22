@@ -1,58 +1,31 @@
 #ifndef _lua_signature_help
 #define _lua_signature_help
 
-#include "../../luaC-api/lua.h"
-#include "../../luaC-api/lualib.h"
-#include "../../luaC-api/lauxlib.h"
-#include "../lua_objects.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <git2.h>
+#include "../common/lua_common.h"
 
-static void print_signature( const git_signature *sig)
-{
-	char sign;
-	int offset, hours, minutes;
+/* This file contains some helper methods to luagit2's signature module
+ * functions.
+ */
 
-	if (!sig)
-		return;
+/* Callable function name : luagit2_get_signature_details(lua_userdata luagit2_signature, 
+																lua_integer option_number)
+ *
+ * get the signature detail value.
+ *
+ * Params required : (lua_userdata) the signature,
+                     (lua_string) the option number : 1 -> name , 2 -> email
+                     .
+ * Returns : string value as requested in option number.
+ */
+int lua_get_signature_details (lua_State *L);
 
-	offset = sig->when.offset;
-	if (offset < 0) {
-		sign = '-';
-		offset = -offset;
-	} else {
-		sign = '+';
-	}
-
-	hours   = offset / 60;
-	minutes = offset % 60;
-
-	printf("%s <%s> %ld %c%02d%02d\n",
-		   sig->name, sig->email, (long)sig->when.time,
-		   sign, hours, minutes);
-}
-
-static int lua_get_signature_details (lua_State *L) {
-	const luagit2_signature *signature_data = (luagit2_signature *)lua_touserdata(L, 1);
-	int which_value = luaL_checkinteger(L,2);
-
-	switch(which_value)
-	{
-		case 1:  lua_pushstring(L,signature_data->sign->name);
-		    	break;
-		case 2: lua_pushstring(L,signature_data->sign->email);
-		    	break;
-	}
-
-    return 1;
-}
-
-static int lua_print_complete_signature_details (lua_State *L) {
-	const luagit2_signature *signature_data = (luagit2_signature *)lua_touserdata(L, 1);
-	print_signature(signature_data->sign);
-    return 1;
-}
+/* Callable function name : luagit2_print_complete_signature_details(lua_userdata luagit2_signature)
+ *
+ * print the complete signature details.
+ *
+ * Params required : (lua_userdata) the signature,                    .
+ * Returns : None.
+ */
+int lua_print_complete_signature_details (lua_State *L);
 
 #endif

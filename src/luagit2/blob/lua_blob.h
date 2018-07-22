@@ -1,155 +1,114 @@
 #ifndef _lua_blob_h
 #define _lua_blob_h
 
-#include "../../luaC-api/lua.h"
-#include "../../luaC-api/lualib.h"
-#include "../../luaC-api/lauxlib.h"
-#include "../lua_objects.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <git2.h>
+#include "../common/lua_common.h"
 
-static int lua_git_blob_create_fromdisk (lua_State *L) {
-	luagit2_oid *obj_id;
-	const luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
-    const char *path = luaL_checkstring(L,2);
+/* Module Blob
+ *
+ * This file contains lua-Bindings to libgit2's Blob module.
+ * 
+ */
 
-    obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
+/* Callable function name : luagit2_blob_create_fromdisk(lua_userdata luagit2_repository, lua_string path )
+ *
+ * Read a file from the filesystem and write its content to the Object Database as a loose blob.
+ *
+ * Params required : (lua_userdata) the repository to look up,
+                     (lua_string) the path to file.
+ * Returns : luagit2_oid type user_data object.
+ */
+int lua_git_blob_create_fromdisk (lua_State *L);
 
-    luaL_getmetatable(L, "luagit2_oid");
-    lua_setmetatable(L, -2);
+/* Callable function name : luagit2_blob_create_fromworkdir(lua_userdata luagit2_repository, 
+                                                            lua_string relative_path )
+ *
+ * Read a file from the working folder of a repository
+ * and write its content to the Object Database as a loose blob.
+ *
+ * Params required : (lua_userdata) the repository to look up,
+                     (lua_string) the path to file.
+ * Returns : luagit2_oid type user_data object.
+ */
+int lua_git_blob_create_fromworkdir (lua_State *L);
 
-    git_oid local_id;
-    git_blob_create_fromdisk(&local_id,Repo->repo,path);
-   	obj_id->oid = local_id;
+/* Callable function name : luagit2_blob_filtered_content(lua_userdata luagit2_blob, 
+                                lua_string path , lua_integer check_for_binary_data )
+ *
+ * Get a buffer with the filtered content of a blob.
+ *
+ * Params required : (lua_userdata) the blob to look up to,
+                     (lua_string) the path to filename.
+                     (lua_integer) bool argument to check for binary data.
+ * Returns : luagit2_buf type user_data object.
+ */
+int lua_git_blob_filtered_content (lua_State *L);
 
-    return 1;
-}
+/* Callable function name : luagit2_blob_id(lua_userdata luagit2_blob)
+ *
+ * Get the id of a blob.
+ *
+ * Params required : (lua_userdata) the blob to look up to,
+ * Returns : luagit2_oid type user_data object.
+ */
+int lua_git_blob_id (lua_State *L);
 
-static int lua_git_blob_create_fromworkdir (lua_State *L) {
-	luagit2_oid *obj_id;
-	const luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
-    const char *relative_path = luaL_checkstring(L,2);
+/* Callable function name : luagit2_blob_is_binary(lua_userdata luagit2_blob)
+ *
+ * Determine if the blob content is most certainly binary or not.
+ *
+ * Params required : (lua_userdata) the blob to look up to,
+ * Returns : luagit2_integer , bool equivalent of whether blob is binary.
+ */
+int lua_git_blob_is_binary (lua_State *L);
 
-    obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
+/* Callable function name : luagit2_blob_lookup(lua_userdata luagit2_repository, lua_userdata oid)
+ *
+ * Lookup a blob object from a repository.
+ *
+ * Params required : (lua_userdata) the repo to look in,
+                     (lua_userdata) the oid of object to look up.
+ * Returns : luagit2_blob type user_data object.
+ */
+int lua_git_blob_lookup (lua_State *L);
 
-    luaL_getmetatable(L, "luagit2_oid");
-    lua_setmetatable(L, -2);
+/* Callable function name : luagit2_blob_lookup_prefix(lua_userdata luagit2_repository, 
+                                                lua_userdata oid , lua_integer length)
+ *
+ * Lookup a blob object from a repository, given a prefix of its identifier (short id).
+ *
+ * Params required : (lua_userdata) the repo to look in,
+                     (lua_userdata) the oid of object to look up.
+                     (lua_userdata) length of oid
+ * Returns : luagit2_blob type user_data object.
+ */
+int lua_git_blob_lookup_prefix (lua_State *L);
 
-    git_oid local_id;
-    git_blob_create_fromworkdir(&local_id,Repo->repo,relative_path);
-   	obj_id->oid = local_id;
+/* Callable function name : luagit2_blob_owner(lua_userdata luagit2_blob)
+ *
+ * Get the owner repository for a given blob object.
+ *
+ * Params required : (lua_userdata) the blob to check,
+ * Returns : luagit2_repository type user_data object.
+ */
+int lua_git_blob_owner(lua_State *L);
 
-    return 1;
-}
+/* Callable function name : luagit2_blob_rawsize(lua_userdata luagit2_blob)
+ *
+ * Get the size in bytes of the contents of a blob.
+ *
+ * Params required : (lua_userdata) the blob to check,
+ * Returns : luagit2_off_t type user_data object.
+ */
+int lua_git_blob_rawsize(lua_State *L);
 
-static int lua_git_blob_filtered_content (lua_State *L) {
-	luagit2_blob *lua_blob = (luagit2_blob *)lua_touserdata(L, 1);
-	const char *as_path = luaL_checkstring(L,2);
-	int check_for_binary_data = luaL_checkinteger(L,3);
+/* Callable function name : luagit2_blob_free(lua_userdata luagit2_blob)
+ *
+ * Stop memory leak when not using luagit2_blob anymore.
+ *
+ * Params required : (lua_userdata) the blob to free,
+ * Returns : None.
+ */
+int lua_git_blob_free(lua_State *L);
 
-	luagit2_buf *lua_out_buf;
-
-    lua_out_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_out_buf));
-    lua_out_buf->buf = NULL;
-
-    luaL_getmetatable(L, "luagit2_buf");
-    lua_setmetatable(L, -2);
-
-    git_buf *local_buf;
-    git_blob_filtered_content(local_buf,lua_blob->blob,as_path,check_for_binary_data);
-
-   	lua_out_buf->buf  = local_buf;
-    return 1;
-}
-
-static int lua_git_blob_id (lua_State *L) {
-	luagit2_oid *obj_id;
-	const luagit2_blob *lua_blob = (luagit2_blob *)lua_touserdata(L, 1);
-
-    obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
-
-    luaL_getmetatable(L, "luagit2_oid");
-    lua_setmetatable(L, -2);
-
-   	obj_id->oid = *(git_blob_id(lua_blob->blob));
-
-    return 1;
-}
-
-static int lua_git_blob_is_binary (lua_State *L) {
-	const luagit2_blob *lua_blob = (luagit2_blob *)lua_touserdata(L, 1);
-
-    int is_binary = git_blob_is_binary(lua_blob->blob);
-    lua_pushinteger(L,is_binary);
-    return 1;
-}
-
-static int lua_git_blob_lookup (lua_State *L) {
-	luagit2_blob *lua_blob ;
-	const luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
-	const luagit2_oid *lua_oid = (luagit2_oid *)lua_touserdata(L, 2);
-
-    lua_blob = (luagit2_blob *)lua_newuserdata(L, sizeof(*lua_blob));
-    lua_blob->blob = NULL;
-
-    luaL_getmetatable(L, "luagit2_blob");
-    lua_setmetatable(L, -2);
-
-    git_blob *local_blob;
-    git_blob_lookup(&local_blob,Repo->repo,&(lua_oid->oid));
-
-   	lua_blob->blob  = local_blob;
-    return 1;
-}
-
-static int lua_git_blob_lookup_prefix (lua_State *L) {
-	luagit2_blob *lua_blob ;
-	const luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
-	const luagit2_oid *lua_oid = (luagit2_oid *)lua_touserdata(L, 2);
- 	size_t len = luaL_checkinteger(L,3);
-
-    lua_blob = (luagit2_blob *)lua_newuserdata(L, sizeof(*lua_blob));
-    lua_blob->blob = NULL;
-
-    luaL_getmetatable(L, "luagit2_blob");
-    lua_setmetatable(L, -2);
-
-    git_blob *local_blob;
-    git_blob_lookup_prefix(&local_blob,Repo->repo,&(lua_oid->oid),len);
-
-   	lua_blob->blob  = local_blob;
-    return 1;
-}
-
-static int lua_git_blob_owner(lua_State *L) {
-    luagit2_repository *lua_repo;
-    const luagit2_blob *lua_blob = (luagit2_blob *)lua_touserdata(L, 1);
-
-    lua_repo = (luagit2_repository *)lua_newuserdata(L, sizeof(*lua_repo));
-    lua_repo->repo  = NULL;
-
-    luaL_getmetatable(L, "luagit2_repository");
-    lua_setmetatable(L, -2);
-
-    lua_repo->repo = git_blob_owner(lua_blob->blob);
-
-    return 1;
-}
-
-static int lua_git_blob_rawsize(lua_State *L) {
-    luagit2_off_t *lua_blob_size;
-    const luagit2_blob *lua_blob = (luagit2_blob *)lua_touserdata(L, 1);
-
-    lua_blob_size = (luagit2_off_t *)lua_newuserdata(L, sizeof(*lua_blob_size));
-
-    luaL_getmetatable(L, "luagit2_off_t");
-    lua_setmetatable(L, -2);
-
-    lua_blob_size->size = git_blob_rawsize(lua_blob->blob);
-
-    return 1;
-}
 
 #endif

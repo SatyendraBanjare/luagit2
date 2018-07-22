@@ -1,12 +1,6 @@
 #ifndef _lua_objects_h
 #define _lua_objects_h
 
-#include "../luaC-api/lua.h"
-#include "../luaC-api/lualib.h"
-#include "../luaC-api/lauxlib.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <git2.h>
 
 typedef struct {

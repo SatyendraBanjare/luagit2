@@ -1,155 +1,118 @@
 #ifndef _lua_oid_h
 #define _lua_oid_h
 
-#include "../../luaC-api/lua.h"
-#include "../../luaC-api/lualib.h"
-#include "../../luaC-api/lauxlib.h"
-#include "../lua_objects.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <git2.h>
+#include "../common/lua_common.h"
+/* Module OID
+ * 
+ * This file contains lua bindings to libgit2's OID module.
+ */
 
-static int lua_git_oid_fromstr (lua_State *L) {
-	luagit2_oid *obj_id;
-    const char *string_value = luaL_checkstring(L,1);
+/* Callable function name : luagit2_oid_fromstr(lua_string hex_string)
+ *
+ * converts a string to luagit2 oid.
+ *
+ * Params required : (lua_string) the string to convert.
+ * Returns : luagit2_oid type user_data object.
+ */
+int lua_git_oid_fromstr (lua_State *L);
 
-    obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
+/* Callable function name : luagit2_oid_fromstrn(lua_string hex_string, lua_integer length)
+ *
+ * converts a n length of passed string to luagit2 oid.
+ *
+ * Params required : (lua_string) the string to convert.
+                     (lua_integer) the length to consider.
+ * Returns : luagit2_oid type user_data object.
+ */
+int lua_git_oid_fromstrn (lua_State *L);
 
-    luaL_getmetatable(L, "luagit2_oid");
-    lua_setmetatable(L, -2);
+/* Callable function name : luagit2_oid_cmp(lua_userdata luagit2_oid, lua_userdata luagit2_oid)
+ *
+ * compares the two given luagit2_oid objects.
+ *
+ * Params required : (lua_userdata) First luagit2_oid.
+                     (lua_userdata) Second luagit2_oid.
+ * Returns : integer value as : < 0 if oid_1 < oid_2, 0 ifoid_1 == oid_2, >0 if oid_1 > oid_2.
+ */
+int lua_git_oid_cmp (lua_State *L);
 
-    git_oid local_id;
-    git_oid_fromstr(&local_id,string_value);
-   	obj_id->oid = local_id;
+/* Callable function name : luagit2_oid_cmp(lua_userdata luagit2_oid, lua_userdata luagit2_oid, lua_integer length)
+ *
+ * compares the two given luagit2_oid objects for a given length.
+ *
+ * Params required : (lua_userdata) First luagit2_oid.
+                     (lua_userdata) Second luagit2_oid.
+                     (lua_integer) length to compare.
+ * Returns : integer value as : < 0 if oid_1 < oid_2, 0 ifoid_1 == oid_2, >0 if oid_1 > oid_2.
+ */
+int lua_git_oid_ncmp (lua_State *L);
 
-    return 1;
-}
+/* Callable function name : luagit2_oid_fmt(lua_userdata luagit2_oid)
+ *
+ * formats a luagit2_oid to hex string.
+ *
+ * Params required : (lua_userdata) luagit2_oid to format.
+ * Returns : string value of hex string.
+ */
+int lua_git_oid_fmt (lua_State *L);
 
-static int lua_git_oid_fromstrn (lua_State *L) {
-	luagit2_oid *obj_id;
-    const char *string_value = luaL_checkstring(L,1);
-    size_t length = luaL_checkinteger(L,2);
+/* Callable function name : luagit2_oid_nfmt(lua_userdata luagit2_oid)
+ *
+ * formats a luagit2_oid to a given length hex string.
+ *
+ * Params required : (lua_userdata) luagit2_oid to format.
+                     (lua_integer) length
+ * Returns : string value of hex string.
+ */
+int lua_git_oid_nfmt (lua_State *L) ;
 
-    obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
+/* Callable function name : luagit2_oid_pathfmt(lua_userdata luagit2_oid)
+ *
+ * formats a luagit2_oid to path string.
+ *
+ * Params required : (lua_userdata) luagit2_oid to format.
+ * Returns : string value of path string.
+ */
+int lua_git_oid_pathfmt (lua_State *L);
 
-    luaL_getmetatable(L, "luagit2_oid");
-    lua_setmetatable(L, -2);
+/* Callable function name : luagit2_oid_iszero(lua_userdata luagit2_oid)
+ *
+ * Check is an oid is all zeros.
+ *
+ * Params required : (lua_userdata) luagit2_oid check.
+ * Returns : integer equivalent of bool.
+ */
+int lua_git_oid_iszero (lua_State *L);
 
-    git_oid local_id;
-    git_oid_fromstrn(&local_id,string_value,length);
-   	obj_id->oid = local_id;
+/* Callable function name : luagit2_oid_iszero(lua_userdata luagit2_oid, lua_string hex_string)
+ *
+ * Compare an oid to an hex formatted object id's string value.
+ *
+ * Params required : (lua_userdata) luagit2_oid check.
+                     (lua_string) the objectid's string value.   
+ * Returns : integer value corresponding to 
+             1 if str is not valid, < 0 if id sorts before str,
+             0 if id matches str, >0 if id sorts after str.
+ */
+int lua_git_oid_strcmp (lua_State *L);
 
-    return 1;
-}
+/* Callable function name : luagit2_oid_iszero(lua_userdata luagit2_oid)
+ *
+ * Format a git_oid into a buffer as a hex format string.
+ *
+ * Params required : (lua_userdata) luagit2_oid check.
+ * Returns : corresponding string value.
+ */
+int lua_git_oid_tostr (lua_State *L);
 
-static int lua_git_oid_cmp (lua_State *L) {
-	const luagit2_oid *oid_A;
-	const luagit2_oid *oid_B;
+/* Callable function name : luagit2_oid_iszero(lua_userdata luagit2_oid)
+ *
+ * Format a git_oid into a statically allocated string.
+ *
+ * Params required : (lua_userdata) luagit2_oid check.
+ * Returns : corresponding string value.
+ */
+int lua_git_oid_tostr_s (lua_State *L);
 
-    oid_A = (luagit2_oid *)lua_touserdata(L, 1);
-    oid_B = (luagit2_oid *)lua_touserdata(L, 2);
-	int result = git_oid_cmp(&(oid_A->oid),&(oid_B->oid));
-
-	lua_pushinteger(L,result);
-    return 1;
-}
-
-static int lua_git_oid_ncmp (lua_State *L) {
-	const luagit2_oid *oid_A;
-	const luagit2_oid *oid_B;
-
-    oid_A = (luagit2_oid *)lua_touserdata(L, 1);
-    oid_B = (luagit2_oid *)lua_touserdata(L, 2);
-    size_t length = luaL_checkinteger(L,3);
-	int result = git_oid_ncmp(&(oid_A->oid),&(oid_B->oid),length);
-
-	lua_pushinteger(L,result);
-    return 1;
-}
-
-static int lua_git_oid_fmt (lua_State *L) {
-    const luagit2_oid *oid_A;
-
-    oid_A = (luagit2_oid *)lua_touserdata(L, 1);
-
-    char result_str[GIT_OID_HEXSZ+1];
-    result_str[GIT_OID_HEXSZ] = '\0';
-    git_oid_fmt(result_str,&(oid_A->oid));
-
-    lua_pushstring(L,result_str);
-    return 1;
-}
-
-static int lua_git_oid_nfmt (lua_State *L) {
-	const luagit2_oid *oid_A;
-
-    oid_A = (luagit2_oid *)lua_touserdata(L, 1);
-    size_t length = luaL_checkinteger(L,2);
-    char result_str[GIT_OID_HEXSZ+1];
-    result_str[GIT_OID_HEXSZ] = '\0';
-	git_oid_nfmt(result_str,length,&(oid_A->oid));
-
-	lua_pushstring(L,result_str);
-    return 1;
-}
-
-static int lua_git_oid_pathfmt (lua_State *L) {
-	const luagit2_oid *oid_A;
-
-    oid_A = (luagit2_oid *)lua_touserdata(L, 1);
-
-    char result_str[GIT_OID_HEXSZ+2];
-    result_str[GIT_OID_HEXSZ +1] = '\0';
-	git_oid_pathfmt(result_str,&(oid_A->oid));
-
-	lua_pushstring(L,result_str);
-    return 1;
-}
-
-static int lua_git_oid_iszero (lua_State *L) {
-	const luagit2_oid *oid_A;
-
-    oid_A = (luagit2_oid *)lua_touserdata(L, 1);
-	int result = git_oid_iszero(&(oid_A->oid));
-
-	lua_pushinteger(L,result);
-	return 1;
-}
-
-static int lua_git_oid_strcmp (lua_State *L) {
-	const luagit2_oid *oid_A;
-
-    oid_A = (luagit2_oid *)lua_touserdata(L, 1);
-	const char *string_to_compare = luaL_checkstring(L,2);
-	int result = git_oid_strcmp(&(oid_A->oid),string_to_compare);
-
-	lua_pushinteger(L,result);
-
-    return 1;
-}
-
-static int lua_git_oid_tostr (lua_State *L) {
-    const luagit2_oid *oid_A;
-
-    oid_A = (luagit2_oid *)lua_touserdata(L, 1);
-    size_t size_value = luaL_checkinteger(L,2);
-    char *string_value ;;
-    git_oid_tostr(string_value,size_value,&(oid_A->oid));
-    lua_pushstring(L,string_value);
-
-    return 1;
-}
-
-static int lua_git_oid_tostr_s (lua_State *L) {
-    const luagit2_oid *oid_A;
-
-    oid_A = (luagit2_oid *)lua_touserdata(L, 1);
-    const char *string_value = git_oid_tostr_s(&(oid_A->oid));
-
-    lua_pushstring(L,string_value);
-
-    return 1;
-}
 
 #endif
