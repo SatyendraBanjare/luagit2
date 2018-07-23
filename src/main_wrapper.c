@@ -330,6 +330,8 @@ static const struct luaL_Reg luagit2 [] = {
       {"luagit2_tag_target", lua_git_tag_target},
       {"luagit2_tag_target_id", lua_git_tag_target_id},
       {"luagit2_tag_target_type", lua_git_tag_target_type},
+      {"luagit2_tag_message",lua_git_tag_message},
+      {"luagit2_tag_name",lua_git_tag_name},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Object Methods ------------------------------------//
