@@ -33,8 +33,6 @@ void check_error_long(int error, const char *message, const char *extra) {
 		printf( "%s [%d]%s%s\n",
 		    message, error, lg2spacer, lg2msg);
 
-	printf("%s\n",  "Hello");
-
 	exit(1);
 }
 

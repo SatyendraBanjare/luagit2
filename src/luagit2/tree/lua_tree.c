@@ -68,7 +68,6 @@ int lua_git_tree_entry_bypath(lua_State *L) {
 	    "Error in getting tree entry by given file path", NULL);
 	lua_tree_entry->tree_entry = local_tree_entry;
 
-	git_tree_entry_free(local_tree_entry);
 	return 1;
 }
 
@@ -148,7 +147,7 @@ int lua_git_tree_entry_to_object (lua_State *L) {
 	    "Error getting the object pointed by given tree entry", NULL);
 
 	lua_obj->object  = local_obj;
-	git_object_free(local_obj);
+
 	return 1;
 }
 
@@ -205,7 +204,7 @@ int lua_git_tree_lookup (lua_State *L) {
 	    "Error looking up the tree id in the given repository", NULL);
 
 	lua_tree->tree  = local_tree_obj;
-	git_tree_free(local_tree_obj);
+
 	return 1;
 }
 
@@ -227,7 +226,7 @@ int lua_git_tree_lookup_prefix (lua_State *L) {
 	    "Error looking up the tree id in the given repository using its prefix", NULL);
 
 	lua_tree->tree  = local_tree_obj;
-	git_tree_free(local_tree_obj);
+
 	return 1;
 }
 

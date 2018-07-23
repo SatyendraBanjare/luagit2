@@ -1,6 +1,9 @@
 modules = {
 
 	["libgit.*"] = ".",
-	["libgit"] = "test_libgit_spec.lua"
+	["libgit"] = "test_libgit_spec.lua",
+
+	["oid.*"] = ".",
+	["oid"] = "test_oid_spec.lua"
 
 }

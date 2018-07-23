@@ -16,7 +16,6 @@ int lua_git_signature_default (lua_State *L) {
 	    "Error getting default signature details for the given repository", NULL);
 
 	lua_sign->sign  = local_sign_obj;
-	git_signature_free(local_sign_obj);
 	return 1;
 }
 
@@ -36,7 +35,7 @@ int lua_git_signature_dup (lua_State *L) {
 	    "Error generating duplicate signature", NULL);
 
 	lua_sign->sign  = local_sign_obj;
-	git_signature_free(local_sign_obj);
+
 	return 1;
 }
 
@@ -56,7 +55,6 @@ int lua_git_signature_from_buffer (lua_State *L) {
 	    "Error generating signature from buffer string", NULL);
 
 	lua_sign->sign  = local_sign_obj;
-	git_signature_free(local_sign_obj);
 
 	return 1;
 }
@@ -78,7 +76,7 @@ int lua_git_signature_now (lua_State *L) {
 		"Error generating signature from given user and email details", NULL);
 
 	lua_sign->sign  = local_sign_obj;
-	git_signature_free(local_sign_obj);
+
 	return 1;
 }
 

@@ -15,7 +15,6 @@ int lua_git_cred_default_new (lua_State *L) {
 	    "Error creating a default luagit2_cred object", NULL);
 
 	cred_obj->git_cred_object  = out;
-	git_cred_free(out);
 	return 1;
 
 }
@@ -36,7 +35,6 @@ int lua_git_cred_ssh_key_from_agent (lua_State *L) {
 	    "Error creating SSH key credential from agent name", NULL);
 
 	cred_obj->git_cred_object  = out;
-	git_cred_free(out);
 	return 1;
 
 }
@@ -60,7 +58,6 @@ int lua_git_cred_ssh_key_memory_new (lua_State *L) {
 	    "Error creating in memory SSH key credentials from given details", NULL);
 
 	cred_obj->git_cred_object  = out;
-	git_cred_free(out);
 	return 1;
 
 }
@@ -84,7 +81,6 @@ int lua_git_cred_ssh_key_new (lua_State *L) {
 	    "Error creating SSH key credentials from given details", NULL);
 
 	cred_obj->git_cred_object  = out;
-	git_cred_free(out);
 	return 1;
 
 }
@@ -105,7 +101,6 @@ int lua_git_cred_username_new (lua_State *L) {
 	    "Error generating credentials from given user name", NULL);
 
 	cred_obj->git_cred_object  = out;
-	git_cred_free(out);
 	return 1;
 
 }
@@ -127,7 +122,6 @@ int lua_git_cred_userpass_plaintext_new (lua_State *L) {
 	    "Error generating credentials from given username and password ", NULL);
 
 	cred_obj->git_cred_object  = out;
-	git_cred_free(out);
 	return 1;
 
 }
