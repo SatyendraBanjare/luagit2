@@ -4,6 +4,15 @@ modules = {
 	["libgit"] = "test_libgit_spec.lua",
 
 	["oid.*"] = ".",
-	["oid"] = "test_oid_spec.lua"
+	["oid"] = "test_oid_spec.lua",
+
+	["commit.*"] = ".",
+	["commit"] = "test_commit_spec.lua",
+
+	["branch.*"] = ".",
+	["branch"] = "test_branch_spec.lua",
+
+	["blob.*"] = ".",
+	["blob"] = "test_blob_spec.lua"
 
 }
