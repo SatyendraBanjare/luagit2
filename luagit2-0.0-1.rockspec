@@ -33,6 +33,8 @@ build = {
                      "src/luagit2/signature/lua_signature.c",
                      "src/luagit2/signature/lua_signature_help.c",
                      "src/luagit2/tree/lua_tree.c",
+                     "src/luagit2/tag/lua_tag.c",
+                     "src/luagit2/object/lua_object.c",
                      "src/main_wrapper.c" 
                    },
          libraries = {"git2" , "lua5.3" },

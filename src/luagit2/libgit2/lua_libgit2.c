@@ -151,9 +151,9 @@ int lua_GIT_OPT_GET_CACHED_MEMORY(lua_State *L) {
 }
 
 int lua_GIT_OPT_SET_CACHE_OBJECT_LIMIT(lua_State *L) {
-	int size = luaL_checkinteger(L, 1);
-	git_otype type;
-	check_error_long(git_libgit2_opts(GIT_OPT_SET_CACHE_OBJECT_LIMIT, type, size),
+	luagit2_otype *obj_type = (luagit2_otype *)lua_touserdata(L,1);
+	size_t size = luaL_checkinteger(L, 2);
+	check_error_long(git_libgit2_opts(GIT_OPT_SET_CACHE_OBJECT_LIMIT, obj_type->otype, size),
 	    "Error setting chache limit", NULL);
 	return 1;
 }
