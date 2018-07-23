@@ -4,12 +4,6 @@
 #include <git2.h>
 
 typedef struct {
-	int major;
-	int minor;
-	int rev;
-} libgit_version_data;
-
-typedef struct {
 	git_cred *git_cred_object;
 } luagit2_cred_object;
 
