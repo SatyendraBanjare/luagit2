@@ -30,7 +30,7 @@ int lua_git_diff_get_stats (lua_State *L) {
 	luagit2_diff_stats *lua_diff_stats = (luagit2_diff_stats *)lua_newuserdata(L, sizeof(*lua_diff_stats));
 	lua_diff_stats->diff_stats  = NULL;
 
-	luaL_newmetatable(L, "lua_diff_stats");
+	luaL_newmetatable(L, "luagit2_diff_stats");
 	lua_setmetatable(L, -2);
 
 	git_diff_stats *local_diff_stats;
@@ -197,7 +197,7 @@ int lua_git_diff_stats_to_buf (lua_State *L) {
 int lua_git_diff_to_buf(lua_State *L) {
 
 	if (lua_gettop(L) != 2) {
-		return luaL_error(L, "expecting 2 arguments : luagit2_diff_stats,luagit2_diff_format_option");
+		return luaL_error(L, "expecting 2 arguments : luagit2_diff,luagit2_diff_format_option");
 	}
 
 	const luagit2_diff *lua_diff = (luagit2_diff *)luaL_checkudata(L, 1, "luagit2_diff");
