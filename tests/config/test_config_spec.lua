@@ -3,6 +3,18 @@
 local fixer = require("Fixtures.fix_repo")
 local lfs = require("lfs")
 
+local function get_config_details(option_string)
+	name_handle = io.popen("git config --get --" .. option_string .." user.name ")
+	name = name_handle:read("*a")
+	name_handle:close()
+
+	email_handle = io.popen("git config --get --" .. option_string .." user.email ")
+	email = email_handle:read("*a")
+	email_handle:close()
+
+	return name, email
+end
+
 describe(" Config Methods Tests ", function()
 	local lib = require("luagit2")
 	local repo
@@ -22,31 +34,10 @@ describe(" Config Methods Tests ", function()
 		repo = lib.luagit2_repository_open("Fixtures/WORKON_REPO/.git")
 		Config_ondisk = lib.luagit2_config_open_ondisk(current_directory_path .. "/Fixtures/WORKON_REPO/.git/config")
 		Config_Default = lib.luagit2_config_open_default()
-		-- Config_System = lib.luagit2_config_open_system()
 
-		local name_handle = io.popen("git config --get user.name ")
-		default_name = name_handle:read("*a")
-		name_handle:close()
-
-		local email_handle = io.popen("git config --get user.email ")
-		default_email = email_handle:read("*a")
-		email_handle:close()
-
-		local sys_name_handle = io.popen("git config --system --get user.name ")
-		sys_name = sys_name_handle:read("*a")
-		sys_name_handle:close()
-
-		local sys_email_handle = io.popen("git config --system --get user.email ")
-		sys_email = sys_email_handle:read("*a")
-		sys_email_handle:close()
-
-		local global_name_handle = io.popen("git config --global --get user.name ")
-		global_name = global_name_handle:read("*a")
-		global_name_handle:close()
-
-		local global_email_handle = io.popen("git config --global --get user.email ")
-		global_email = global_email_handle:read("*a")
-		global_email_handle:close()
+		default_name, default_email = get_config_details("")
+		sys_name, sys_email  = get_config_details("system")
+		global_name, global_email = get_config_details("global")
 
 	end)
 
@@ -153,15 +144,6 @@ describe(" Config Methods Tests ", function()
 		assert.are.equal(default_name, Def_name .. '\n' )
 		assert.are.equal(default_email, Def_email .. '\n')
 	end)
-
-	-- it("Tests config open System ", function()
-	-- 	Config_Snapshot = lib.luagit2_config_snapshot(Config_System)
-	-- 	local name = lib.luagit2_config_get_string(Config_Snapshot,"user.name")
-	-- 	local email = lib.luagit2_config_get_string(Config_Snapshot,"user.email")
-
-	-- 	assert.are.equal(name .. '\n', sys_name)
-	-- 	assert.are.equal(email .. '\n',sys_email)
-	-- end)
 
 	it("Tests find System, Global Config path ", function()
 		local find_global = lib.luagit2_config_find_global()
@@ -297,8 +279,8 @@ describe(" Config Methods Tests ", function()
 
 		-- Lets check for the deleted variable
 		Config_Snapshot = lib.luagit2_config_snapshot(Config_ondisk)
-		name = lib.luagit2_config_get_string(Config_Snapshot,"user.name")
-		email = lib.luagit2_config_get_string(Config_Snapshot,"user.email")
+		local name = lib.luagit2_config_get_string(Config_Snapshot,"user.name")
+		local email = lib.luagit2_config_get_string(Config_Snapshot,"user.email")
 		assert.is_nil(name)
 		assert.is_nil(email)
 	end)
