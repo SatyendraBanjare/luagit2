@@ -66,10 +66,6 @@ typedef struct {
 } luagit2_filemode;
 
 typedef struct {
-	git_time_t time;
-} luagit2_time;
-
-typedef struct {
 	git_reference *reference;
 } luagit2_reference;
 
