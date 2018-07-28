@@ -195,18 +195,41 @@ int lua_git_note_remove (lua_State *L) {
 
 int lua_git_note_read (lua_State *L) {
 
-	if (lua_gettop(L) != 4) {
-		return luaL_error(L, "expecting exactly 4 arguments : luagit2_repository,(string)notes_ref,luagit2_oid(object's ID)");
+	if (lua_gettop(L) != 3) {
+		return luaL_error(L, "expecting exactly 3 arguments : luagit2_repository,(string)notes_ref,luagit2_oid(object's ID)");
 	}
 
 	const luagit2_repository *Repo = (luagit2_repository *)luaL_checkudata(L, 1,"luagit2_repository");
 	const char *notes_ref = luaL_checkstring(L,2);
-	const luagit2_oid *obj_id = (luagit2_oid *)luaL_checkudata(L, 5, "luagit2_oid");
+	const luagit2_oid *obj_id = (luagit2_oid *)luaL_checkudata(L, 3, "luagit2_oid");
 
 	git_note *local_note;
 
 	check_error_long(git_note_read(&local_note, Repo->repo, notes_ref,
 		&(obj_id->oid)),"Unable to read a note", NULL);
+
+	luagit2_note *lua_note = (luagit2_note *)lua_newuserdata(L, sizeof(*lua_note));
+	luaL_newmetatable(L, "luagit2_note");
+	lua_setmetatable(L, -2);
+	lua_note->note = local_note;
+
+	return 1;
+}
+
+int lua_git_note_commit_read (lua_State *L) {
+
+	if (lua_gettop(L) != 3) {
+		return luaL_error(L, "expecting exactly 3 arguments : luagit2_repository,luagit2_commit(notes_commit),luagit2_oid(object's ID)");
+	}
+
+	const luagit2_repository *Repo = (luagit2_repository *)luaL_checkudata(L, 1,"luagit2_repository");
+	const luagit2_commit *lua_commit = (luagit2_commit *)luaL_checkudata(L, 2, "luagit2_commit");
+	const luagit2_oid *obj_id = (luagit2_oid *)luaL_checkudata(L, 3, "luagit2_oid");
+
+	git_note *local_note;
+
+	check_error_long(git_note_commit_read(&local_note, Repo->repo, lua_commit->commit,
+		&(obj_id->oid)),"Unable to read a commit note", NULL);
 
 	luagit2_note *lua_note = (luagit2_note *)lua_newuserdata(L, sizeof(*lua_note));
 	luaL_newmetatable(L, "luagit2_note");

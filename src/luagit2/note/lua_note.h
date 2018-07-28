@@ -13,5 +13,6 @@ int lua_git_note_id (lua_State *L);
 int lua_git_note_commit_remove (lua_State *L);
 int lua_git_note_remove (lua_State *L);
 int lua_git_note_read (lua_State *L);
+int lua_git_note_commit_read (lua_State *L);
 
 #endif

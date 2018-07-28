@@ -374,6 +374,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"note_commit_remove",lua_git_note_commit_remove},
       {"note_remove",lua_git_note_remove},
       {"note_read",lua_git_note_read},
+      {"note_commit_read",lua_git_note_commit_read},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//
