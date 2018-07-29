@@ -163,4 +163,24 @@ typedef struct {
 	git_checkout_options checkout_opts;
 }luagit2_checkout_options;
 
+typedef struct {
+	git_diff *diff;
+} luagit2_diff;
+
+typedef struct {
+	git_diff_options diff_opts;
+} luagit2_diff_options;
+
+typedef struct {
+	git_diff_stats *diff_stats;
+} luagit2_diff_stats;
+
+typedef struct {
+	git_diff_stats_format_t stats_format;
+} luagit2_diff_stats_format;
+
+typedef struct {
+	git_diff_format_t diff_format;
+} luagit2_diff_format;
+
 #endif
