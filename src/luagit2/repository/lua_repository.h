@@ -36,5 +36,12 @@ int lua_git_repository_state (lua_State *L);
 int lua_git_repository_state_cleanup (lua_State *L);
 int lua_git_repository_workdir (lua_State *L);
 int lua_git_repository_free (lua_State *L);
+int lua_git_repository_submodule_cache_all (lua_State *L);
+int lua_git_repository_submodule_cache_clear (lua_State *L);
+int lua_git_repository_set_index (lua_State *L);
+int lua_git_repository_set_bare (lua_State *L);
+int lua_git_repository_set_config (lua_State *L);
+int lua_git_repository_set_odb (lua_State *L);
+int lua_git_repository__cleanup(lua_State *L);
 
 #endif

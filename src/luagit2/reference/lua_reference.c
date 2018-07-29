@@ -438,7 +438,7 @@ int lua_git_reference_symbolic_set_target (lua_State *L) {
 
 	git_reference *local_ref;
 	check_error_long(git_reference_symbolic_set_target(&local_ref, lua_ref_old->reference, target, log_message),
-		"Unable to set a symbolic target", NULL);
+	    "Unable to set a symbolic target", NULL);
 	lua_ref->reference  = local_ref;
 
 	return 1;
@@ -480,7 +480,7 @@ int lua_git_reference_type (lua_State *L) {
 	luagit2_ref_type *lua_ref_type ;
 	lua_ref_type = (luagit2_ref_type *)lua_newuserdata(L, sizeof(*lua_ref_type));
 
-	luaL_newmetatable(L, "luagit2_oid");
+	luaL_newmetatable(L, "luagit2_ref_type");
 	lua_setmetatable(L, -2);
 	lua_ref_type->ref_type = git_reference_type(lua_ref->reference);
 
