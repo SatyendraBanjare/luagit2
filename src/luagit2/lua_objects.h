@@ -147,4 +147,8 @@ typedef struct {
 	git_describe_result *describe_result;
 }luagit2_describe_result;
 
+typedef struct {
+	git_checkout_options checkout_opts;
+}luagit2_checkout_options;
+
 #endif

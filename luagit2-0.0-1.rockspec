@@ -22,6 +22,7 @@ build = {
                      "src/luagit2/blob/lua_blob.c",
                      "src/luagit2/branch/lua_branch.c",
                      "src/luagit2/branch/lua_branch_help.c",
+                     "src/luagit2/checkout/lua_checkout.c",
                      "src/luagit2/clone/lua_clone.c",
                      "src/luagit2/commit/lua_commit.c",
                      "src/luagit2/config/lua_config.c",
@@ -34,6 +35,7 @@ build = {
                      "src/luagit2/oid/lua_oid.c",
                      "src/luagit2/reference/lua_reference.c",
                      "src/luagit2/repository/lua_repository.c",
+                     "src/luagit2/reset/lua_reset.c",
                      "src/luagit2/signature/lua_signature.c",
                      "src/luagit2/signature/lua_signature_help.c",
                      "src/luagit2/tree/lua_tree.c",
@@ -41,6 +43,7 @@ build = {
                      "src/luagit2/object/lua_object.c",
                      "src/luagit2/buf/lua_buf.c",
                      "src/luagit2/buf/lua_buf_help.c",
+                     "src/luagit2/annotated/lua_annotated.c",
                      "src/main_wrapper.c" 
                    },
          libraries = {"git2" , "lua5.3" },
