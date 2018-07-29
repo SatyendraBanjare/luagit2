@@ -18,5 +18,7 @@ int lua_git_tag_tagger (lua_State *L);
 int lua_git_tag_target (lua_State *L);
 int lua_git_tag_target_id(lua_State *L);
 int lua_git_tag_target_type (lua_State *L);
+int lua_git_tag_message(lua_State *L);
+int lua_git_tag_name(lua_State *L);
 
 #endif

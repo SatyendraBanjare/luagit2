@@ -1,17 +1,17 @@
 #include "lua_buf.h"
 
-int lua_git_buf_set_char(lua_State *L) {
+int lua_git_buf_set_str(lua_State *L) {
 	luagit2_buf *lua_buf;
 	const char *string_value = luaL_checkstring(L, 1);
-	size_t data_length = luaL_checkinteger(L, 2);
 
 	lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
+	lua_buf->buf = NULL;
 
 	luaL_newmetatable(L, "luagit2_buf");
 	lua_setmetatable(L, -2);
 
-	git_buf local_buf;
-	check_error_long(git_buf_set(&local_buf, string_value, data_length),
+	git_buf local_buf = GIT_BUF_INIT_CONST(NULL,0);
+	check_error_long(git_buf_set(&local_buf, string_value, strlen(string_value)),
 	    "Unable to set char in the buf", NULL);
 	lua_buf->buf = &local_buf;
 

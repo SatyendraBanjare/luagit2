@@ -30,5 +30,12 @@ int lua_git_config_set_multivar (lua_State *L);
 int lua_git_config_set_string (lua_State *L);
 int lua_git_config_snapshot (lua_State *L);
 int lua_git_config_free (lua_State *L);
+int lua_git_config_add_file_ondisk (lua_State *L);
+int lua_git_config_new(lua_State *L);
+int lua_git_config_iterator_new(lua_State *L);
+int lua_git_config_entry_free(lua_State *L);
+int lua_git_config_get_entry(lua_State *L);
+int lua_git_config_next(lua_State *L);
+int lua_git_config_iterator_free(lua_State *L);
 
 #endif
