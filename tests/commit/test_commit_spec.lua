@@ -277,12 +277,43 @@ describe(" Commit Methods Tests ", function()
 
 	end)
 
-	pending(" Tests extract commit signature ", function()
-		local sign_buf = lib.luagit2_commit_extract_signature(repo,Commit_Id_A)
-		print(lib.luagit2_buf_details(sign_buf))
+	it(" Tests create a signed commit and extract commit signature ", function()
+
+		local gpgsig = "-----BEGIN PGP SIGNATURE-----\n\
+		Version: GnuPG v1.4.12 (Darwin)\n\
+		\n\
+		iQIcBAABAgAGBQJQ+FMIAAoJEH+LfPdZDSs1e3EQAJMjhqjWF+WkGLHju7pTw2al\n\
+		o6IoMAhv0Z/LHlWhzBd9e7JeCnanRt12bAU7yvYp9+Z+z+dbwqLwDoFp8LVuigl8\n\
+		JGLcnwiUW3rSvhjdCp9irdb4+bhKUnKUzSdsR2CK4/hC0N2i/HOvMYX+BRsvqweq\n\
+		AsAkA6dAWh+gAfedrBUkCTGhlNYoetjdakWqlGL1TiKAefEZrtA1TpPkGn92vbLq\n\
+		SphFRUY9hVn1ZBWrT3hEpvAIcZag3rTOiRVT1X1flj8B2vGCEr3RrcwOIZikpdaW\n\
+		who/X3xh/DGbI2RbuxmmJpxxP/8dsVchRJJzBwG+yhwU/iN3MlV2c5D69tls/Dok\n\
+		6VbyU4lm/ae0y3yR83D9dUlkycOnmmlBAHKIZ9qUts9X7mWJf0+yy2QxJVpjaTGG\n\
+		cmnQKKPeNIhGJk2ENnnnzjEve7L7YJQF6itbx5VCOcsGh3Ocb3YR7DMdWjt7f8pu\n\
+		c6j+q1rP7EpE2afUN/geSlp5i3x8aXZPDj67jImbVCE/Q1X9voCtyzGJH7MXR0N9\n\
+		ZpRF8yzveRfMH8bwAJjSOGAFF5XkcR/RNY95o+J+QcgBLdX48h+ZdNmUf6jqlu3J\n\
+		7KmTXXQcOVpN6dD3CmRFsbjq+x6RHwa8u1iGn+oIkX908r97ckfB/kHKH7ZdXIJc\n\
+		cpxtDQQMGYFpXK/71stq\n\
+		=ozeK\n\
+		-----END PGP SIGNATURE-----";
+
+		local data =  "tree 1b49a09ae5e707b8ed48e6048aa1901138838944\n\
+		parent 108ddee361877aa5c044d89d8dd232b8fd0f8992\n\
+		author Test_user <test@example.com> 1358451456 -0800\n\
+		committer Test_user <test@example.com> 1358451456 -0800\n\
+		\n\
+		a simple commit which works\n";
+
+		local new_commit_id = lib.luagit2_commit_create_with_signature(repo,data,gpgsig)
+		local sign_buf, extra_buf = lib.luagit2_commit_extract_signature(repo,new_commit_id)
+
+		assert.are.equal(gpgsig,lib.luagit2_buf_details(sign_buf))
 	end)
 
-	pending("Tests commit time",function()
+	it("Tests commit time",function()
+		local time_str = lib.luagit2_commit_time(Commit_A)
+		assert.is_not_nil(time_str)
+		assert.is_string(time_str)
 	end)
 
 end)
