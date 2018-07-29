@@ -17,6 +17,7 @@
 #include "luagit2/buf/lua_buf.h"
 #include "luagit2/checkout/lua_checkout.h"
 #include "luagit2/reset/lua_reset.h"
+#include "luagit2/annotated/lua_annotated.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -364,7 +365,6 @@ static const struct luaL_Reg luagit2 [] = {
       {"buf_free", lua_git_buf_free},
       //-----------------------------------------------------------------------------------------------//
 
-
       //------------------------------------------ Checkout Methods------------------------------------//
       {"checkout_init_options",lua_git_checkout_init_options},
       {"checkout_head",lua_git_checkout_head},
@@ -374,6 +374,15 @@ static const struct luaL_Reg luagit2 [] = {
 
       //------------------------------------------ Reset Methods --------------------------------------//
       {"reset",lua_git_reset},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Annotated Methods ---------------------------------//
+      {"annotated_commit_from_ref",lua_git_annotated_commit_from_ref},
+      {"annotated_commit_from_revspec",lua_git_annotated_commit_from_revspec},
+      {"annotated_commit_lookup",lua_git_annotated_commit_lookup},
+      {"annotated_commit_from_fetchhead",lua_git_annotated_commit_from_fetchhead},
+      {"annotated_commit_id",lua_git_annotated_commit_id},
+      {"annotated_commit_free",lua_git_annotated_commit_free},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//
