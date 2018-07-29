@@ -144,6 +144,14 @@ typedef struct {
 }luagit2_config_iterator;
 
 typedef struct {
+	git_reflog *reflog;
+}luagit2_reflog;
+
+typedef struct {
+	git_reflog_entry *reflog_entry;
+}luagit2_reflog_entry;
+
+typedef struct {
 	git_describe_result *describe_result;
 }luagit2_describe_result;
 
