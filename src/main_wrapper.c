@@ -15,6 +15,7 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/describe/lua_describe.h"
 #include "luagit2/checkout/lua_checkout.h"
 #include "luagit2/reset/lua_reset.h"
 #include "luagit2/annotated/lua_annotated.h"
@@ -363,6 +364,13 @@ static const struct luaL_Reg luagit2 [] = {
       //------------------------------------------- Buf Methods ---------------------------------------//
       {"buf_set_str", lua_git_buf_set_str},
       {"buf_free", lua_git_buf_free},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Describe Mehthods ---------------------------------//
+      {"describe_commit",lua_git_describe_commit},
+      {"describe_workdir",lua_git_describe_workdir},
+      {"describe_format",lua_git_describe_format},
+      {"describe_result_free",lua_git_describe_result_free},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------ Checkout Methods------------------------------------//

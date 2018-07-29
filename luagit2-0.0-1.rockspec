@@ -29,6 +29,7 @@ build = {
                      "src/luagit2/config/lua_config_help.c",
                      "src/luagit2/cred/lua_cred.c",
                      "src/luagit2/cred/lua_cred_help.c",
+                     "src/luagit2/describe/lua_describe.c",
                      "src/luagit2/index/lua_index.c",
                      "src/luagit2/index/lua_index_help.c",
                      "src/luagit2/oid/lua_oid.c",
