@@ -147,4 +147,20 @@ typedef struct {
 	git_revspec *revspec;
 } luagit2_revspec;
 
+typedef struct {
+	git_reflog *reflog;
+}luagit2_reflog;
+
+typedef struct {
+	git_reflog_entry *reflog_entry;
+}luagit2_reflog_entry;
+
+typedef struct {
+	git_describe_result *describe_result;
+}luagit2_describe_result;
+
+typedef struct {
+	git_checkout_options checkout_opts;
+}luagit2_checkout_options;
+
 #endif
