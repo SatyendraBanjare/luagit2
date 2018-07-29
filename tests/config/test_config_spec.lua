@@ -4,12 +4,12 @@ local fixer = require("Fixtures.fix_repo")
 local lfs = require("lfs")
 
 local function get_config_details(option_string)
-	name_handle = io.popen("git config --get --" .. option_string .." user.name ")
-	name = name_handle:read("*a")
+	local name_handle = io.popen("git config --get --" .. option_string .." user.name ")
+	local name = name_handle:read("*a")
 	name_handle:close()
 
-	email_handle = io.popen("git config --get --" .. option_string .." user.email ")
-	email = email_handle:read("*a")
+	local email_handle = io.popen("git config --get --" .. option_string .." user.email ")
+	local email = email_handle:read("*a")
 	email_handle:close()
 
 	return name, email
