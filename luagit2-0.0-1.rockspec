@@ -36,6 +36,8 @@ build = {
                      "src/luagit2/reference/lua_reference.c",
                      "src/luagit2/reflog/lua_reflog.c",
                      "src/luagit2/repository/lua_repository.c",
+                     "src/luagit2/revparse/lua_revparse.c",
+                     "src/luagit2/revparse/lua_revparse_help.c",
                      "src/luagit2/revert/lua_revert.c",
                      "src/luagit2/reset/lua_reset.c",
                      "src/luagit2/signature/lua_signature.c",

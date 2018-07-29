@@ -15,6 +15,7 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/revparse/lua_revparse.h"
 #include "luagit2/revert/lua_revert.h"
 #include "luagit2/reflog/lua_reflog.h"
 #include "luagit2/describe/lua_describe.h"
@@ -28,6 +29,7 @@
 #include "luagit2/config/lua_config_help.h"
 #include "luagit2/cred/lua_cred_help.h"
 #include "luagit2/index/lua_index_help.h"
+#include "luagit2/revparse/lua_revparse_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -368,6 +370,11 @@ static const struct luaL_Reg luagit2 [] = {
       {"buf_free", lua_git_buf_free},
       //-----------------------------------------------------------------------------------------------//
 
+      //------------------------------------------- Revparse methods ----------------------------------//
+      {"revparse",lua_git_revparse},
+      {"revparse_single",lua_git_revparse_single},
+      //-----------------------------------------------------------------------------------------------//
+
       //------------------------------------------- revert methods ------------------------------------//
       {"revert",lua_git_revert},
       //-----------------------------------------------------------------------------------------------//
@@ -438,6 +445,8 @@ static const struct luaL_Reg luagit2 [] = {
       {"index_entry_get_oid_str",lua_git_index_entry_get_oid_str},
       {"index_entry_get_dev_inode",lua_git_index_entry_get_dev_inode},
       {"index_entry_get_UID_GID",lua_git_index_entry_get_UID_GID},
+      {"revspec_from",lua_git_revspec_from},
+      {"revspec_to",lua_git_revspec_to},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}
 };
