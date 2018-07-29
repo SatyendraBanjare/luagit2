@@ -15,6 +15,7 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/revert/lua_revert.h"
 #include "luagit2/reflog/lua_reflog.h"
 #include "luagit2/describe/lua_describe.h"
 #include "luagit2/checkout/lua_checkout.h"
@@ -365,6 +366,10 @@ static const struct luaL_Reg luagit2 [] = {
       //------------------------------------------- Buf Methods ---------------------------------------//
       {"buf_set_str", lua_git_buf_set_str},
       {"buf_free", lua_git_buf_free},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- revert methods ------------------------------------//
+      {"revert",lua_git_revert},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Reflog Methods ------------------------------------//
