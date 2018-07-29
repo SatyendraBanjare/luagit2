@@ -16,6 +16,13 @@
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
 #include "luagit2/annotated/lua_annotated.h"
+#include "luagit2/checkout/lua_checkout.h"
+#include "luagit2/reset/lua_reset.h"
+#include "luagit2/describe/lua_describe.h"
+#include "luagit2/reflog/lua_reflog.h"
+#include "luagit2/revert/lua_revert.h"
+#include "luagit2/revparse/lua_revparse.h"
+#include "luagit2/diff/lua_diff.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -23,6 +30,8 @@
 #include "luagit2/config/lua_config_help.h"
 #include "luagit2/cred/lua_cred_help.h"
 #include "luagit2/index/lua_index_help.h"
+#include "luagit2/revparse/lua_revparse_help.h"
+#include "luagit2/diff/lua_diff_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -192,30 +201,29 @@ static const struct luaL_Reg luagit2 [] = {
       //-----------------------------------------------------------------------------------------------//
 
       //--------------------------------------------- Commit functions --------------------------------//
-      {"luagit2_commit_author", lua_git_commit_author},
-      {"luagit2_commit_body", lua_git_commit_body},
-      {"luagit2_commit_committer", lua_git_commit_committer},
-      {"luagit2_commit_extract_signature", lua_git_commit_extract_signature},
-      {"luagit2_commit_header_field", lua_git_commit_header_field},
-      {"luagit2_commit_lookup", lua_git_commit_lookup},
-      {"luagit2_commit_lookup_prefix", lua_git_commit_lookup_prefix},
-      {"luagit2_commit_message", lua_git_commit_message},
-      {"luagit2_commit_message_encoding", lua_git_commit_message_encoding},
-      {"luagit2_commit_message_raw", lua_git_commit_message_raw},
-      {"luagit2_commit_nth_gen_ancestor", lua_git_commit_nth_gen_ancestor},
-      {"luagit2_commit_parent", lua_git_commit_parent},
-      {"luagit2_commit_parent_id", lua_git_commit_parent_id},
-      {"luagit2_commit_parentcount", lua_git_commit_parentcount},
-      {"luagit2_commit_raw_header", lua_git_commit_raw_header},
-      {"luagit2_commit_summary", lua_git_commit_summary},
-      {"luagit2_commit_time", lua_git_commit_time},
-      {"luagit2_commit_tree", lua_git_commit_tree},
-      {"luagit2_commit_tree_id", lua_git_commit_tree_id},
-      {"luagit2_commit_free", lua_git_commit_free},
-      {"luagit2_commit_id",lua_git_commit_id},
-      {"luagit2_commit_create_update_head",lua_git_commit_create_update_head},
-      {"luagit2_commit_create_update_none",lua_git_commit_create_update_none},
-      {"luagit2_commit_create_with_signature",lua_git_commit_create_with_signature},
+      {"commit_author", lua_git_commit_author},
+      {"commit_body", lua_git_commit_body},
+      {"commit_committer", lua_git_commit_committer},
+      {"commit_extract_signature", lua_git_commit_extract_signature},
+      {"commit_header_field", lua_git_commit_header_field},
+      {"commit_lookup", lua_git_commit_lookup},
+      {"commit_lookup_prefix", lua_git_commit_lookup_prefix},
+      {"commit_message", lua_git_commit_message},
+      {"commit_message_encoding", lua_git_commit_message_encoding},
+      {"commit_message_raw", lua_git_commit_message_raw},
+      {"commit_nth_gen_ancestor", lua_git_commit_nth_gen_ancestor},
+      {"commit_parent", lua_git_commit_parent},
+      {"commit_parent_id", lua_git_commit_parent_id},
+      {"commit_parentcount", lua_git_commit_parentcount},
+      {"commit_raw_header", lua_git_commit_raw_header},
+      {"commit_summary", lua_git_commit_summary},
+      {"commit_time", lua_git_commit_time},
+      {"commit_tree", lua_git_commit_tree},
+      {"commit_tree_id", lua_git_commit_tree_id},
+      {"commit_free", lua_git_commit_free},
+      {"commit_id", lua_git_commit_id},
+      {"commit_create_update_head", lua_git_commit_create_update_head},
+      {"commit_create_update_none", lua_git_commit_create_update_none},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Index methods -------------------------------------//
@@ -371,6 +379,65 @@ static const struct luaL_Reg luagit2 [] = {
       {"annotated_commit_from_fetchhead",lua_git_annotated_commit_from_fetchhead},
       {"annotated_commit_id",lua_git_annotated_commit_id},
       {"annotated_commit_free",lua_git_annotated_commit_free},
+
+      //------------------------------------------ Checkout Methods------------------------------------//
+      {"checkout_init_options",lua_git_checkout_init_options},
+      {"checkout_head",lua_git_checkout_head},
+      {"checkout_index",lua_git_checkout_index},
+      {"checkout_tree",lua_git_checkout_tree},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------ Reset Methods --------------------------------------//
+      {"reset",lua_git_reset},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Describe Mehthods ---------------------------------//
+      {"describe_commit",lua_git_describe_commit},
+      {"describe_workdir",lua_git_describe_workdir},
+      {"describe_format",lua_git_describe_format},
+      {"describe_result_free",lua_git_describe_result_free},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Reflog Methods ------------------------------------//
+      {"reflog_read",lua_git_reflog_read},
+      {"reflog_entrycount",lua_git_reflog_entrycount},
+      {"reflog_free",lua_git_reflog_free},
+      {"reflog_entry_byindex",lua_git_reflog_entry_byindex},
+      {"reflog_entry_committer",lua_git_reflog_entry_committer},
+      {"reflog_entry_message",lua_git_reflog_entry_message},
+      {"reflog_entry_id_new",lua_git_reflog_entry_id_new},
+      {"reflog_entry_id_old",lua_git_reflog_entry_id_old},
+      {"reflog_delete",lua_git_reflog_delete},
+      {"reflog_drop",lua_git_reflog_drop},
+      {"reflog_append",lua_git_reflog_append},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- revert methods ------------------------------------//
+      {"revert",lua_git_revert},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Revparse methods ----------------------------------//
+      {"revparse",lua_git_revparse},
+      {"revparse_single",lua_git_revparse_single},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Diff Methods --------------------------------------//
+      {"diff_init_options",lua_git_diff_init_options},
+      {"diff_get_stats",lua_git_diff_get_stats},
+      {"diff_index_to_index",lua_git_diff_index_to_index},
+      {"diff_index_to_workdir",lua_git_diff_index_to_workdir},
+      {"diff_is_sorted_icase",lua_git_diff_is_sorted_icase},
+      {"diff_merge",lua_git_diff_merge},
+      {"diff_num_deltas",lua_git_diff_num_deltas},
+      {"diff_stats_deletions",lua_git_diff_stats_deletions},
+      {"diff_stats_files_changed",lua_git_diff_stats_files_changed},
+      {"diff_stats_insertions",lua_git_diff_stats_insertions},
+      {"diff_stats_to_buf",lua_git_diff_stats_to_buf},
+      {"diff_to_buf",lua_git_diff_to_buf},
+      {"diff_tree_to_index",lua_git_diff_tree_to_index},
+      {"diff_tree_to_tree",lua_git_diff_tree_to_tree},
+      {"diff_tree_to_workdir",lua_git_diff_tree_to_workdir},
+      {"diff_tree_to_workdir_with_index",lua_git_diff_tree_to_workdir_with_index},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//
@@ -397,6 +464,10 @@ static const struct luaL_Reg luagit2 [] = {
       {"index_entry_get_oid_str",lua_git_index_entry_get_oid_str},
       {"index_entry_get_dev_inode",lua_git_index_entry_get_dev_inode},
       {"index_entry_get_UID_GID",lua_git_index_entry_get_UID_GID},
+      {"revspec_from",lua_git_revspec_from},
+      {"revspec_to",lua_git_revspec_to},
+      {"diff_format_init",lua_diff_format_init},
+      {"diff_stats_format_init",lua_diff_stats_format_init},
       //-----------------------------------------------------------------------------------------------//
       {NULL, NULL}
 };
