@@ -16,6 +16,11 @@
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
 #include "luagit2/revert/lua_revert.h"
+#include "luagit2/reflog/lua_reflog.h"
+#include "luagit2/describe/lua_describe.h"
+#include "luagit2/checkout/lua_checkout.h"
+#include "luagit2/reset/lua_reset.h"
+#include "luagit2/annotated/lua_annotated.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -365,6 +370,48 @@ static const struct luaL_Reg luagit2 [] = {
 
       //------------------------------------------- revert methods ------------------------------------//
       {"revert",lua_git_revert},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Reflog Methods ------------------------------------//
+      {"reflog_read",lua_git_reflog_read},
+      {"reflog_entrycount",lua_git_reflog_entrycount},
+      {"reflog_free",lua_git_reflog_free},
+      {"reflog_entry_byindex",lua_git_reflog_entry_byindex},
+      {"reflog_entry_committer",lua_git_reflog_entry_committer},
+      {"reflog_entry_message",lua_git_reflog_entry_message},
+      {"reflog_entry_id_new",lua_git_reflog_entry_id_new},
+      {"reflog_entry_id_old",lua_git_reflog_entry_id_old},
+      {"reflog_delete",lua_git_reflog_delete},
+      {"reflog_drop",lua_git_reflog_drop},
+      {"reflog_append",lua_git_reflog_append},
+      //-----------------------------------------------------------------------------------------------//
+
+
+      //------------------------------------------- Describe Mehthods ---------------------------------//
+      {"describe_commit",lua_git_describe_commit},
+      {"describe_workdir",lua_git_describe_workdir},
+      {"describe_format",lua_git_describe_format},
+      {"describe_result_free",lua_git_describe_result_free},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------ Checkout Methods------------------------------------//
+      {"checkout_init_options",lua_git_checkout_init_options},
+      {"checkout_head",lua_git_checkout_head},
+      {"checkout_index",lua_git_checkout_index},
+      {"checkout_tree",lua_git_checkout_tree},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------ Reset Methods --------------------------------------//
+      {"reset",lua_git_reset},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Annotated Methods ---------------------------------//
+      {"annotated_commit_from_ref",lua_git_annotated_commit_from_ref},
+      {"annotated_commit_from_revspec",lua_git_annotated_commit_from_revspec},
+      {"annotated_commit_lookup",lua_git_annotated_commit_lookup},
+      {"annotated_commit_from_fetchhead",lua_git_annotated_commit_from_fetchhead},
+      {"annotated_commit_id",lua_git_annotated_commit_id},
+      {"annotated_commit_free",lua_git_annotated_commit_free},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//
