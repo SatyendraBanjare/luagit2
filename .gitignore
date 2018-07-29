@@ -15,4 +15,7 @@ tests/luacov.stats.out
 *.o
 
 # The test repository files (in tests/Fixtures)
-*.gitted/
+tests/Fixtures/testrepo2
+
+WORKON_REPO
+

@@ -21,15 +21,18 @@ set(src_dest "src/")
 set (SOURCES
              ${src_dest}/luagit2/common/lua_common.c
              ${src_dest}/luagit2/libgit2/lua_libgit2.c
-             ${src_dest}/luagit2/libgit2/lua_libgit2_help.c
              ${src_dest}/luagit2/blame/lua_blame.c
              ${src_dest}/luagit2/blob/lua_blob.c
              ${src_dest}/luagit2/branch/lua_branch.c
+             ${src_dest}/luagit2/branch/lua_branch_help.c
              ${src_dest}/luagit2/clone/lua_clone.c
              ${src_dest}/luagit2/commit/lua_commit.c
+             ${src_dest}/luagit2/config/lua_config_help.c
              ${src_dest}/luagit2/config/lua_config.c
              ${src_dest}/luagit2/cred/lua_cred.c
+             ${src_dest}/luagit2/cred/lua_cred_help.c
              ${src_dest}/luagit2/index/lua_index.c
+             ${src_dest}/luagit2/index/lua_index_help.c
              ${src_dest}/luagit2/oid/lua_oid.c
              ${src_dest}/luagit2/reference/lua_reference.c
              ${src_dest}/luagit2/repository/lua_repository.c
@@ -38,6 +41,9 @@ set (SOURCES
              ${src_dest}/luagit2/tree/lua_tree.c
              ${src_dest}/luagit2/tag/lua_tag.c
              ${src_dest}/luagit2/object/lua_object.c
+             ${src_dest}/luagit2/buf/lua_buf.c
+             ${src_dest}/luagit2/buf/lua_buf_help.c
+             ${src_dest}/luagit2/annotated/lua_annotated.c
              ${src_dest}/main_wrapper.c 
  )
 

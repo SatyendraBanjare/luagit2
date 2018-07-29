@@ -4,12 +4,6 @@
 #include <git2.h>
 
 typedef struct {
-	int major;
-	int minor;
-	int rev;
-} libgit_version_data;
-
-typedef struct {
 	git_cred *git_cred_object;
 } luagit2_cred_object;
 
@@ -64,10 +58,6 @@ typedef struct {
 typedef struct {
 	git_filemode_t filemode;
 } luagit2_filemode;
-
-typedef struct {
-	git_time_t time;
-} luagit2_time;
 
 typedef struct {
 	git_reference *reference;
@@ -140,5 +130,13 @@ typedef struct {
 typedef struct {
 	git_tag *tag;
 } luagit2_tag;
+
+typedef struct {
+	git_config_entry *config_entry;
+}luagit2_config_entry;
+
+typedef struct {
+	git_config_iterator *config_iterator;
+}luagit2_config_iterator;
 
 #endif

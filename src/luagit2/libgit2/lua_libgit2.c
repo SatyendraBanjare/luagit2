@@ -1,16 +1,30 @@
 #include "lua_libgit2.h"
 
 int lua_git_libgit2_init (lua_State *L) {
+
+	if (lua_gettop(L) != 0) {
+		return luaL_error(L, "expecting no arguments");
+	}
+
 	git_libgit2_init();
 	return 1;
 }
 
 int lua_git_libgit2_shutdown (lua_State *L) {
+	if (lua_gettop(L) != 0) {
+		return luaL_error(L, "expecting no arguments");
+	}
+
 	git_libgit2_shutdown();
 	return 1;
 }
 
 int lua_git_libgit2_features (lua_State *L) {
+
+	if (lua_gettop(L) != 0) {
+		return luaL_error(L, "expecting no arguments");
+	}
+
 	check_error_long(git_libgit2_features(),
 	    "Error Accessing libgit2 features", NULL);
 	int features_number = git_libgit2_features();
@@ -19,33 +33,29 @@ int lua_git_libgit2_features (lua_State *L) {
 }
 
 int lua_git_libgit2_version (lua_State *L) {
-	libgit_version_data *version_data;
 
-	version_data = (libgit_version_data *)lua_newuserdata(L, sizeof(*version_data));
-	version_data->major  = 0;
-	version_data->minor = 0;
-	version_data->rev = 0;
+	if (lua_gettop(L) != 0) {
+		return luaL_error(L, "expecting no arguments");
+	}
 
-
-	luaL_newmetatable(L, "libgit2_version_data");
-
-	lua_setmetatable(L, -2);
-
-	int Major ;
-	int Minor ;
-	int Rev ;
+	int Major, Minor, Rev ;
 
 	git_libgit2_version(&Major, &Minor, &Rev );
 
-	version_data->major = Major;
-	version_data->minor = Minor;
-	version_data->rev = Rev;
+	lua_pushinteger(L, Major);
+	lua_pushinteger(L, Minor);
+	lua_pushinteger(L, Rev);
 
-	return 1;
+	return 3;
 
 }
 
 int lua_GIT_OPT_GET_MWINDOW_SIZE(lua_State *L) {
+
+	if (lua_gettop(L) != 0) {
+		return luaL_error(L, "expecting no arguments");
+	}
+
 	size_t mmap_size ;
 	check_error_long(git_libgit2_opts(GIT_OPT_GET_MWINDOW_SIZE, &mmap_size),
 	    "Error in getting memory map size", NULL);
@@ -54,6 +64,11 @@ int lua_GIT_OPT_GET_MWINDOW_SIZE(lua_State *L) {
 }
 
 int lua_GIT_OPT_SET_MWINDOW_SIZE(lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument: size");
+	}
+
 	size_t size = luaL_checkinteger(L, 1);
 	check_error_long(git_libgit2_opts(GIT_OPT_SET_MWINDOW_SIZE, size),
 	    "Error setting memory map size", NULL);
@@ -61,6 +76,11 @@ int lua_GIT_OPT_SET_MWINDOW_SIZE(lua_State *L) {
 }
 
 int lua_GIT_OPT_GET_MWINDOW_MAPPED_LIMIT(lua_State *L) {
+
+	if (lua_gettop(L) != 0) {
+		return luaL_error(L, "expecting no arguments");
+	}
+
 	size_t mmap_limit ;
 	check_error_long(git_libgit2_opts(GIT_OPT_GET_MWINDOW_MAPPED_LIMIT, &mmap_limit),
 	    "Error getting memory map limit", NULL);
@@ -70,95 +90,122 @@ int lua_GIT_OPT_GET_MWINDOW_MAPPED_LIMIT(lua_State *L) {
 }
 
 int lua_GIT_OPT_SET_MWINDOW_MAPPED_LIMIT(lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument: size");
+	}
+
 	int size = luaL_checkinteger(L, 1);
 	check_error_long(git_libgit2_opts(GIT_OPT_SET_MWINDOW_MAPPED_LIMIT, size),
 	    "Error setting memory map limit", NULL);
 	return 1;
 }
 
-
 int lua_GIT_OPT_GET_SEARCH_PATH(lua_State *L) {
-	git_buf path = {0} ;
-	int option_number = luaL_checkinteger(L, 1);
 
-	switch (option_number) {
-		case 1:
-			check_error_long(git_libgit2_opts(GIT_OPT_GET_SEARCH_PATH, GIT_CONFIG_LEVEL_SYSTEM, &path),
-			    "error getting system level search path", NULL);
-			break;
-		case 2:
-			check_error_long(git_libgit2_opts(GIT_OPT_GET_SEARCH_PATH, GIT_CONFIG_LEVEL_GLOBAL, &path),
-			    "Error getting global level search path", NULL);
-			break;
-		case 3:
-			check_error_long(git_libgit2_opts(GIT_OPT_GET_SEARCH_PATH, GIT_CONFIG_LEVEL_XDG, &path),
-			    "Error getting XDG level search path", NULL);
-			break;
-		case 4:
-			check_error_long(git_libgit2_opts(GIT_OPT_GET_SEARCH_PATH, GIT_CONFIG_LEVEL_PROGRAMDATA, &path),
-			    "Error getting program data level search path", NULL);
-			break;
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : search_path_level");
 	}
 
-	lua_pushstring(L, path.ptr);
-	return 1;
+	git_buf path = GIT_BUF_INIT_CONST(NULL, 0);
+	git_config_level_t cfg_lvl = 0;
+
+	const char *option = luaL_checkstring(L, 1);
+
+	if ((cfg_lvl = (strcasecmp(option, "system") == 0 ? GIT_CONFIG_LEVEL_SYSTEM : 0)) != 0 ) {
+		goto push_val;
+	}
+	if ((cfg_lvl = (strcasecmp(option, "global") == 0 ? GIT_CONFIG_LEVEL_GLOBAL : 0)) != 0 ) {
+		goto push_val;
+	}
+	if ((cfg_lvl = (strcasecmp(option, "xdg") == 0 ? GIT_CONFIG_LEVEL_XDG : 0)) != 0 ) {
+		goto push_val;
+	}
+	if ((cfg_lvl = (strcasecmp(option, "programdata") == 0 ? GIT_CONFIG_LEVEL_PROGRAMDATA : 0)) != 0 ) {
+		goto push_val;
+	}
+
+push_val : {
+		check_error_long(git_libgit2_opts(GIT_OPT_GET_SEARCH_PATH, cfg_lvl, &path),
+		    "error getting search path", "Unsupported option, must be one of : system, global, xdg, programdata");
+
+		lua_pushstring(L, path.ptr);
+		return 1;
+	}
+
+	luaL_error(L, "Unsupported option, must be one of : system, global, xdg, programdata");
+	return 0;
 }
 
 int lua_GIT_OPT_SET_SEARCH_PATH(lua_State *L) {
-	int option_number = luaL_checkinteger(L, 1);
+
+	if (lua_gettop(L) != 2) {
+		return luaL_error(L, "expecting exactly 2 argument : search_path_level, path");
+	}
+
+	git_config_level_t cfg_lvl = 0;
+	const char *option = luaL_checkstring(L, 1);
 	const char *path = luaL_checkstring(L, 2);
 
-	switch (option_number) {
-		case 1:
-			check_error_long(git_libgit2_opts(GIT_OPT_SET_SEARCH_PATH, GIT_CONFIG_LEVEL_SYSTEM, path),
-			    "Error Setting system level search path", NULL);
-			break;
-		case 2:
-			check_error_long(git_libgit2_opts(GIT_OPT_SET_SEARCH_PATH, GIT_CONFIG_LEVEL_GLOBAL, path),
-			    "Error Setting global level search path", NULL);
-			break;
-		case 3:
-			check_error_long(git_libgit2_opts(GIT_OPT_SET_SEARCH_PATH, GIT_CONFIG_LEVEL_XDG, path),
-			    "Error Setting XDG level search path", NULL);
-			break;
-		case 4:
-			check_error_long(git_libgit2_opts(GIT_OPT_SET_SEARCH_PATH, GIT_CONFIG_LEVEL_PROGRAMDATA, path),
-			    "Error Setting program data level search path", NULL);
-			break;
+	if ((cfg_lvl = (strcasecmp(option, "system") == 0 ? GIT_CONFIG_LEVEL_SYSTEM : 0)) != 0 ) {
+		goto set_val;
 	}
-	return 1;
+	if ((cfg_lvl = (strcasecmp(option, "global") == 0 ? GIT_CONFIG_LEVEL_GLOBAL : 0)) != 0 ) {
+		goto set_val;
+	}
+	if ((cfg_lvl = (strcasecmp(option, "xdg") == 0 ? GIT_CONFIG_LEVEL_XDG : 0)) != 0 ) {
+		goto set_val;
+	}
+	if ((cfg_lvl = (strcasecmp(option, "programdata") == 0 ? GIT_CONFIG_LEVEL_PROGRAMDATA : 0)) != 0 ) {
+		goto set_val;
+	}
+
+set_val : {
+		check_error_long(git_libgit2_opts(GIT_OPT_SET_SEARCH_PATH, cfg_lvl, path),
+		    "error setting search path", "Unsupported option, must be one of : system, global, xdg, programdata");
+		return 1;
+	}
+
+	luaL_error(L, "Unsupported option, must be one of : system, global, xdg, programdata");
+	return 0;
 }
 
 
 int lua_GIT_OPT_GET_CACHED_MEMORY(lua_State *L) {
-	ssize_t current;
-	ssize_t allowed ;
-	int option_number = luaL_checkinteger(L, 1);
 
+	if (lua_gettop(L) != 0) {
+		return luaL_error(L, "expecting no arguments");
+	}
+
+	ssize_t current, allowed ;
 	check_error_long(git_libgit2_opts(GIT_OPT_GET_CACHED_MEMORY, &current, &allowed),
 	    "Error getting cached memory size", NULL);
 
-	switch (option_number) {
-		case 1:
-			lua_pushinteger(L, current);
-			break;
-		case 2:
-			lua_pushinteger(L, allowed);
-			break;
-	}
+	lua_pushinteger(L, current);
+	lua_pushinteger(L, allowed);
 
-	return 1;
+	return 2;
 }
 
 int lua_GIT_OPT_SET_CACHE_OBJECT_LIMIT(lua_State *L) {
-	luagit2_otype *obj_type = (luagit2_otype *)lua_touserdata(L,1);
+
+	if (lua_gettop(L) != 2) {
+		return luaL_error(L, "expecting exactly 2 argument : luagit2_otype, size");
+	}
+
+	luagit2_otype *obj_type = (luagit2_otype *)luaL_checkudata(L, 1, "luagit2_otype");
 	size_t size = luaL_checkinteger(L, 2);
 	check_error_long(git_libgit2_opts(GIT_OPT_SET_CACHE_OBJECT_LIMIT, obj_type->otype, size),
-	    "Error setting chache limit", NULL);
+	    "Error setting cache limit", NULL);
 	return 1;
 }
 
 int lua_GIT_OPT_SET_CACHE_MAX_SIZE(lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : size");
+	}
+
 	ssize_t	 size = luaL_checkinteger(L, 1);
 	check_error_long(git_libgit2_opts(GIT_OPT_SET_CACHE_MAX_SIZE, size),
 	    "Error setting maximum cache size ", NULL);
@@ -166,6 +213,11 @@ int lua_GIT_OPT_SET_CACHE_MAX_SIZE(lua_State *L) {
 }
 
 int lua_GIT_OPT_ENABLE_CACHING(lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : enable/disable");
+	}
+
 	int enabled = luaL_checkinteger(L, 1);
 	check_error_long(git_libgit2_opts(GIT_OPT_ENABLE_CACHING, enabled),
 	    "Error while enable/disable caching", NULL);
@@ -173,7 +225,12 @@ int lua_GIT_OPT_ENABLE_CACHING(lua_State *L) {
 }
 
 int lua_GIT_OPT_GET_TEMPLATE_PATH(lua_State *L) {
-	git_buf path = {0};
+
+	if (lua_gettop(L) != 0) {
+		return luaL_error(L, "expecting no arguments");
+	}
+
+	git_buf path = GIT_BUF_INIT_CONST(NULL, 0);
 
 	check_error_long(git_libgit2_opts(GIT_OPT_GET_TEMPLATE_PATH, &path),
 	    "Error getting Template path", NULL);
@@ -183,6 +240,11 @@ int lua_GIT_OPT_GET_TEMPLATE_PATH(lua_State *L) {
 }
 
 int lua_GIT_OPT_SET_TEMPLATE_PATH(lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : path");
+	}
+
 	const char *path = luaL_checkstring(L, 1);
 	check_error_long(git_libgit2_opts(GIT_OPT_SET_TEMPLATE_PATH, path),
 	    "Error setting Template path", NULL);
@@ -190,6 +252,11 @@ int lua_GIT_OPT_SET_TEMPLATE_PATH(lua_State *L) {
 }
 
 int lua_GIT_OPT_SET_USER_AGENT(lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : user_agent");
+	}
+
 	const char *user_agent = luaL_checkstring(L, 1);
 	check_error_long(git_libgit2_opts(GIT_OPT_SET_USER_AGENT, user_agent),
 	    "Error setting user agent", NULL);
@@ -197,6 +264,11 @@ int lua_GIT_OPT_SET_USER_AGENT(lua_State *L) {
 }
 
 int lua_GIT_OPT_GET_WINDOWS_SHAREMODE(lua_State *L) {
+
+	if (lua_gettop(L) != 0) {
+		return luaL_error(L, "expecting no arguments");
+	}
+
 	unsigned long value ;
 	check_error_long(git_libgit2_opts(GIT_OPT_GET_WINDOWS_SHAREMODE, &value),
 	    "Error getting windows share mode", NULL);
@@ -206,6 +278,11 @@ int lua_GIT_OPT_GET_WINDOWS_SHAREMODE(lua_State *L) {
 }
 
 int lua_GIT_OPT_SET_WINDOWS_SHAREMODE(lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : value");
+	}
+
 	unsigned long value = luaL_checknumber(L, 1);
 	check_error_long(git_libgit2_opts(GIT_OPT_SET_WINDOWS_SHAREMODE, value),
 	    "Error setting windows share mode", NULL);
@@ -213,6 +290,11 @@ int lua_GIT_OPT_SET_WINDOWS_SHAREMODE(lua_State *L) {
 }
 
 int lua_GIT_OPT_ENABLE_STRICT_OBJECT_CREATION(lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : enable/disable");
+	}
+
 	int enabled = luaL_checkinteger(L, 1);
 	check_error_long(git_libgit2_opts(GIT_OPT_ENABLE_STRICT_OBJECT_CREATION, enabled),
 	    "Error in enable/disable strict object creation", NULL);
@@ -220,6 +302,11 @@ int lua_GIT_OPT_ENABLE_STRICT_OBJECT_CREATION(lua_State *L) {
 }
 
 int lua_GIT_OPT_ENABLE_STRICT_SYMBOLIC_REF_CREATION(lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : enable/disable");
+	}
+
 	int enabled = luaL_checkinteger(L, 1);
 	check_error_long(git_libgit2_opts(GIT_OPT_ENABLE_STRICT_SYMBOLIC_REF_CREATION, enabled),
 	    "Error in enable/disable symbolic ref creation", NULL);
@@ -227,13 +314,23 @@ int lua_GIT_OPT_ENABLE_STRICT_SYMBOLIC_REF_CREATION(lua_State *L) {
 }
 
 int lua_GIT_OPT_SET_SSL_CIPHERS(lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : ciphers");
+	}
+
 	const char *ciphers = luaL_checkstring(L, 1);
 	check_error_long(git_libgit2_opts(GIT_OPT_SET_SSL_CIPHERS, ciphers),
-	    "Error settting SSL ciphers", NULL);
+	    "Error setting SSL ciphers", NULL);
 	return 1;
 }
 
 int lua_GIT_OPT_ENABLE_OFS_DELTA(lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : enable/disable");
+	}
+
 	int enabled = luaL_checkinteger(L, 1);
 	check_error_long(git_libgit2_opts(GIT_OPT_ENABLE_OFS_DELTA, enabled),
 	    "Error in enable/disable offset delta", NULL);
@@ -241,6 +338,11 @@ int lua_GIT_OPT_ENABLE_OFS_DELTA(lua_State *L) {
 }
 
 int lua_GIT_OPT_ENABLE_FSYNC_GITDIR(lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : enable/disable");
+	}
+
 	int enabled = luaL_checkinteger(L, 1);
 	check_error_long(git_libgit2_opts(GIT_OPT_ENABLE_FSYNC_GITDIR, enabled),
 	    "Error in enable/disable fsync gitdir", NULL);
@@ -248,8 +350,13 @@ int lua_GIT_OPT_ENABLE_FSYNC_GITDIR(lua_State *L) {
 }
 
 int lua_GIT_OPT_ENABLE_STRICT_HASH_VERIFICATION(lua_State *L) {
+
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : enable/disable");
+	}
+
 	int enabled = luaL_checkinteger(L, 1);
 	check_error_long(git_libgit2_opts(GIT_OPT_ENABLE_STRICT_HASH_VERIFICATION, enabled),
-	    "Error in enable/disable strich hash verification", NULL);
+	    "Error in enable/disable strict hash verification", NULL);
 	return 1;
 }

@@ -127,7 +127,7 @@ int lua_git_branch_move (lua_State *L) {
 
 int lua_git_branch_name (lua_State *L) {
 	const luagit2_reference *lua_branch_from = (luagit2_reference *)lua_touserdata(L, 1);
-	const char *branch_name;
+	const char *branch_name = NULL;
 	check_error_long(git_branch_name(&branch_name, lua_branch_from->reference), "Failed to get the branch name", NULL);
 	lua_pushstring(L, branch_name);
 	return 1;
@@ -136,7 +136,7 @@ int lua_git_branch_name (lua_State *L) {
 int lua_git_branch_next (lua_State *L) {
 	luagit2_reference *lua_ref;
 	luagit2_branch_type *lua_branch_t = (luagit2_branch_type *)lua_touserdata(L, 1);
-	luagit2_branch_iterator *lua_branch_iterator = (luagit2_branch_iterator *)lua_touserdata(L, 3);
+	luagit2_branch_iterator *lua_branch_iterator = (luagit2_branch_iterator *)lua_touserdata(L, 2);
 
 	lua_ref = (luagit2_reference *)lua_newuserdata(L, sizeof(*lua_ref));
 	lua_ref->reference  = NULL;
