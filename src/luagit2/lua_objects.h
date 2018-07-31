@@ -60,10 +60,6 @@ typedef struct {
 } luagit2_filemode;
 
 typedef struct {
-	git_time_t time;
-} luagit2_time;
-
-typedef struct {
 	git_reference *reference;
 } luagit2_reference;
 
@@ -137,11 +133,51 @@ typedef struct {
 
 typedef struct {
 	git_config_entry *config_entry;
-}luagit2_config_entry;
+} luagit2_config_entry;
 
 typedef struct {
 	git_config_iterator *config_iterator;
-}luagit2_config_iterator;
+} luagit2_config_iterator;
+
+typedef struct {
+	git_revspec *revspec;
+} luagit2_revspec;
+
+typedef struct {
+	git_reflog *reflog;
+}luagit2_reflog;
+
+typedef struct {
+	git_reflog_entry *reflog_entry;
+}luagit2_reflog_entry;
+
+typedef struct {
+	git_describe_result *describe_result;
+}luagit2_describe_result;
+
+typedef struct {
+	git_checkout_options checkout_opts;
+}luagit2_checkout_options;
+
+typedef struct {
+	git_diff *diff;
+} luagit2_diff;
+
+typedef struct {
+	git_diff_options diff_opts;
+} luagit2_diff_options;
+
+typedef struct {
+	git_diff_stats *diff_stats;
+} luagit2_diff_stats;
+
+typedef struct {
+	git_diff_stats_format_t stats_format;
+} luagit2_diff_stats_format;
+
+typedef struct {
+	git_diff_format_t diff_format;
+} luagit2_diff_format;
 
 typedef struct {
 	git_revwalk *revwalk;

@@ -43,22 +43,24 @@ int lua_git_commit_extract_signature (lua_State *L) {
 	luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
 	luagit2_oid *Commit_id = (luagit2_oid *)lua_touserdata(L, 2);
 
-	luagit2_buf *lua_signature_buf;
-
-	lua_signature_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_signature_buf));
-	lua_signature_buf->buf = NULL;
-
-	luaL_newmetatable(L, "luagit2_buf");
-	lua_setmetatable(L, -2);
-
-	git_buf local_sign_buf = {0};
-	git_buf local_extra_buf = {0};
+	git_buf local_sign_buf = GIT_BUF_INIT_CONST(NULL,0);
+	git_buf local_extra_buf =  GIT_BUF_INIT_CONST(NULL,0);
 	check_error_long(git_commit_extract_signature(&local_sign_buf, &local_extra_buf,
 	        Repo->repo, &(Commit_id->oid), NULL), "Error extracting signature from given commit id", NULL);
 
+	luagit2_buf *lua_signature_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_signature_buf));
+	lua_signature_buf->buf = NULL;
+	luaL_newmetatable(L, "luagit2_buf");
+	lua_setmetatable(L, -2);
 	lua_signature_buf->buf  = &local_sign_buf;
 
-	return 1;
+	luagit2_buf *lua_extra_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_extra_buf));
+	lua_extra_buf->buf = NULL;
+	luaL_newmetatable(L, "luagit2_buf");
+	lua_setmetatable(L, -2);
+	lua_extra_buf->buf  = &local_extra_buf;
+
+	return 2;
 }
 
 int lua_git_commit_header_field (lua_State *L) {
@@ -232,15 +234,9 @@ int lua_git_commit_summary (lua_State *L) {
 
 int lua_git_commit_time (lua_State *L) {
 	const luagit2_commit *lua_commit = (luagit2_commit *)lua_touserdata(L, 1);
-	luagit2_time *commit_time;
-
-	commit_time = (luagit2_time *)lua_newuserdata(L, sizeof(*commit_time));
-
-	luaL_newmetatable(L, "luagit2_time");
-	lua_setmetatable(L, -2);
-
-	commit_time->time = git_commit_time(lua_commit->commit);
-
+	time_t time = git_commit_time(lua_commit->commit);
+	const char *time_str = ctime(&time);
+	lua_pushstring(L,time_str);
 	return 1;
 }
 
@@ -357,5 +353,26 @@ int lua_git_commit_id(lua_State *L) {
 	lua_setmetatable(L, -2);
 
 	commit_id->oid = *(git_commit_id(lua_commit->commit));
+	return 1;
+}
+
+int lua_git_commit_create_with_signature (lua_State *L) {
+	const luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
+	const char *commit_content = luaL_checkstring(L,2);
+	const char *commit_sign = luaL_checkstring(L,3);
+
+	luagit2_oid *new_commit_id;
+
+	new_commit_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*new_commit_id));
+
+	luaL_newmetatable(L, "luagit2_oid");
+	lua_setmetatable(L, -2);
+
+	git_oid local_oid;
+	check_error_long(git_commit_create_with_signature(&local_oid, Repo->repo, commit_content, commit_sign,
+		NULL) //passing NULL for default value gpgsig.
+	, "Unable to create commit", NULL);
+	new_commit_id->oid = local_oid;
+
 	return 1;
 }
