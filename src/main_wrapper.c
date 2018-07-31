@@ -15,6 +15,7 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/revwalk/lua_revwalk.h"
 #include "luagit2/annotated/lua_annotated.h"
 #include "luagit2/checkout/lua_checkout.h"
 #include "luagit2/reset/lua_reset.h"
@@ -373,6 +374,17 @@ static const struct luaL_Reg luagit2 [] = {
       {"buf_free", lua_git_buf_free},
       //-----------------------------------------------------------------------------------------------//
 
+      //------------------------------------------- Revwalk Methods -----------------------------------//
+      {"revwalk_new",lua_git_revwalk_new},
+      {"revwalk_next",lua_git_revwalk_next},
+      {"revwalk_push",lua_git_revwalk_push},
+      {"revwalk_push_ref",lua_git_revwalk_push_ref},
+      {"revwalk_free",lua_git_revwalk_free},
+      {"revwalk_reset",lua_git_revwalk_reset},
+      {"revwalk_push_head",lua_git_revwalk_push_head},
+      {"revwalk_repository",lua_git_revwalk_repository},
+      //-----------------------------------------------------------------------------------------------//
+
       //------------------------------------------- Annotated Methods ---------------------------------//
       {"annotated_commit_from_ref",lua_git_annotated_commit_from_ref},
       {"annotated_commit_from_revspec",lua_git_annotated_commit_from_revspec},
@@ -440,6 +452,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"diff_tree_to_workdir",lua_git_diff_tree_to_workdir},
       {"diff_tree_to_workdir_with_index",lua_git_diff_tree_to_workdir_with_index},
       //-----------------------------------------------------------------------------------------------//
+
 
       //------------------------------------------- Helper Methods ------------------------------------//
       {"get_signature_details", lua_get_signature_details},

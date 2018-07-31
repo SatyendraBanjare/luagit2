@@ -179,4 +179,8 @@ typedef struct {
 	git_diff_format_t diff_format;
 } luagit2_diff_format;
 
+typedef struct {
+	git_revwalk *revwalk;
+} luagit2_revwalk;
+
 #endif
