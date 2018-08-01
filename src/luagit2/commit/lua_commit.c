@@ -376,3 +376,33 @@ int lua_git_commit_create_with_signature (lua_State *L) {
 
 	return 1;
 }
+
+int lua_git_commit_create_initial (lua_State *L) {
+	const luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
+	const luagit2_signature *Author_sign = (luagit2_signature *)lua_touserdata(L, 2);
+	const luagit2_signature *Commiter_sign = (luagit2_signature *)lua_touserdata(L, 3);
+	const char *commit_message = luaL_checkstring(L, 4);
+	const luagit2_tree *Tree = (luagit2_tree *)lua_touserdata(L, 5);
+
+	luagit2_oid *new_commit_id;
+
+	new_commit_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*new_commit_id));
+
+	luaL_newmetatable(L, "luagit2_oid");
+	lua_setmetatable(L, -2);
+
+	git_oid local_oid;
+	check_error_long(git_commit_create_v(&local_oid,
+	        Repo->repo,
+	        "HEAD",
+	        Author_sign->sign,
+	        Commiter_sign->sign,
+	        NULL,
+	        commit_message,
+	        Tree->tree,
+	        0)
+	    , "Unable to create initial commit ", NULL);
+
+	new_commit_id->oid = local_oid;
+	return 1;
+}

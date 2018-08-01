@@ -28,5 +28,6 @@ int lua_git_commit_id(lua_State *L);
 int lua_git_commit_create_update_head (lua_State *L);
 int lua_git_commit_create_update_none (lua_State *L);
 int lua_git_commit_create_with_signature (lua_State *L);
+int lua_git_commit_create_initial (lua_State *L);
 
 #endif

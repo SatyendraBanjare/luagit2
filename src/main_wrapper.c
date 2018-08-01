@@ -226,6 +226,7 @@ static const struct luaL_Reg luagit2 [] = {
       {"commit_create_update_head", lua_git_commit_create_update_head},
       {"commit_create_update_none", lua_git_commit_create_update_none},
       {"commit_create_with_signature",lua_git_commit_create_with_signature},
+      {"commit_create_initial",lua_git_commit_create_initial},
       //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Index methods -------------------------------------//
