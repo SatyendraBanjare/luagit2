@@ -4,7 +4,9 @@ Basic Documentation
  
 This section contains explaination on Luagit2 API. 
  
-.. toctree:: 
+.. toctree::
+   :maxdepth: 2
+   :numbered: 
     
    annotated 
    blame
