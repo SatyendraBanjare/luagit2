@@ -1,6 +1,9 @@
 Buf
 ===
 
+.. contents:: Contents
+   :local:
+
 buf_set_str 
 -------------------------------------
 
