@@ -82,8 +82,6 @@ blob_id
 
 1. ``luagit2_blob`` : The blob whose oid is to be found.
 
-.. note:: The path should be relative to root directory of repository.
-
 * Creates a ``luagit2_oid`` for given blob.
 
 * :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/blob/git_blob_id
