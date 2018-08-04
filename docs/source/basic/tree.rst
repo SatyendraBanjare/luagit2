@@ -244,7 +244,7 @@ tree_owner
 | luagit2_tree              | luagit2_repository              |
 +---------------------------+---------------------------------+
 
-1. ``luagit2_tree`` : The tree which is to be freed.
+1. ``luagit2_tree`` : The tree whose owner is to be found.
 
 * Returns owner ``luagit2_repository`` or gives  an error.
 
