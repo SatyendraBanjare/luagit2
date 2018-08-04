@@ -1,6 +1,9 @@
 Describe
 ========
 
+These Methods allow to read values for  ``git describe``
+of a commit or a repository's worktree.
+
 .. contents:: Contents
    :local:
 
@@ -15,7 +18,7 @@ describe_commit
 
 1. ``luagit2_object`` : The commit object which is to be described.
 
-* Returns ``luagit2_describe_result`` or gives and error.
+* Returns ``luagit2_describe_result`` or gives and error. Must be freed by **describe_result_free()**.
 
 describe_workdir
 -------------------------------
@@ -28,7 +31,7 @@ describe_workdir
 
 1. ``luagit2_repository`` : The repository which is to be described.
 
-* Returns ``luagit2_describe_result`` or gives and error.
+* Returns ``luagit2_describe_result`` or gives and error. Must be freed by **describe_result_free()**.
 
 describe_format
 -------------------------------
