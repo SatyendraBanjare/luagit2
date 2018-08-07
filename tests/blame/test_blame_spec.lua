@@ -26,6 +26,15 @@ describe(" Blame Methods Tests ", function()
         luagit2.shutdown()
     end)
     
+    --[[ 
+
+        Output of `git blame abc.txt` on new_test_repo :
+
+        108ddee3 (test_user 2018-06-30 19:20:49 +0530 1) hello
+
+    ]]--
+
+
     it("Tests getting blame data for a file ",function()
 
         local blame_file = luagit2.blame_file(repo,"abc.txt")
@@ -53,6 +62,12 @@ describe(" Blame Methods Tests ", function()
         
         assert.are.equal("test_user",_name)
         assert.are.equal("test@example.com",_email)
+
+        -- Get last commit oid
+        local last_commit_oid = luagit2.blame_hunk_commit_id(hunk_byline)
+        local str_val = luagit2.oid_tostr(last_commit_oid)
+        
+        assert.are.equal("108ddee361877aa5c044d89d8dd232b8fd0f8992",str_val)
 
         luagit2.blame_free(blame_file)
     end)
