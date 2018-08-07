@@ -20,7 +20,7 @@ int lua_git_status_list_new(lua_State *L) {
 	check_error_long(git_status_list_new(&local_status_list, Repository->repo, &status_opt),
 	    "Error getting status list for given repo", NULL);
 
-	lua_status_list->status_list  = &local_status_list;
+	lua_status_list->status_list  = local_status_list;
 
 	return 1;
 }
