@@ -33,6 +33,7 @@
 #include "luagit2/index/lua_index_help.h"
 #include "luagit2/revparse/lua_revparse_help.h"
 #include "luagit2/diff/lua_diff_help.h"
+#include "luagit2/blame/lua_blame_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -458,6 +459,8 @@ static const struct luaL_Reg luagit2 [] = {
       //------------------------------------------- Helper Methods ------------------------------------//
       {"get_signature_details", lua_get_signature_details},
       {"print_complete_signature_details", lua_print_complete_signature_details},
+      {"blame_hunk_commit_id",lua_blame_hunk_commit_id},
+      {"blame_hunk_signature",lua_blame_hunk_signature},
       {"get_userdata_name", get_userdata_name},
       {"buf_details", lua_git_buf_details},
       {"get_type_GIT_BRANCH_LOCAL", get_type_GIT_BRANCH_LOCAL},
