@@ -74,7 +74,7 @@ int lua_git_status_type(lua_State *L) {
 
 }
 
-int lua_get_status_file_paths( lua_State *L){
+int lua_get_status_wkdir_file_paths( lua_State *L){
 	if (lua_gettop(L) != 1) {
 		return luaL_error(L, "expecting exactly 1 argument : luagit2_status_entry");
 	}
@@ -87,6 +87,26 @@ int lua_get_status_file_paths( lua_State *L){
 
 	const char *old_file_path = (lua_status_entry->status_entry)->index_to_workdir->old_file.path ? (lua_status_entry->status_entry)->index_to_workdir->old_file.path : "NULL" ;
 	const char *new_file_path = (lua_status_entry->status_entry)->index_to_workdir->new_file.path ? (lua_status_entry->status_entry)->index_to_workdir->new_file.path :"NULL" ;
+
+	lua_pushstring(L,old_file_path);
+	lua_pushstring(L,new_file_path);
+
+	return 2;
+}
+
+int lua_get_status_index_file_paths( lua_State *L){
+	if (lua_gettop(L) != 1) {
+		return luaL_error(L, "expecting exactly 1 argument : luagit2_status_entry");
+	}
+
+	const luagit2_status_entry *lua_status_entry = (luagit2_status_entry *)luaL_checkudata(L, 1, "luagit2_status_entry");
+
+	if ((lua_status_entry->status_entry) == NULL) {
+		return luaL_error(L, null_err);
+	}
+
+	const char *old_file_path = (lua_status_entry->status_entry)->head_to_index->old_file.path ? (lua_status_entry->status_entry)->head_to_index->old_file.path : "NULL" ;
+	const char *new_file_path = (lua_status_entry->status_entry)->head_to_index->new_file.path ? (lua_status_entry->status_entry)->head_to_index->new_file.path :"NULL" ;
 
 	lua_pushstring(L,old_file_path);
 	lua_pushstring(L,new_file_path);

@@ -512,7 +512,8 @@ static const struct luaL_Reg luagit2 [] = {
       {"diff_format_init",lua_diff_format_init},
       {"diff_stats_format_init",lua_diff_stats_format_init},
       {"status_type",lua_git_status_type},
-      {"status_file_paths",lua_get_status_file_paths},
+      {"status_wkdir_file_paths",lua_get_status_wkdir_file_paths},
+      {"status_index_file_paths",lua_get_status_index_file_paths},
       //-----------------------------------------------------------------------------------------------//
 
       {NULL, NULL}
