@@ -19,8 +19,8 @@ before_install:
   - sudo apt-get install libhttp-parser-dev
   - sudo apt install libssh2-1-dev
   - sudo apt install libcurl4-openssl-dev
-  - chmod +x ./.travis.sh
-  - "./.travis.sh"
+  - chmod +x ./install_libgit.sh
+  - "./install_libgit.sh"
 
 install:
   - lua5.3 -v
