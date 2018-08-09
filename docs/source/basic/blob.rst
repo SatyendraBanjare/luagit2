@@ -23,7 +23,7 @@ blob_create_fromdisk
 
 * Creates a ``luagit2_oid`` from blob's path.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/blob/git_blob_create_fromdisk
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/blob/git_blob_create_fromdisk
 
 blob_create_fromworkdir
 -----------------------------------------
@@ -43,7 +43,7 @@ blob_create_fromworkdir
 
 * Creates a ``luagit2_oid`` from blob's path.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/blob/git_blob_create_fromdisk
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/blob/git_blob_create_fromdisk
 
 
 blob_filtered_content
@@ -68,7 +68,7 @@ blob_filtered_content
 
 * Creates a ``luagit2_buf`` from blob's Content, can be read using **buf_details()**.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/blob/git_blob_filtered_content
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/blob/git_blob_filtered_content
 
 blob_id
 -----------------------------------------
@@ -84,7 +84,7 @@ blob_id
 
 * Creates a ``luagit2_oid`` for given blob.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/blob/git_blob_id
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/blob/git_blob_id
 
 blob_is_binary
 -----------------------------------------
@@ -99,7 +99,7 @@ blob_is_binary
 
 * returns boolean if blob is binary or not.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/blob/git_blob_is_binary
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/blob/git_blob_is_binary
 
 blob_lookup
 -----------------------------------------
@@ -117,7 +117,7 @@ blob_lookup
 
 * returns ``luagit2_blob`` for given oid or an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/blob/git_blob_lookup
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/blob/git_blob_lookup
 
 blob_lookup_prefix
 -----------------------------------------
@@ -138,7 +138,7 @@ blob_lookup_prefix
 
 * returns ``luagit2_blob`` for given oid or an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/blob/git_blob_lookup_prefix
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/blob/git_blob_lookup_prefix
 
 blob_owner
 -----------------------------------------
@@ -153,7 +153,7 @@ blob_owner
 
 * returns ``luagit2_repository`` or gives an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/blob/git_blob_owner
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/blob/git_blob_owner
 
 blob_rawsize
 -----------------------------------------
@@ -168,7 +168,7 @@ blob_rawsize
 
 * returns a numerical value of the blob's size or gives an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/blob/git_blob_rawsize
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/blob/git_blob_rawsize
 
 blob_free
 -----------------------------------------
@@ -183,5 +183,5 @@ blob_free
 
 * returns None or gives an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/blob/git_blob_free 
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/blob/git_blob_free 
 

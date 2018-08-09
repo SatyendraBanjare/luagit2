@@ -17,7 +17,7 @@ buf_set_str
 
 * returns ``luagit2_buf`` or an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/buf/git_buf_set
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/buf/git_buf_set
 
 buf_free 
 -------------------------------------
@@ -34,5 +34,5 @@ buf_free
 
 * returns none or an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/buf/git_buf_free
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/buf/git_buf_free
 

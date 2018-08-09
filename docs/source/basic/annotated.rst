@@ -7,7 +7,7 @@ repository.
 
 These annotation commits can then be used while doing
 merge, rebase or creating a branch from an annotated commit.
-Refer to this https://libgit2.org/libgit2/#HEAD/type/git_annotated_commit. 
+Refer to this https://libgit2.org/libgit2/#v0.27.0/type/git_annotated_commit. 
 
 .. contents:: Contents
    :local:
@@ -28,7 +28,7 @@ annotated_commit_from_ref
 
 * Creates a ``luagit2_annotated_commit`` from given reference which should be free using `annotated_commit_free`.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/annotated/git_annotated_commit_from_ref
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/annotated/git_annotated_commit_from_ref
 
 annotated_commit_from_revspec 
 -----------------------------------
@@ -46,7 +46,7 @@ annotated_commit_from_revspec
 
 * Creates a ``luagit2_annotated_commit`` from given revspec which should be free using `annotated_commit_free`.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/annotated/git_annotated_commit_from_revspec
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/annotated/git_annotated_commit_from_revspec
 
 
 annotated_commit_lookup 
@@ -65,7 +65,7 @@ annotated_commit_lookup
 
 * Creates a ``luagit2_annotated_commit`` from given annotated commit's oid which should be free using `annotated_commit_free`.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/annotated/git_annotated_commit_lookup
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/annotated/git_annotated_commit_lookup
 
 
 annotated_commit_from_fetchhead 
@@ -90,7 +90,7 @@ annotated_commit_from_fetchhead
 
 * Creates a ``luagit2_annotated_commit`` from given fetchhead data which should be free using `annotated_commit_free`.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/annotated/git_annotated_commit_from_fetchhead
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/annotated/git_annotated_commit_from_fetchhead
 
 
 annotated_commit_id 
@@ -106,7 +106,7 @@ annotated_commit_id
 
 * Creates a ``luagit2_oid`` from given annotated_commit.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/annotated/git_annotated_commit_id
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/annotated/git_annotated_commit_id
 
 
 annotated_commit_free 
@@ -122,5 +122,5 @@ annotated_commit_free
 
 * Frees a ``luagit2_annotated_commit`` .
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/annotated/git_annotated_commit_free
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/annotated/git_annotated_commit_free
 
