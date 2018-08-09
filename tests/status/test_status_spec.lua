@@ -84,22 +84,20 @@ describe(" Status Methods Tests ", function()
         assert.are.equal("STATUS_INDEX_NEW",entry_two_status)
 
         -- Get the paths for file changed
-        -- 
-        -- 
-        -- NOTE (IMPORTANT)
-        -- The file paths for status entries can be found 
-        -- only if they are changed in the worktree as well.
         --
-        -- Since the index changes DO NOT produce changes in Worktree
-        -- too, therefore if we try to get file paths for
-        -- entry two, it gices error.
-        --
+        -- Use status_wkdir_file_paths() for files changed at workdir level.
+        -- Use status_index_file_paths() for files changed at index.
         --
         -- Get file paths for entry one.
-        local path_one_old, path_one_new = luagit2.status_file_paths(entry_one)
+        local path_wkdir_old, path_wkdir_new = luagit2.status_wkdir_file_paths(entry_one)
         
-        assert.are.equal("abc.txt",path_one_new)
-        assert.are.equal("abc.txt",path_one_old)
+        assert.are.equal("abc.txt",path_wkdir_new)
+        assert.are.equal("abc.txt",path_wkdir_old)
+
+        -- Get file paths for entry two
+        local path_index_old, path_index_new = luagit2.status_index_file_paths(entry_two)
+        assert.are.equal("NewFile.txt",path_index_new)
+        assert.are.equal("NewFile.txt",path_index_old)
 
         -- Free the used list
         luagit2.status_list_free(status_list)  
