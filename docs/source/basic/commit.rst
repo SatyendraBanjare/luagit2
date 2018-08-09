@@ -19,7 +19,7 @@ commit_author
 1. ``luagit2_commit`` : The commit whose author is to be known.
 
 * Returns a ``luagit2_signature`` for commit's author or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_author
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_author
 
 commit_body 
 -----------------------------------------
@@ -33,7 +33,7 @@ commit_body
 1. ``luagit2_commit`` : The commit whose contents are to be found out.
 
 * Returns a string for commit's content or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_body
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_body
 
 commit_committer 
 -----------------------------------------
@@ -47,7 +47,7 @@ commit_committer
 1. ``luagit2_commit`` : The commit whose committer is to be known.
 
 * Returns a ``luagit2_signature`` for commit's committer or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_committer
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_committer
 
 commit_extract_signature 
 -----------------------------------------
@@ -64,7 +64,7 @@ commit_extract_signature
 2. ``luagit2_oid`` : The commit's oid to look for.
 
 * Returns two ``luagit2_buf`` or gives an error. The first buf is for signature details and other is extra for the commit's details. Example : 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_extract_signature
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_extract_signature
 
 Example: 
 
@@ -88,7 +88,7 @@ commit_header_field
 2. ``field`` : the stringvalue of field to lookup for.
 
 * returns ``luagit2_buf`` for the details or gives an error. 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_header_field
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_header_field
 
 commit_lookup 
 -----------------------------------------
@@ -105,7 +105,7 @@ commit_lookup
 2. ``luagit2_oid`` : the oid of commit to be looked up.
 
 * returns ``luagit2_commit`` for the commit or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_lookup
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_lookup
 
 commit_lookup_prefix 
 -----------------------------------------
@@ -125,7 +125,7 @@ commit_lookup_prefix
 3. ``length`` : the number of first `n` characters to be used to look up for the commit in repository.
 
 * returns ``luagit2_commit`` for the commit or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_lookup_prefix
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_lookup_prefix
 
 commit_message 
 -----------------------------------------
@@ -139,7 +139,7 @@ commit_message
 1. ``luagit2_commit`` : The commit whose message is to be found out.
 
 * Returns a string for commit's message or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_message
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_message
 
 commit_message_encoding 
 -----------------------------------------
@@ -153,7 +153,7 @@ commit_message_encoding
 1. ``luagit2_commit`` : The commit whose message's encoding is to be found out.
 
 * Returns a string for commit's message encoding which is used or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_message_encoding
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_message_encoding
 
 commit_message_raw 
 -----------------------------------------
@@ -167,7 +167,7 @@ commit_message_raw
 1. ``luagit2_commit`` : The commit whose message are to be found out.
 
 * Returns a string for commit's raw message or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_message_raw
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_message_raw
 
 commit_nth_gen_ancestor 
 -----------------------------------------
@@ -184,7 +184,7 @@ commit_nth_gen_ancestor
 2. ``nth_generation`` : How old ancestor commit is to be found.
 
 * returns a ``luagit2_commit`` of the ancestor or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_nth_gen_ancestor
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_nth_gen_ancestor
 
 commit_parent 
 -----------------------------------------
@@ -201,7 +201,7 @@ commit_parent
 2. ``position`` : How old parent should be. The `0`th parent means immediate parent commit and `1` for one previous to immediate parent commit. 
 
 * returns a ``luagit2_commit`` of the parent commit or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_parent
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_parent
 
 commit_parent_id 
 -----------------------------------------
@@ -218,7 +218,7 @@ commit_parent_id
 2. ``position`` : How old parent should be. The `0`th parent means immediate parent commit and `1` for one previous to immediate parent commit. 
 
 * returns a ``luagit2_oid`` of the parent commit or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_parent_id
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_parent_id
 
 commit_parentcount 
 -----------------------------------------
@@ -232,7 +232,7 @@ commit_parentcount
 1. ``luagit2_commit`` : The commit whose number of parents are to be found.
 
 * returns the number of parent commits or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_parentcount
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_parentcount
 
 commit_raw_header 
 -----------------------------------------
@@ -246,7 +246,7 @@ commit_raw_header
 1. ``luagit2_commit`` : The commit whose raw header is to be found.
 
 * returns the raw header data for the commit or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_raw_header
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_raw_header
 
 commit_summary 
 -----------------------------------------
@@ -260,7 +260,7 @@ commit_summary
 1. ``luagit2_commit`` : The commit whose message summary is to be found.
 
 * returns the message summary string for the commit or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_summary
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_summary
 
 commit_time 
 -----------------------------------------
@@ -274,7 +274,7 @@ commit_time
 1. ``luagit2_commit`` : The commit whose commit time is to be found.
 
 * returns the commit_time string for the commit or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_time
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_time
 
 commit_tree 
 -----------------------------------------
@@ -288,7 +288,7 @@ commit_tree
 1. ``luagit2_commit`` : The commit whose tree is to be found.
 
 * returns the ``luagit2_tree`` for the commit's parent tree or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_tree
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_tree
 
 commit_tree_id 
 -----------------------------------------
@@ -302,7 +302,7 @@ commit_tree_id
 1. ``luagit2_commit`` : The commit whose tree's oid is to be found.
 
 * returns the ``luagit2_oid`` for the commit's parent tree oid or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_tree_id
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_tree_id
 
 commit_free 
 -----------------------------------------
@@ -316,7 +316,7 @@ commit_free
 1. ``luagit2_commit`` : The commit which is to be freed.
 
 * returns none or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_free
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_free
 
 commit_id
 -----------------------------------------
@@ -330,7 +330,7 @@ commit_id
 1. ``luagit2_commit`` : The commit whose oid is to be found out.
 
 * returns ``luagit2_oid`` for the commit's oid or gives an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_id
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_id
 
 commit_create_update_head 
 -----------------------------------------
@@ -364,7 +364,7 @@ commit_create_update_head
 
 * returns a ``luagit2_oid`` of the newly created commit or gives an error. This method updates the **HEAD** tip of git repository so if you do a git log, it will show the output of latest commit. 
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_create_v
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_create_v
 
 commit_create_update_none 
 -----------------------------------------
@@ -398,7 +398,7 @@ commit_create_update_none
 
 * returns a ``luagit2_oid`` of the newly created commit or gives an error. This method **does not** update the **HEAD** tip of git repository so if you do a git log, it **will not** show the output of latest commit. 
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_create_v
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_create_v
 
 commit_create_with_signature 
 -----------------------------------------
@@ -419,7 +419,7 @@ commit_create_with_signature
 3. ``commit_sign`` : The committer's **pgp** signature.
 
 * returns a ``luagit2_oid`` for the new created commit or gives an error.This method updates the **HEAD** tip of git repository so if you do a git log, it will show the output of latest commit. 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_create_with_signature
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_create_with_signature
 
 .. note:: The data used for creating commit should be all valid. the parent commit should be immediate and of same tree.
 
@@ -483,4 +483,4 @@ commit_create_initial
 
 * returns a ``luagit2_oid`` of the newly created commit or gives an error. This method updates the **HEAD** tip of git repository so if you do a git log, it will show the output of latest commit. 
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/commit/git_commit_create_v
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/commit/git_commit_create_v

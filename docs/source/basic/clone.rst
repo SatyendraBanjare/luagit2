@@ -24,5 +24,5 @@ clone_public
 
 * returns none or an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/clone/git_clone
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/clone/git_clone
 

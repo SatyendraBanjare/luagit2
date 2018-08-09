@@ -31,7 +31,7 @@ branch_create
 
 * Creates a ``luagit2_reference`` for the new created branch.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/branch/git_branch_create
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/branch/git_branch_create
 
 branch_create_from_annotated 
 -------------------------------------
@@ -55,7 +55,7 @@ branch_create_from_annotated
 
 * Creates a ``luagit2_reference`` for the new created branch.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/branch/git_branch_create_from_annotated
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/branch/git_branch_create_from_annotated
 
 branch_delete 
 -------------------------------------
@@ -70,7 +70,7 @@ branch_delete
 
 * returns none or gives an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/branch/git_branch_delete
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/branch/git_branch_delete
 
 branch_is_checked_out 
 -------------------------------------
@@ -85,7 +85,7 @@ branch_is_checked_out
 
 * returns boolean for whether branch is currently checked out or not.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/branch/git_branch_is_checked_out
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/branch/git_branch_is_checked_out
 
 branch_is_head 
 -------------------------------------
@@ -100,7 +100,7 @@ branch_is_head
 
 * returns boolean for whether branch is being pointed by ``HEAD`` or not.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/branch/git_branch_is_head
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/branch/git_branch_is_head
 
 branch_iterator_new 
 -------------------------------------
@@ -118,7 +118,7 @@ branch_iterator_new
 
 * Creates a ``luagit2_branch_iterator`` for list of branches. The list index starts with 0. 
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/branch/git_branch_iterator_new
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/branch/git_branch_iterator_new
 
 branch_lookup 
 -------------------------------------
@@ -141,7 +141,7 @@ branch_lookup
 
 * Creates a ``luagit2_reference`` from looked up branch or gives an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/branch/git_branch_lookup
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/branch/git_branch_lookup
 
 branch_move 
 -------------------------------------
@@ -163,7 +163,7 @@ branch_move
 
 * Creates a ``luagit2_reference`` for new branch or gives an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/branch/git_branch_move
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/branch/git_branch_move
 
 branch_name 
 -------------------------------------
@@ -178,7 +178,7 @@ branch_name
 
 * returns name of branch or gives an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/branch/git_branch_name
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/branch/git_branch_name
 
 branch_next 
 -------------------------------------
@@ -196,7 +196,7 @@ branch_next
 
 * Creates a ``luagit2_reference`` for next branch.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/branch/git_branch_next
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/branch/git_branch_next
 
 branch_set_upstream 
 -------------------------------------
@@ -214,7 +214,7 @@ branch_set_upstream
 
 * returns none or an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/branch/git_branch_set_upstream
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/branch/git_branch_set_upstream
 
 branch_upstream 
 --------------------------------------
@@ -229,5 +229,5 @@ branch_upstream
 
 * Creates a ``luagit2_reference`` of upstream branch or gives an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/branch/git_branch_upstream
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/branch/git_branch_upstream
 

@@ -18,7 +18,7 @@ checkout_init_options
 
 * Creates a ``luagit2_checkout_options`` to be used in other functions or gives an error.
 
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/checkout/git_checkout_init_options
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/checkout/git_checkout_init_options
 
 checkout_head
 -----------------------------------
@@ -35,7 +35,7 @@ checkout_head
 2. ``luagit2_checkout_options`` :  The checkout options to be used while checkout is performed.
 
 * returns none or an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/checkout/git_checkout_head
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/checkout/git_checkout_head
 
 checkout_index
 -----------------------------------
@@ -55,7 +55,7 @@ checkout_index
 3. ``luagit2_checkout_options`` :  The checkout options to be used while checkout is performed.
 
 * returns none or an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/checkout/git_checkout_index
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/checkout/git_checkout_index
 
 checkout_tree
 ----------------------------------
@@ -75,4 +75,4 @@ checkout_tree
 3. ``luagit2_checkout_options`` :  The checkout options to be used while checkout is performed.
 
 * returns none or an error.
-* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#HEAD/group/checkout/git_checkout_tree
+* :guilabel:`libgit2 equivalent` : https://libgit2.org/libgit2/#v0.27.0/group/checkout/git_checkout_tree
