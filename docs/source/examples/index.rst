@@ -9,6 +9,7 @@ This section contains explaination on examples provided in luagit2.
    :numbered:
    
    add_to_index
+   blame_file
    clone
    diff_files
    init_and_make_initial_commit
