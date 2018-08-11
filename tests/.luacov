@@ -15,4 +15,7 @@ modules = {
 	["checkout.*"] = ".",
 	["checkout"] = "checkout_cover.lua",
 
+	["commit.*"] = ".",
+	["commit"] = "commit_cover.lua",
+
 }
