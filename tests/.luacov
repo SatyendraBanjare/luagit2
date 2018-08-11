@@ -27,4 +27,8 @@ modules = {
 	["describe.*"] = ".",
 	["describe"] = "describe_cover.lua",
 
+	["diff.*"] = ".",
+	["diff"] = "diff_cover.lua",
+
+
 }
