@@ -4,6 +4,7 @@ local fixer = require("Fixtures.fix_repo")
 
 describe(" Annotated Methods Tests ", function()
     local luagit2 = require("luagit2")
+    local luagit2_annotated = require("annotated.annotated_cover")
     local repo_path = "Fixtures/WORKON_REPO"
     
     setup(function()
@@ -66,32 +67,32 @@ describe(" Annotated Methods Tests ", function()
         local ref_dir_str = "144344043ba4d4a405da03de3844aa829ae8be0e"
         local ref_dir = luagit2.reference_lookup(repo, "refs/heads/dir")
         
-        local annotated_from_ref = luagit2.annotated_commit_from_ref(repo, ref_dir)
-        local annotated_commit_id = luagit2.annotated_commit_id(annotated_from_ref)
+        local annotated_from_ref = luagit2_annotated.annotated_commit_from_ref(repo, ref_dir)
+        local annotated_commit_id = luagit2_annotated.annotated_commit_id(annotated_from_ref)
         local id_string = luagit2.oid_tostr(annotated_commit_id)
         assert.are.equal(ref_dir_str, id_string)
-        luagit2.annotated_commit_free(annotated_from_ref)
+        luagit2_annotated.annotated_commit_free(annotated_from_ref)
     end)
     
     it("Tests creating annotated commit from given reference", function()
         local ref_dir_str = "144344043ba4d4a405da03de3844aa829ae8be0e"
-        local annotated_from_revspec = luagit2.annotated_commit_from_revspec(repo, "refs/heads/dir")
+        local annotated_from_revspec = luagit2_annotated.annotated_commit_from_revspec(repo, "refs/heads/dir")
         
-        local annotated_commit_id = luagit2.annotated_commit_id(annotated_from_revspec)
+        local annotated_commit_id = luagit2_annotated.annotated_commit_id(annotated_from_revspec)
         local id_string = luagit2.oid_tostr(annotated_commit_id)
         assert.are.equal(ref_dir_str, id_string)
-        luagit2.annotated_commit_free(annotated_from_revspec)
+        luagit2_annotated.annotated_commit_free(annotated_from_revspec)
     end)
     
     it("Tests creating annotated commit from fetchhead", function()
         local commit_id_str = "e90810b8df3e80c413d903f631643c716887138d"
         local commit_oid = luagit2.oid_fromstr(commit_id_str)
-        local annotated_from_fetchhead = luagit2.annotated_commit_from_fetchhead(repo, "test", "git://github.com/libgit2/libgit2", commit_oid)
+        local annotated_from_fetchhead = luagit2_annotated.annotated_commit_from_fetchhead(repo, "test", "git://github.com/libgit2/libgit2", commit_oid)
         
-        local annotated_commit_id = luagit2.annotated_commit_id(annotated_from_fetchhead)
+        local annotated_commit_id = luagit2_annotated.annotated_commit_id(annotated_from_fetchhead)
         local id_string = luagit2.oid_tostr(annotated_commit_id)
         assert.are.equal(commit_id_str, id_string)
-        luagit2.annotated_commit_free(annotated_from_fetchhead)
+        luagit2_annotated.annotated_commit_free(annotated_from_fetchhead)
     end)
     
 end)
