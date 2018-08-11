@@ -24,4 +24,7 @@ modules = {
 	["cred.*"] = ".",
 	["cred"] = "cred_cover.lua",
 
+	["describe.*"] = ".",
+	["describe"] = "describe_cover.lua",
+
 }
