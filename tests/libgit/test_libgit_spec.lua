@@ -2,7 +2,8 @@
 
 describe("Libgit2 core methods Test", function()
     
-    local luagit2 = require("luagit2")
+    local luagit2 = require("libgit.libgit_cover")
+    local luagit2_original = require("luagit2")
     local mwindow_size = 1234
     local mwindow_mapped_limit = 1234
     local cache_max_size = 2048
@@ -166,10 +167,10 @@ describe("Libgit2 core methods Test", function()
         -- error the program will shut down itself.
         local object_cache_limit = 1234
         
-        local type_commit_obj = luagit2.object_string2type("commit")
-        local type_tree_obj = luagit2.object_string2type("tree")
-        local type_blob_obj = luagit2.object_string2type("blob")
-        local type_tag_obj = luagit2.object_string2type("tag")
+        local type_commit_obj = luagit2_original.object_string2type("commit")
+        local type_tree_obj = luagit2_original.object_string2type("tree")
+        local type_blob_obj = luagit2_original.object_string2type("blob")
+        local type_tag_obj = luagit2_original.object_string2type("tag")
         
         luagit2.set_cache_object_limit(type_commit_obj, object_cache_limit)
         luagit2.set_cache_object_limit(type_tree_obj, object_cache_limit)

@@ -33,5 +33,7 @@ modules = {
 	["index.*"] = ".",
 	["index"] = "index_cover.lua",
 
+	["libgit.*"] = ".",
+	["libgit"] = "libgit_cover.lua",
 
 }
