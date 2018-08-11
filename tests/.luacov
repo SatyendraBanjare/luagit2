@@ -30,5 +30,8 @@ modules = {
 	["diff.*"] = ".",
 	["diff"] = "diff_cover.lua",
 
+	["index.*"] = ".",
+	["index"] = "index_cover.lua",
+
 
 }
