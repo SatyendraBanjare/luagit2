@@ -36,4 +36,6 @@ modules = {
 	["libgit.*"] = ".",
 	["libgit"] = "libgit_cover.lua",
 
+	["object.*"] = ".",
+	["object"] = "object_cover.lua",
 }
