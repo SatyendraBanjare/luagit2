@@ -3,6 +3,9 @@ modules = {
 	["annotated.*"] = ".",
 	["annotated"] = "annotated_cover.lua",
 
+	["blame.*"] = ".",
+	["blame"] = "blame_cover.lua",
+
 	["blob.*"] = ".",
 	["blob"] = "blob_cover.lua",
 
