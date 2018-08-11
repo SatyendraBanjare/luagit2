@@ -92,14 +92,14 @@ describe(" Repository Methods Tests ", function()
 		-- Check originally that the HEAD
 		-- of used test repository is not detached
 		local is_head_detached = luagit2.repository_head_detached(repo)
-		assert.are.equal(0,is_head_detached)
+		assert.are.equal(false,is_head_detached)
 
 		-- Detach the HEAD for the test repo
 		luagit2.repository_detach_head(repo)
 
 		-- Check again if HEAD is detached
 		is_head_detached = luagit2.repository_head_detached(repo)
-		assert.are.equal(1,is_head_detached)
+		assert.are.equal(true,is_head_detached)
 	end)
 
 	it("Tests repository namespace",function()
@@ -127,7 +127,7 @@ describe(" Repository Methods Tests ", function()
 		-- Since there is HEAD present in the current repo
 		-- this should value to 0
 		local is_head_unborn = luagit2.repository_head_unborn(repo)
-		assert.are.equal(0,is_head_unborn)
+		assert.are.equal(false,is_head_unborn)
 
 		-- Lets Create an initial repo and check if it has head unborn
 		--
@@ -135,7 +135,7 @@ describe(" Repository Methods Tests ", function()
 		local repo_init = luagit2.repository_init("Fixtures/WORKON_REPO_INIT",0)
 		-- Check if head is unborn or not
 		local is_initialized_repo_head_unborn = luagit2.repository_head_unborn(repo_init)
-		assert.are.equal(1,is_initialized_repo_head_unborn)
+		assert.are.equal(true,is_initialized_repo_head_unborn)
 
 		-- Free used repo && remove the files
 		luagit2.repository_free(repo_init)
@@ -158,15 +158,14 @@ describe(" Repository Methods Tests ", function()
 		-- initially the identity values for the 
 		-- taken test repo are not set, we should therefore
 		-- get nil values.
-		local old_name  = luagit2.repository_ident(repo,1)
-		local old_email = luagit2.repository_ident(repo,2)
+		local old_name, old_email  = luagit2.repository_ident(repo)
 		assert.is_nil(old_name)
 		assert.is_nil(old_email)
 
+
 		-- Lets set the identity values & check again
 		luagit2.repository_set_ident(repo,"EXAMPLE_NAME","something@something.com")
-		local new_name  = luagit2.repository_ident(repo,1)
-		local new_email = luagit2.repository_ident(repo,2)
+		local new_name,new_email  = luagit2.repository_ident(repo)
 
 		assert.are.equal("something@something.com",new_email)
 	end)
@@ -174,26 +173,26 @@ describe(" Repository Methods Tests ", function()
 	it("Tests repository bare methods",function()
 		-- Check if initially the repo is bare or not 
 		local is_bare = luagit2.repository_is_bare(repo)
-		assert.are.equal(0,is_bare)
+		assert.are.equal(false,is_bare)
 
 		-- set the repository to bare
 		luagit2.repository_set_bare(repo)
 		-- Check again
 		is_bare = luagit2.repository_is_bare(repo)
-		assert.are.equal(1,is_bare)
+		assert.are.equal(true,is_bare)
 	end)
 
 	it("Tests check-repository is_empty, is_shallow, is_worktree methods",function()
 		-- Clearly the repository is not empty,
 		-- nor shallow and also does not have a worktree
 		local is_empty = luagit2.repository_is_empty(repo)
-		assert.are.equal(0,is_empty)
+		assert.are.equal(false,is_empty)
 
 		local is_shallow = luagit2.repository_is_shallow(repo)
-		assert.are.equal(0,is_shallow)
+		assert.are.equal(false,is_shallow)
 		
 		local is_worktree = luagit2.repository_is_worktree(repo)
-		assert.are.equal(0,is_worktree)
+		assert.are.equal(false,is_worktree)
 	end)
 
 	it("Tests repositoy odb",function()
@@ -207,7 +206,7 @@ describe(" Repository Methods Tests ", function()
 		local bare_repo = luagit2.repository_open_bare("Fixtures/WORKON_REPO/.git")
 		-- Check if the opened repo is bare or not
 		local repo_is_bare = luagit2.repository_is_bare(bare_repo)
-		assert.are.equal(1,repo_is_bare)
+		assert.are.equal(true,repo_is_bare)
 
 		-- Free used repo
 		luagit2.repository_free(bare_repo)

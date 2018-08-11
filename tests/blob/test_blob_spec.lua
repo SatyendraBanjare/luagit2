@@ -95,7 +95,7 @@ describe(" Blob Methods Tests ", function()
 	it("Tests if Blob is binary",function()
 		-- As can be seen, the README is not a binary file
 		-- So it should return 0.
-		assert.are.equal(0,luagit2.blob_is_binary(README_blob))
+		assert.are.equal(false,luagit2.blob_is_binary(README_blob))
 	end)
 
 end)
