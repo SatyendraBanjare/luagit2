@@ -80,7 +80,7 @@ int lua_git_repository_head (lua_State *L) {
 int lua_git_repository_head_detached (lua_State *L) {
 	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
 	int result = git_repository_head_detached(lua_repo->repo);
-	lua_pushinteger(L, result);
+	lua_pushboolean(L, result);
 	return 1;
 }
 
@@ -107,23 +107,18 @@ int lua_git_repository_head_for_worktree (lua_State *L) {
 int lua_git_repository_head_unborn (lua_State *L) {
 	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
 	int result = git_repository_head_unborn(lua_repo->repo);
-	lua_pushinteger(L, result);
+	lua_pushboolean(L, result);
 	return 1;
 }
 
 int lua_git_repository_ident (lua_State *L) {
 	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
-	int which = luaL_checkinteger(L, 2);
 	const char *name;
 	const char *email;
 	git_repository_ident(&name, &email, lua_repo->repo);
-	switch (which) {
-		case 1 :
-			lua_pushstring(L, name);
-		case 2 :
-			lua_pushstring(L, email);
-	}
-	return 1;
+	lua_pushstring(L, name);
+	lua_pushstring(L, email);
+	return 2;
 }
 
 int lua_git_repository_index(lua_State *L) {
@@ -175,28 +170,28 @@ int lua_git_repository_init (lua_State *L) {
 int lua_git_repository_is_bare (lua_State *L) {
 	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
 	int result = git_repository_is_bare(lua_repo->repo);
-	lua_pushinteger(L, result);
+	lua_pushboolean(L, result);
 	return 1;
 }
 
 int lua_git_repository_is_empty (lua_State *L) {
 	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
 	int result = git_repository_is_empty(lua_repo->repo);
-	lua_pushinteger(L, result);
+	lua_pushboolean(L, result);
 	return 1;
 }
 
 int lua_git_repository_is_shallow (lua_State *L) {
 	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
 	int result = git_repository_is_shallow(lua_repo->repo);
-	lua_pushinteger(L, result);
+	lua_pushboolean(L, result);
 	return 1;
 }
 
 int lua_git_repository_is_worktree (lua_State *L) {
 	const luagit2_repository *lua_repo = (luagit2_repository *)lua_touserdata(L, 1);
 	int result = git_repository_is_worktree(lua_repo->repo);
-	lua_pushinteger(L, result);
+	lua_pushboolean(L, result);
 	return 1;
 }
 

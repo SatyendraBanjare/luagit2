@@ -165,7 +165,7 @@ int lua_git_object_typeisloose(lua_State *L) {
 	const luagit2_otype *Type = (luagit2_otype *)lua_touserdata(L, 1);
 	int is_loose = git_object_typeisloose( Type->otype);
 
-	lua_pushinteger(L, is_loose);
+	lua_pushboolean(L, is_loose);
 
 	return 1;
 }

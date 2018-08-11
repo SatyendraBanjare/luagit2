@@ -53,14 +53,14 @@ int lua_git_branch_delete (lua_State *L) {
 int lua_git_branch_is_checked_out (lua_State *L) {
 	const luagit2_reference *lua_ref_branch = (luagit2_reference *)lua_touserdata(L, 1);
 	int is_checked_out = git_branch_is_checked_out(lua_ref_branch->reference);
-	lua_pushinteger(L, is_checked_out);
+	lua_pushboolean(L, is_checked_out);
 	return 1;
 }
 
 int lua_git_branch_is_head (lua_State *L) {
 	const luagit2_reference *lua_ref_branch = (luagit2_reference *)lua_touserdata(L, 1);
 	int is_head = git_branch_is_head(lua_ref_branch->reference);
-	lua_pushinteger(L, is_head);
+	lua_pushboolean(L, is_head);
 	return 1;
 }
 

@@ -75,7 +75,7 @@ int lua_git_blob_is_binary (lua_State *L) {
     const luagit2_blob *lua_blob = (luagit2_blob *)lua_touserdata(L, 1);
 
     int is_binary = git_blob_is_binary(lua_blob->blob);
-    lua_pushinteger(L, is_binary);
+    lua_pushboolean(L, is_binary);
     return 1;
 }
 

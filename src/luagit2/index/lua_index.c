@@ -110,7 +110,7 @@ int lua_git_index_entry_is_conflict(lua_State *L) {
 	luagit2_index_entry *Index_entry = (luagit2_index_entry *)luaL_checkudata(L, 1, "luagit2_index_entry");
 
 	int is_conflict = git_index_entry_is_conflict(Index_entry->index_entry);
-	lua_pushinteger(L, is_conflict);
+	lua_pushboolean(L, is_conflict);
 
 	return 1;
 
@@ -232,7 +232,7 @@ int lua_git_index_has_conflicts(lua_State *L) {
 	const luagit2_index *Index = (luagit2_index *)luaL_checkudata(L, 1, "luagit2_index");
 
 	int has_conflicts = git_index_has_conflicts(Index->index);
-	lua_pushinteger(L, has_conflicts);
+	lua_pushboolean(L, has_conflicts);
 
 	return 1;
 
