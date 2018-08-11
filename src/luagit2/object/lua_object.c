@@ -186,10 +186,10 @@ int lua_git_object_string2type(lua_State *L) {
 int lua_git_object_type(lua_State *L) {
 
 	if (lua_gettop(L) != 1 ) {
-        return luaL_error(L, "expecting 1 argument(s) : luagit2_otype");
+        return luaL_error(L, "expecting 1 argument(s) : luagit2_object");
     }
 
-	const luagit2_object *lua_object = (luagit2_object *)luaL_checkudata(L, 1,"luagit2_otype");
+	const luagit2_object *lua_object = (luagit2_object *)luaL_checkudata(L, 1,"luagit2_object");
 	luagit2_otype *obj_type;
 
 	obj_type = (luagit2_otype *)lua_newuserdata(L, sizeof(*obj_type));
