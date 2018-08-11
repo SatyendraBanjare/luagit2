@@ -4,6 +4,7 @@ local fixer = require("Fixtures.fix_repo")
 
 describe(" Describe Methods Tests ", function()
     local luagit2 = require("luagit2")
+    local luagit2_describe = require("describe.describe_cover")
     local repo_path = "Fixtures/WORKON_REPO"
     
     setup(function()
@@ -37,11 +38,11 @@ describe(" Describe Methods Tests ", function()
         local otype_commit = luagit2.object_string2type("commit")
         obj_commit = luagit2.object_lookup(repo, commit_id, otype_commit)
         
-        local describe_result = luagit2.describe_commit(obj_commit)
-        local buf_output = luagit2.describe_format(describe_result)
+        local describe_result = luagit2_describe.describe_commit(obj_commit)
+        local buf_output = luagit2_describe.describe_format(describe_result)
         local commit_describe = luagit2.buf_details(buf_output)
         assert.are.equal("v1.0-2-g108ddee", commit_describe)
-        luagit2.describe_result_free(describe_result)
+        luagit2_describe.describe_result_free(describe_result)
     end)
     
     --[[output of `git describe` on Fixtures/new_test_repo
@@ -52,10 +53,10 @@ describe(" Describe Methods Tests ", function()
     ]]--
 
     it("tests describe workdir", function()
-        local describe_result = luagit2.describe_workdir(repo)
-        local buf_output = luagit2.describe_format(describe_result)
+        local describe_result = luagit2_describe.describe_workdir(repo)
+        local buf_output = luagit2_describe.describe_format(describe_result)
         local wkdir_describe = luagit2.buf_details(buf_output)
         assert.are.equal("v1.0-2-g108ddee", wkdir_describe)
-        luagit2.describe_result_free(describe_result)
+        luagit2_describe.describe_result_free(describe_result)
     end)  
 end)
