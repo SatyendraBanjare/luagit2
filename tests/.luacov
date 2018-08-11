@@ -21,4 +21,7 @@ modules = {
 	["config.*"] = ".",
 	["config"] = "config_cover.lua",
 
+	["cred.*"] = ".",
+	["cred"] = "cred_cover.lua",
+
 }
