@@ -9,6 +9,9 @@ modules = {
 	["blob.*"] = ".",
 	["blob"] = "blob_cover.lua",
 
+	["branch.*"] = ".",
+	["branch"] = "branch_cover.lua",
+
 
 
 }
