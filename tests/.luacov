@@ -1,7 +1,7 @@
 modules = {
 
 	["annotated.*"] = ".",
-	["annotated"] = "annotated_cover.lua",
+	["annotated"] = "annotated.annotated_cover.lua",
 
 	["blame.*"] = ".",
 	["blame"] = "blame_cover.lua",
@@ -17,5 +17,8 @@ modules = {
 
 	["commit.*"] = ".",
 	["commit"] = "commit_cover.lua",
+
+	["config.*"] = ".",
+	["config"] = "config_cover.lua",
 
 }
