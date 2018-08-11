@@ -12,6 +12,7 @@ modules = {
 	["branch.*"] = ".",
 	["branch"] = "branch_cover.lua",
 
-
+	["checkout.*"] = ".",
+	["checkout"] = "checkout_cover.lua",
 
 }
