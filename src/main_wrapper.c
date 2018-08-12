@@ -25,7 +25,6 @@
 #include "luagit2/revert/lua_revert.h"
 #include "luagit2/revparse/lua_revparse.h"
 #include "luagit2/diff/lua_diff.h"
->>>>>>> master
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -472,8 +471,6 @@ static const struct luaL_Reg luagit2 [] = {
       {"diff_tree_to_workdir_with_index",lua_git_diff_tree_to_workdir_with_index},
       //-----------------------------------------------------------------------------------------------//
 
-
->>>>>>> master
       //------------------------------------------- Helper Methods ------------------------------------//
       {"get_signature_details", lua_get_signature_details},
       {"print_complete_signature_details", lua_print_complete_signature_details},
