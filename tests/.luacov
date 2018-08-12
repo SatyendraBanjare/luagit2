@@ -56,4 +56,8 @@ modules = {
 
 	["revert.*"] = ".",
 	["revert"] = "revert_cover.lua",
+
+	["revparse.*"] = ".",
+	["revparse"] = "revparse_cover.lua",
+
 }
