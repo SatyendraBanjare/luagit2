@@ -1,6 +1,11 @@
 #include "lua_branch_help.h"
 
 int get_type_GIT_BRANCH_LOCAL(lua_State *L){
+
+	if (lua_gettop(L) != 0) {
+        return luaL_error(L, "expecting No argument ");
+    }
+
 	luagit2_branch_type *Branch_type;
 	Branch_type = (luagit2_branch_type *)lua_newuserdata(L, sizeof(*Branch_type));
 
@@ -13,6 +18,11 @@ int get_type_GIT_BRANCH_LOCAL(lua_State *L){
 }
 
 int get_type_GIT_BRANCH_REMOTE(lua_State *L){
+
+	if (lua_gettop(L) != 0) {
+        return luaL_error(L, "expecting No argument ");
+    }
+
 	luagit2_branch_type *Branch_type;
 	Branch_type = (luagit2_branch_type *)lua_newuserdata(L, sizeof(*Branch_type));
 

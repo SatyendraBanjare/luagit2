@@ -2,9 +2,13 @@
 
 int lua_git_config_delete_entry (lua_State *L) {
 
+	if (lua_gettop(L) != 2 ) {
+        return luaL_error(L, "expecting 2 argument(s) : luagit2_config,name");
+    }
+
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 
 	check_error_long(git_config_delete_entry(parent_cfg->cfg, name),
@@ -15,9 +19,13 @@ int lua_git_config_delete_entry (lua_State *L) {
 
 int lua_git_config_delete_multivar (lua_State *L) {
 
+	if (lua_gettop(L) != 3 ) {
+        return luaL_error(L, "expecting 3 argument(s) : luagit2_config,name,regex");
+    }
+
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 	const char *regex = luaL_checkstring(L, 3);
 
@@ -28,6 +36,11 @@ int lua_git_config_delete_multivar (lua_State *L) {
 }
 
 int lua_git_config_find_global (lua_State *L) {
+
+	if (lua_gettop(L) != 0 ) {
+        return luaL_error(L, "expecting No argument(s)");
+    }
+
 	luagit2_buf *lua_buf;
 
 	lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
@@ -45,8 +58,12 @@ int lua_git_config_find_global (lua_State *L) {
 }
 
 int lua_git_config_find_programdata (lua_State *L) {
-	luagit2_buf *lua_buf;
 
+	if (lua_gettop(L) != 0 ) {
+        return luaL_error(L, "expecting No argument(s)");
+    }
+
+	luagit2_buf *lua_buf;
 
 	lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
 	lua_buf->buf  = NULL;
@@ -65,6 +82,11 @@ int lua_git_config_find_programdata (lua_State *L) {
 }
 
 int lua_git_config_find_system (lua_State *L) {
+
+	if (lua_gettop(L) != 0 ) {
+        return luaL_error(L, "expecting No argument(s)");
+    }
+
 	luagit2_buf *lua_buf;
 
 
@@ -85,6 +107,11 @@ int lua_git_config_find_system (lua_State *L) {
 }
 
 int lua_git_config_find_xdg (lua_State *L) {
+
+	if (lua_gettop(L) != 0 ) {
+        return luaL_error(L, "expecting No argument(s)");
+    }
+
 	luagit2_buf *lua_buf;
 
 
@@ -105,10 +132,15 @@ int lua_git_config_find_xdg (lua_State *L) {
 }
 
 int lua_git_config_get_int32 (lua_State *L) {
+
+	if (lua_gettop(L) != 2 ) {
+        return luaL_error(L, "expecting 2 argument(s) : luagit2_config,name");
+    }
+
 	const luagit2_config *parent_cfg;
 	int32_t out;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 
 	check_error_long(git_config_get_int32(&out, parent_cfg->cfg, name),
@@ -119,10 +151,15 @@ int lua_git_config_get_int32 (lua_State *L) {
 }
 
 int lua_git_config_get_int64 (lua_State *L) {
+
+	if (lua_gettop(L) != 2 ) {
+        return luaL_error(L, "expecting 2 argument(s) : luagit2_config,name");
+    }
+
 	const luagit2_config *parent_cfg;
 	int64_t out;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 
 	check_error_long(git_config_get_int64(&out, parent_cfg->cfg, name),
@@ -133,10 +170,15 @@ int lua_git_config_get_int64 (lua_State *L) {
 }
 
 int lua_git_config_get_bool (lua_State *L) {
+
+	if (lua_gettop(L) != 2 ) {
+        return luaL_error(L, "expecting 2 argument(s) : luagit2_config,name");
+    }
+
 	const luagit2_config *parent_cfg;
 	int out;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 
 	git_config_get_bool(&out, parent_cfg->cfg, name);
@@ -146,10 +188,15 @@ int lua_git_config_get_bool (lua_State *L) {
 }
 
 int lua_git_config_get_path (lua_State *L) {
+
+	if (lua_gettop(L) != 2 ) {
+        return luaL_error(L, "expecting 2 argument(s) : luagit2_config,name");
+    }
+
 	luagit2_buf *lua_buf;
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 
 	lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
@@ -169,10 +216,15 @@ int lua_git_config_get_path (lua_State *L) {
 }
 
 int lua_git_config_get_string (lua_State *L) {
+
+	if (lua_gettop(L) != 2 ) {
+        return luaL_error(L, "expecting 2 argument(s) : luagit2_config,name");
+    }
+
 	const char *value;
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 
 	git_config_get_string(&value, parent_cfg->cfg, name);
@@ -182,10 +234,15 @@ int lua_git_config_get_string (lua_State *L) {
 }
 
 int lua_git_config_get_string_buf (lua_State *L) {
+
+	if (lua_gettop(L) != 2 ) {
+        return luaL_error(L, "expecting 2 argument(s) : luagit2_config,name");
+    }
+
 	luagit2_buf *lua_buf;
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 
 	lua_buf = (luagit2_buf *)lua_newuserdata(L, sizeof(*lua_buf));
@@ -204,6 +261,11 @@ int lua_git_config_get_string_buf (lua_State *L) {
 }
 
 int lua_git_config_open_default (lua_State *L) {
+
+	if (lua_gettop(L) != 0 ) {
+        return luaL_error(L, "expecting NO argument(s) ");
+    }
+
 	luagit2_config *lua_cfg;
 
 	lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
@@ -222,10 +284,15 @@ int lua_git_config_open_default (lua_State *L) {
 }
 
 int lua_git_config_open_global (lua_State *L) {
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : luagit2_config");
+    }
+
 	luagit2_config *lua_cfg;
 	luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 
 	lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
 	lua_cfg->cfg  = NULL;
@@ -243,11 +310,16 @@ int lua_git_config_open_global (lua_State *L) {
 }
 
 int lua_git_config_open_level (lua_State *L) {
+
+	if (lua_gettop(L) != 2 ) {
+        return luaL_error(L, "expecting 2 argument(s) : luagit2_config,luagit2_config_level_t");
+    }
+
 	luagit2_config *lua_cfg;
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
-	luagit2_config_level_t *Level = (luagit2_config_level_t *)lua_touserdata(L, 2);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
+	luagit2_config_level_t *Level = (luagit2_config_level_t *)luaL_checkudata(L, 2,"luagit2_config_level_t");
 
 	lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
 	lua_cfg->cfg  = NULL;
@@ -265,6 +337,11 @@ int lua_git_config_open_level (lua_State *L) {
 }
 
 int lua_git_config_open_ondisk (lua_State *L) {
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : path");
+    }
+
 	luagit2_config *lua_cfg;
 
 	const char *path = luaL_checkstring(L, 1);
@@ -285,6 +362,11 @@ int lua_git_config_open_ondisk (lua_State *L) {
 }
 
 int lua_git_config_parse_bool (lua_State *L) {
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : value(string)");
+    }
+
 	const char *value = luaL_checkstring(L, 1);
 	int out;
 	check_error_long(git_config_parse_bool(&out, value),
@@ -295,6 +377,11 @@ int lua_git_config_parse_bool (lua_State *L) {
 }
 
 int lua_git_config_parse_int32 (lua_State *L) {
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : value(string)");
+    }
+
 	const char *value = luaL_checkstring(L, 1);
 	int32_t out;
 	check_error_long(git_config_parse_int32(&out, value),
@@ -305,6 +392,11 @@ int lua_git_config_parse_int32 (lua_State *L) {
 }
 
 int lua_git_config_parse_int64 (lua_State *L) {
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : value(string)");
+    }
+
 	const char *value = luaL_checkstring(L, 1);
 	int64_t out;
 	check_error_long(git_config_parse_int64(&out, value),
@@ -315,6 +407,11 @@ int lua_git_config_parse_int64 (lua_State *L) {
 }
 
 int lua_git_config_parse_path (lua_State *L) {
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : buf_value(string)");
+    }
+
 	luagit2_buf *lua_buf;
 	const char *path_value = luaL_checkstring(L, 1);
 
@@ -335,9 +432,13 @@ int lua_git_config_parse_path (lua_State *L) {
 
 int lua_git_config_set_bool (lua_State *L) {
 
+	if (lua_gettop(L) != 3 ) {
+        return luaL_error(L, "expecting 3 argument(s) : luagit2_config,name(string),value(int)");
+    }
+
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 	int value = luaL_checkinteger(L, 3);
 
@@ -349,9 +450,13 @@ int lua_git_config_set_bool (lua_State *L) {
 
 int lua_git_config_set_int32 (lua_State *L) {
 
+	if (lua_gettop(L) != 3 ) {
+        return luaL_error(L, "expecting 3 argument(s) : luagit2_config,name(string),value(int)");
+    }
+
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 	int32_t value = luaL_checkinteger(L, 3);
 
@@ -363,9 +468,13 @@ int lua_git_config_set_int32 (lua_State *L) {
 
 int lua_git_config_set_int64 (lua_State *L) {
 
+	if (lua_gettop(L) != 3 ) {
+        return luaL_error(L, "expecting 3 argument(s) : luagit2_config,name(string),value(int)");
+    }
+
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 	int64_t value = luaL_checkinteger(L, 3);
 
@@ -377,9 +486,13 @@ int lua_git_config_set_int64 (lua_State *L) {
 
 int lua_git_config_set_multivar (lua_State *L) {
 
+	if (lua_gettop(L) != 4 ) {
+        return luaL_error(L, "expecting 4 argument(s) : luagit2_config,name(string),regex(string),value(string)");
+    }
+
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 	const char *regex = luaL_checkstring(L, 3);
 	const char *value = luaL_checkstring(L, 4);
@@ -392,9 +505,13 @@ int lua_git_config_set_multivar (lua_State *L) {
 
 int lua_git_config_set_string (lua_State *L) {
 
+	if (lua_gettop(L) != 3 ) {
+        return luaL_error(L, "expecting 3 argument(s) : luagit2_config,name(string),value(string)");
+    }
+
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 	const char *value = luaL_checkstring(L, 3);
 
@@ -405,10 +522,15 @@ int lua_git_config_set_string (lua_State *L) {
 }
 
 int lua_git_config_snapshot (lua_State *L) {
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : luagit2_config");
+    }
+
 	luagit2_config *lua_cfg;
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 
 	lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
 	lua_cfg->cfg  = NULL;
@@ -426,16 +548,27 @@ int lua_git_config_snapshot (lua_State *L) {
 }
 
 int lua_git_config_free (lua_State *L) {
-	const luagit2_config *lua_cfg  = (luagit2_config *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : luagit2_config");
+    }
+
+	const luagit2_config *lua_cfg  = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	git_config_free(lua_cfg->cfg);
 	return 1;
 }
 
 int lua_git_config_add_file_ondisk (lua_State *L) {
-	const luagit2_config *Config_to_write = (luagit2_config *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 5 ) {
+        return luaL_error(L, "expecting 5 argument(s) : luagit2_config,path,luagit2_config_level_t,luagit2_repository\
+        	force(int)");
+    }
+
+	const luagit2_config *Config_to_write = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *path = luaL_checkstring(L, 2);
-	const luagit2_config_level_t *cfg_lvl = (luagit2_config_level_t *)lua_touserdata(L, 3);
-	const luagit2_repository *Repository = (luagit2_repository *)lua_touserdata(L, 4);
+	const luagit2_config_level_t *cfg_lvl = (luagit2_config_level_t *)luaL_checkudata(L, 3,"luagit2_config_level_t");
+	const luagit2_repository *Repository = (luagit2_repository *)luaL_checkudata(L, 4,"luagit2_repository");
 	const int force = luaL_checkinteger(L, 5);
 
 	check_error_long(git_config_add_file_ondisk(Config_to_write->cfg,
@@ -444,6 +577,11 @@ int lua_git_config_add_file_ondisk (lua_State *L) {
 }
 
 int lua_git_config_new(lua_State *L) {
+
+	if (lua_gettop(L) != 0 ) {
+        return luaL_error(L, "expecting No argument(s)");
+    }
+
 	luagit2_config *lua_cfg;
 
 	lua_cfg = (luagit2_config *)lua_newuserdata(L, sizeof(*lua_cfg));
@@ -461,10 +599,15 @@ int lua_git_config_new(lua_State *L) {
 }
 
 int lua_git_config_iterator_new(lua_State *L) {
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : luagit2_config");
+    }
+
 	luagit2_config_iterator *lua_cfg_itr;
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 
 	lua_cfg_itr = (luagit2_config_iterator *)lua_newuserdata(L, sizeof(*lua_cfg_itr));
 	lua_cfg_itr->config_iterator  = NULL;
@@ -481,16 +624,26 @@ int lua_git_config_iterator_new(lua_State *L) {
 }
 
 int lua_git_config_entry_free(lua_State *L) {
-	luagit2_config_entry *cfg_entry = (luagit2_config_entry *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : luagit2_config_entry");
+    }
+
+	luagit2_config_entry *cfg_entry = (luagit2_config_entry *)luaL_checkudata(L, 1,"luagit2_config_entry");
 	git_config_entry_free(cfg_entry->config_entry);
 	return 1;
 }
 
 int lua_git_config_get_entry(lua_State *L) {
+
+	if (lua_gettop(L) != 2 ) {
+        return luaL_error(L, "expecting 2 argument(s) : luagit2_config,name");
+    }
+
 	luagit2_config_entry *lua_cfg_entry;
 	const luagit2_config *parent_cfg;
 
-	parent_cfg = (luagit2_config *)lua_touserdata(L, 1);
+	parent_cfg = (luagit2_config *)luaL_checkudata(L, 1,"luagit2_config");
 	const char *name = luaL_checkstring(L, 2);
 
 	lua_cfg_entry = (luagit2_config_entry *)lua_newuserdata(L, sizeof(*lua_cfg_entry));
@@ -507,8 +660,13 @@ int lua_git_config_get_entry(lua_State *L) {
 }
 
 int lua_git_config_next(lua_State *L) {
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : luagit2_config_iterator");
+    }
+
 	luagit2_config_entry *lua_cfg_entry;
-	const luagit2_config_iterator *cfg_itr = (luagit2_config_iterator *)lua_touserdata(L, 1);
+	const luagit2_config_iterator *cfg_itr = (luagit2_config_iterator *)luaL_checkudata(L, 1,"luagit2_config_iterator");
 
 	lua_cfg_entry = (luagit2_config_entry *)lua_newuserdata(L, sizeof(*lua_cfg_entry));
 	lua_cfg_entry->config_entry  = NULL;
@@ -525,7 +683,12 @@ int lua_git_config_next(lua_State *L) {
 }
 
 int lua_git_config_iterator_free(lua_State *L){
-	luagit2_config_iterator *cfg_itr = (luagit2_config_iterator *)lua_touserdata(L,1);
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : luagit2_config_iterator");
+    }
+
+	luagit2_config_iterator *cfg_itr = (luagit2_config_iterator *)luaL_checkudata(L,1,"luagit2_config_iterator");
 	git_config_iterator_free(cfg_itr->config_iterator);
 	return 1;
 }

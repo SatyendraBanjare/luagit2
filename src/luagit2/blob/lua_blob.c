@@ -1,8 +1,13 @@
 #include "lua_blob.h"
 
 int lua_git_blob_create_fromdisk (lua_State *L) {
+
+    if (lua_gettop(L) != 2) {
+        return luaL_error(L, "expecting exactly 2 argument(s) : luagit2_repository,path(string)");
+    }
+
     luagit2_oid *obj_id;
-    const luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
+    const luagit2_repository *Repo = (luagit2_repository *)luaL_checkudata(L, 1,"luagit2_repository");
     const char *path = luaL_checkstring(L, 2);
 
     obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
@@ -19,8 +24,13 @@ int lua_git_blob_create_fromdisk (lua_State *L) {
 }
 
 int lua_git_blob_create_fromworkdir (lua_State *L) {
+
+    if (lua_gettop(L) != 2) {
+        return luaL_error(L, "expecting exactly 2 argument(s) : luagit2_repository,path(string)");
+    }
+
     luagit2_oid *obj_id;
-    const luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
+    const luagit2_repository *Repo = (luagit2_repository *)luaL_checkudata(L, 1,"luagit2_repository");
     const char *relative_path = luaL_checkstring(L, 2);
 
     obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
@@ -37,7 +47,12 @@ int lua_git_blob_create_fromworkdir (lua_State *L) {
 }
 
 int lua_git_blob_filtered_content (lua_State *L) {
-    luagit2_blob *lua_blob = (luagit2_blob *)lua_touserdata(L, 1);
+
+    if (lua_gettop(L) != 3) {
+        return luaL_error(L, "expecting exactly 3 argument(s) : luagit2_blob,path(string),check_for_binary_data(int)");
+    }
+
+    const luagit2_blob *lua_blob = (luagit2_blob *)luaL_checkudata(L, 1,"luagit2_blob");
     const char *as_path = luaL_checkstring(L, 2);
     int check_for_binary_data = luaL_checkinteger(L, 3);
 
@@ -58,8 +73,13 @@ int lua_git_blob_filtered_content (lua_State *L) {
 }
 
 int lua_git_blob_id (lua_State *L) {
+
+    if (lua_gettop(L) != 1) {
+        return luaL_error(L, "expecting exactly 1 argument(s) : luagit2_blob");
+    }
+
     luagit2_oid *obj_id;
-    const luagit2_blob *lua_blob = (luagit2_blob *)lua_touserdata(L, 1);
+    const luagit2_blob *lua_blob = (luagit2_blob *)luaL_checkudata(L, 1,"luagit2_blob");
 
     obj_id = (luagit2_oid *)lua_newuserdata(L, sizeof(*obj_id));
 
@@ -72,17 +92,27 @@ int lua_git_blob_id (lua_State *L) {
 }
 
 int lua_git_blob_is_binary (lua_State *L) {
-    const luagit2_blob *lua_blob = (luagit2_blob *)lua_touserdata(L, 1);
+
+    if (lua_gettop(L) != 1) {
+        return luaL_error(L, "expecting exactly 1 argument(s) : luagit2_blob");
+    }
+
+    const luagit2_blob *lua_blob = (luagit2_blob *)luaL_checkudata(L, 1,"luagit2_blob");
 
     int is_binary = git_blob_is_binary(lua_blob->blob);
-    lua_pushinteger(L, is_binary);
+    lua_pushboolean(L, is_binary);
     return 1;
 }
 
 int lua_git_blob_lookup (lua_State *L) {
+
+    if (lua_gettop(L) != 2) {
+        return luaL_error(L, "expecting exactly 2 argument(s) : luagit2_repository,luagit2_oid");
+    }
+
     luagit2_blob *lua_blob ;
-    const luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
-    const luagit2_oid *lua_oid = (luagit2_oid *)lua_touserdata(L, 2);
+    const luagit2_repository *Repo = (luagit2_repository *)luaL_checkudata(L, 1,"luagit2_repository");
+    const luagit2_oid *lua_oid = (luagit2_oid *)luaL_checkudata(L, 2,"luagit2_oid");
 
     lua_blob = (luagit2_blob *)lua_newuserdata(L, sizeof(*lua_blob));
     lua_blob->blob = NULL;
@@ -99,9 +129,14 @@ int lua_git_blob_lookup (lua_State *L) {
 }
 
 int lua_git_blob_lookup_prefix (lua_State *L) {
+
+    if (lua_gettop(L) != 3) {
+        return luaL_error(L, "expecting exactly 3 argument(s) : luagit2_repository,luagit2_oid,length(int)");
+    }
+
     luagit2_blob *lua_blob ;
-    const luagit2_repository *Repo = (luagit2_repository *)lua_touserdata(L, 1);
-    const luagit2_oid *lua_oid = (luagit2_oid *)lua_touserdata(L, 2);
+    const luagit2_repository *Repo = (luagit2_repository *)luaL_checkudata(L, 1,"luagit2_repository");
+    const luagit2_oid *lua_oid = (luagit2_oid *)luaL_checkudata(L, 2,"luagit2_oid");
     size_t len = luaL_checkinteger(L, 3);
 
     lua_blob = (luagit2_blob *)lua_newuserdata(L, sizeof(*lua_blob));
@@ -119,8 +154,13 @@ int lua_git_blob_lookup_prefix (lua_State *L) {
 }
 
 int lua_git_blob_owner(lua_State *L) {
+
+    if (lua_gettop(L) != 1) {
+        return luaL_error(L, "expecting exactly 1 argument(s) : luagit2_blob");
+    }
+
     luagit2_repository *lua_repo;
-    const luagit2_blob *lua_blob = (luagit2_blob *)lua_touserdata(L, 1);
+    const luagit2_blob *lua_blob = (luagit2_blob *)luaL_checkudata(L, 1,"luagit2_blob");
 
     lua_repo = (luagit2_repository *)lua_newuserdata(L, sizeof(*lua_repo));
     lua_repo->repo  = NULL;
@@ -134,8 +174,13 @@ int lua_git_blob_owner(lua_State *L) {
 }
 
 int lua_git_blob_rawsize(lua_State *L) {
+
+    if (lua_gettop(L) != 1) {
+        return luaL_error(L, "expecting exactly 1 argument(s) : luagit2_blob");
+    }
+
     luagit2_off_t *lua_blob_size;
-    const luagit2_blob *lua_blob = (luagit2_blob *)lua_touserdata(L, 1);
+    const luagit2_blob *lua_blob = (luagit2_blob *)luaL_checkudata(L, 1,"luagit2_blob");
 
     lua_blob_size = (luagit2_off_t *)lua_newuserdata(L, sizeof(*lua_blob_size));
 
@@ -148,7 +193,12 @@ int lua_git_blob_rawsize(lua_State *L) {
 }
 
 int lua_git_blob_free(lua_State *L) {
-    const luagit2_blob *lua_blob = (luagit2_blob *)lua_touserdata(L, 1);
+
+    if (lua_gettop(L) != 1) {
+        return luaL_error(L, "expecting exactly 1 argument(s) : luagit2_blob");
+    }
+
+    const luagit2_blob *lua_blob = (luagit2_blob *)luaL_checkudata(L, 1,"luagit2_blob");
     git_blob_free(lua_blob->blob);
 
     return 1;
