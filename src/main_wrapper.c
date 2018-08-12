@@ -15,6 +15,7 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/odb/lua_odb.h"
 #include "luagit2/revwalk/lua_revwalk.h"
 #include "luagit2/annotated/lua_annotated.h"
 #include "luagit2/checkout/lua_checkout.h"
@@ -376,6 +377,21 @@ static const struct luaL_Reg luagit2 [] = {
       {"buf_free", lua_git_buf_free},
       //-----------------------------------------------------------------------------------------------//
 
+      //-------------------------------------------- Odb Methods --------------------------------------//
+      {"odb_exists",lua_git_odb_exists},
+      {"odb_free",lua_git_odb_free},
+      {"odb_hash",lua_git_odb_hash},
+      {"odb_hashfile",lua_git_odb_hashfile},
+      {"odb_object_free",lua_git_odb_object_free},
+      {"odb_object_id",lua_git_odb_object_id},
+      {"odb_object_size",lua_git_odb_object_size},
+      {"odb_object_type",lua_git_odb_object_type},
+      {"odb_open",lua_git_odb_open},
+      {"odb_read",lua_git_odb_read},
+      {"odb_refresh",lua_git_odb_refresh},
+      {"odb_write",lua_git_odb_write},
+      //-----------------------------------------------------------------------------------------------//
+
       //------------------------------------------- Revwalk Methods -----------------------------------//
       {"revwalk_new",lua_git_revwalk_new},
       {"revwalk_next",lua_git_revwalk_next},
@@ -454,7 +470,6 @@ static const struct luaL_Reg luagit2 [] = {
       {"diff_tree_to_workdir",lua_git_diff_tree_to_workdir},
       {"diff_tree_to_workdir_with_index",lua_git_diff_tree_to_workdir_with_index},
       //-----------------------------------------------------------------------------------------------//
-
 
       //------------------------------------------- Helper Methods ------------------------------------//
       {"get_signature_details", lua_get_signature_details},
