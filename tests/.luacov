@@ -54,4 +54,6 @@ modules = {
 	["reset.*"] = ".",
 	["reset"] = "reset_cover.lua",
 
+	["revert.*"] = ".",
+	["revert"] = "revert_cover.lua",
 }
