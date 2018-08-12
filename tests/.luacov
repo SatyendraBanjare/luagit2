@@ -38,4 +38,8 @@ modules = {
 
 	["object.*"] = ".",
 	["object"] = "object_cover.lua",
+
+	["oid.*"] = ".",
+	["oid"] = "oid_cover.lua",
+
 }
