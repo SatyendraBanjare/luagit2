@@ -65,4 +65,7 @@ modules = {
 
 	["signature.*"] = ".",
 	["signature"] = "signature_cover.lua",
+
+	["tag.*"] = ".",
+	["tag"] = "tag_cover.lua",
 }
