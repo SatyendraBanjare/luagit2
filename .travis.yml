@@ -51,3 +51,61 @@ notifications:
   email:
     on_success: change
 on_failure: always
+
+
+language: python
+sudo: true
+dist: xenial
+env:
+  - LUA="lua 5.3" LD_LIBRARY_PATH="/usr/local/lib"
+  
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install lua5.3
+  - sudo apt-get install liblua5.3-dev
+  - wget https://luarocks.org/releases/luarocks-2.4.4.tar.gz
+  - tar zxpf luarocks-2.4.4.tar.gz
+  - cd luarocks-2.4.4
+  - ./configure --lua-version=5.3
+  - make build && sudo make install
+  - cd ..
+  - sudo apt-get install cmake
+  - sudo apt-get install libhttp-parser-dev
+  - sudo apt install libssh2-1-dev
+  - sudo apt install libcurl4-openssl-dev
+  - chmod +x ./install_libgit.sh
+  - "./install_libgit.sh"
+
+install:
+  - lua5.3 -v
+  - sudo luarocks install luacheck
+  - sudo luarocks install luacov
+  - sudo luarocks install luacov-coveralls
+  - sudo luarocks install busted
+  - sudo apt-get update
+  - mkdir build && cd build
+  - cmake ..
+  - sudo make install
+  - echo " INSTALL SUCCESSFUL USING CMAKE/MAKE "
+  - cd ..
+  - sudo luarocks make luagit2-0.0-1.rockspec 
+  - echo " INSTALL SUCCESSFUL USING LUAROCKS "
+  
+script:
+  - sudo luarocks path
+  - cp build/luagit2.so ./tests/
+  - ls -la
+  - echo "Successful build"
+  - cd tests/
+  - ldd luagit2.so
+  - chmod +x test-all.sh
+  - ./test-all.sh
+  - luacov-coveralls -c .luacov
+
+
+notifications:
+  email:
+    on_success: change
+on_failure: always
+
+

@@ -1,3 +1,4 @@
+
 #!/bin/sh
 
 cd ~
@@ -10,3 +11,14 @@ cmake .. -DBUILD_CLAR=OFF
 sudo make install
 
 ls -la ..
+
+
+
+
+
+
+
+
+
+
+
