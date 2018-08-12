@@ -4,6 +4,7 @@ local fixer = require("Fixtures.fix_repo")
 
 describe(" Reset Methods Tests ", function()
     local luagit2 = require("luagit2")
+    local luagit2_reset = require("reset.reset_cover")
     local repo_path = "Fixtures/WORKON_REPO"
     
     setup(function()
@@ -32,8 +33,8 @@ describe(" Reset Methods Tests ", function()
 
     	local checkout_init_opts = luagit2.checkout_init_options()
 
-    	assert.has_no_errors(function() luagit2.reset(repo,obj_commit,"soft") end)
-    	assert.has_no_errors(function() luagit2.reset(repo,obj_commit,"hard") end)
-    	assert.has_no_errors(function() luagit2.reset(repo,obj_commit,"mixed") end)
+    	assert.has_no_errors(function() luagit2_reset.reset(repo,obj_commit,"soft") end)
+    	assert.has_no_errors(function() luagit2_reset.reset(repo,obj_commit,"hard") end)
+    	assert.has_no_errors(function() luagit2_reset.reset(repo,obj_commit,"mixed") end)
     end)
 end)
