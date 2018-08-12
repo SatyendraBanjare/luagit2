@@ -45,4 +45,7 @@ modules = {
 	["reference.*"] = ".",
 	["reference"] = "reference_cover.lua",
 
+	["reflog.*"] = ".",
+	["reflog"] = "reflog_cover.lua",
+
 }
