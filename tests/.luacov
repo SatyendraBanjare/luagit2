@@ -62,4 +62,7 @@ modules = {
 
 	["revwalk.*"] = ".",
 	["revwalk"] = "revwalk_cover.lua",
+
+	["signature.*"] = ".",
+	["signature"] = "signature_cover.lua",
 }
