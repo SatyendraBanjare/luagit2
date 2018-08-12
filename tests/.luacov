@@ -68,4 +68,7 @@ modules = {
 
 	["tag.*"] = ".",
 	["tag"] = "tag_cover.lua",
+
+	["tree.*"] = ".",
+	["tree"] = "tree_cover.lua",
 }
