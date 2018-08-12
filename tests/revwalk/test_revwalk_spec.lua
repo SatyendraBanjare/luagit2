@@ -5,6 +5,7 @@ local lfs = require("lfs")
 
 describe(" Revwalk Methods Tests ", function()
     local luagit2 = require("luagit2")
+    local luagit2_revwalk = require("revwalk.revwalk_cover")
     local repo_path = "Fixtures/WORKON_REPO"
     local current_directory_path = lfs.currentdir()
     
@@ -27,54 +28,54 @@ describe(" Revwalk Methods Tests ", function()
     end)
 
     it("tests revwalker functions",function()
-    	local revwalk = luagit2.revwalk_new(repo)
+    	local revwalk = luagit2_revwalk.revwalk_new(repo)
     	-- now our revwalk is not set.
     	-- lets set it to list the values for our
     	-- repository's HEAD. like the one used in
     	-- git rev-list 
     	--
     	-- using revwalk without setting it will give errors.
-    	luagit2.revwalk_push_head(revwalk)
+    	luagit2_revwalk.revwalk_push_head(revwalk)
     	
-    	local first_revwalk_oid = luagit2.revwalk_next(revwalk)
+    	local first_revwalk_oid = luagit2_revwalk.revwalk_next(revwalk)
     	assert.is_string(luagit2.oid_tostr_s(first_revwalk_oid))
 
-    	local second_revwalk_oid = luagit2.revwalk_next(revwalk)
+    	local second_revwalk_oid = luagit2_revwalk.revwalk_next(revwalk)
     	assert.is_string(luagit2.oid_tostr_s(second_revwalk_oid))
     	
     	-- Later check the existance of these string
     	-- after odb module is completed.
 
     	-- free used revwalk
-    	luagit2.revwalk_free(revwalk)
+    	luagit2_revwalk.revwalk_free(revwalk)
     end)
     
     pending("check if oid exists in odb",function() end)
 
     it("tests push ref",function()
-    	local revwalk = luagit2.revwalk_new(repo)
+    	local revwalk = luagit2_revwalk.revwalk_new(repo)
     	-- this will make revwalk list changes, objects in specified reference. 
-    	assert.has_no_errors(function() luagit2.revwalk_push_ref(revwalk,"refs/heads/master") end)
+    	assert.has_no_errors(function() luagit2_revwalk.revwalk_push_ref(revwalk,"refs/heads/master") end)
 
     	-- free used revwalk
-    	luagit2.revwalk_free(revwalk)
+    	luagit2_revwalk.revwalk_free(revwalk)
     end)
 
     it("tests revwalk repository & reseting it",function()
-    	local revwalk = luagit2.revwalk_new(repo)
+    	local revwalk = luagit2_revwalk.revwalk_new(repo)
     	-- set the revwalk
-    	luagit2.revwalk_push_head(revwalk)
+    	luagit2_revwalk.revwalk_push_head(revwalk)
 
     	-- reset the revwalk
-    	luagit2.revwalk_reset(revwalk)
+    	luagit2_revwalk.revwalk_reset(revwalk)
 
     	-- check for revwalk's repository
-    	local owner_repo = luagit2.revwalk_repository(revwalk)
+    	local owner_repo = luagit2_revwalk.revwalk_repository(revwalk)
 
     	-- Get the repo path for that owner repository
 		local owner_repo_path = luagit2.repository_path(owner_repo)
 		assert.are.equal(current_directory_path .. "/Fixtures/WORKON_REPO/.git/" , owner_repo_path)
 
-		luagit2.revwalk_free(revwalk)
+		luagit2_revwalk.revwalk_free(revwalk)
     end)
 end)
