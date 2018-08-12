@@ -42,4 +42,7 @@ modules = {
 	["oid.*"] = ".",
 	["oid"] = "oid_cover.lua",
 
+	["reference.*"] = ".",
+	["reference"] = "reference_cover.lua",
+
 }
