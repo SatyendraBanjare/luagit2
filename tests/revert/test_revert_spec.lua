@@ -4,6 +4,7 @@ local fixer = require("Fixtures.fix_repo")
 
 describe(" Revert Methods Tests ", function()
     local luagit2 = require("luagit2")
+    local luagit2_revert = require("revert.revert_cover")
     local repo_path = "Fixtures/WORKON_REPO"
     
     setup(function()
@@ -29,7 +30,7 @@ describe(" Revert Methods Tests ", function()
         commit_id = luagit2.oid_fromstr(commit_id_string)
         commit = luagit2.commit_lookup(repo, commit_id)
         
-        assert.has_no_errors(function () luagit2.revert(repo, commit) end)
+        assert.has_no_errors(function () luagit2_revert.revert(repo, commit) end)
         
     end)
     
