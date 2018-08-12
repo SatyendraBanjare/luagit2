@@ -50,4 +50,8 @@ modules = {
 
 	["repository.*"] = ".",
 	["repository"] = "repository_cover.lua",
+
+	["reset.*"] = ".",
+	["reset"] = "reset_cover.lua",
+
 }
