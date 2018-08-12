@@ -3,6 +3,7 @@
 describe("oid methods test", function()
     
     local luagit2 = require("luagit2")
+    local luagit2_oid = require("oid.oid_cover")
     local obj_id
     local obj_id_string = "1385f264afb75a56a5bec74243be9b367ba4ca08" -- Object ID of Fixtures/new_test_repo/README
     local obj_id_semi_zero_a, obj_id_semi_zero_b
@@ -25,11 +26,11 @@ describe("oid methods test", function()
     
     before_each(function()
         -- setup different variables
-        obj_id = luagit2.oid_fromstr(obj_id_string)
-        obj_id_semi_zero_a = luagit2.oid_fromstr(obj_id_semi_zero_string_a)
-        obj_id_semi_zero_b = luagit2.oid_fromstr(obj_id_semi_zero_string_b)
-        obj_id_2 = luagit2.oid_fromstr(obj_id_string_2)
-        zero_obj_id = luagit2.oid_fromstr(zero_obj_id_string)
+        obj_id = luagit2_oid.oid_fromstr(obj_id_string)
+        obj_id_semi_zero_a = luagit2_oid.oid_fromstr(obj_id_semi_zero_string_a)
+        obj_id_semi_zero_b = luagit2_oid.oid_fromstr(obj_id_semi_zero_string_b)
+        obj_id_2 = luagit2_oid.oid_fromstr(obj_id_string_2)
+        zero_obj_id = luagit2_oid.oid_fromstr(zero_obj_id_string)
     end)
     
     it("Checks data type and metatable name ", function()
@@ -60,16 +61,16 @@ describe("oid methods test", function()
         -- Check the string value of Object Ids if they are equal
         -- to that used for initializing or not.
         
-        assert.are.same(obj_id_string, luagit2.oid_tostr(obj_id))
-        assert.are.same(obj_id_string_2, luagit2.oid_tostr(obj_id_2))
-        assert.are.same(obj_id_semi_zero_string_a, luagit2.oid_tostr(obj_id_semi_zero_a))
-        assert.are.same(obj_id_semi_zero_string_b, luagit2.oid_tostr(obj_id_semi_zero_b))
+        assert.are.same(obj_id_string, luagit2_oid.oid_tostr(obj_id))
+        assert.are.same(obj_id_string_2, luagit2_oid.oid_tostr(obj_id_2))
+        assert.are.same(obj_id_semi_zero_string_a, luagit2_oid.oid_tostr(obj_id_semi_zero_a))
+        assert.are.same(obj_id_semi_zero_string_b, luagit2_oid.oid_tostr(obj_id_semi_zero_b))
         
         -- reinitializing obj_id value using obj_id_string_2
         -- tests setting oibject id by string
-        obj_id = luagit2.oid_fromstr(obj_id_string_2)
-        assert.are.not_same(obj_id_string, luagit2.oid_tostr(obj_id))
-        assert.are.same(obj_id_string_2, luagit2.oid_tostr(obj_id))
+        obj_id = luagit2_oid.oid_fromstr(obj_id_string_2)
+        assert.are.not_same(obj_id_string, luagit2_oid.oid_tostr(obj_id))
+        assert.are.same(obj_id_string_2, luagit2_oid.oid_tostr(obj_id))
     end)
     
     it("Tests Creating Dis-Similar Objects", function()
@@ -81,11 +82,11 @@ describe("oid methods test", function()
         -- Setting another Alternate Object with Obj_Id_String,
         -- Same as that used for Obj_Id
         
-        local extra_object = luagit2.oid_fromstr(obj_id_string)
+        local extra_object = luagit2_oid.oid_fromstr(obj_id_string)
         assert(not(extra_object == obj_id))
         
         -- checking their contained string value
-        assert.are.equal(luagit2.oid_tostr(obj_id), luagit2.oid_tostr(extra_object))
+        assert.are.equal(luagit2_oid.oid_tostr(obj_id), luagit2_oid.oid_tostr(extra_object))
     end)
     
     it(" Tests Comparison of two Object Ids", function()
@@ -98,55 +99,55 @@ describe("oid methods test", function()
         -- object_id_2 is oid for new.txt
         -- Since README was created before new.txt,
         -- The Oid of README will be less than that of new.txt
-        assert((luagit2.oid_cmp(obj_id, obj_id_2)) < 0)
-        assert((luagit2.oid_cmp(obj_id_2, obj_id)) > 0)
+        assert((luagit2_oid.oid_cmp(obj_id, obj_id_2)) < 0)
+        assert((luagit2_oid.oid_cmp(obj_id_2, obj_id)) > 0)
         
-        assert((luagit2.oid_cmp(obj_id, obj_id)) == 0)
+        assert((luagit2_oid.oid_cmp(obj_id, obj_id)) == 0)
     end)
     
     it(" Tests Comparison of two Object Ids for a given length counted from left", function()
         -- Returns Zero in case of match
-        assert(luagit2.oid_ncmp(obj_id, obj_id_semi_zero_a, 10) == 0)
-        assert(luagit2.oid_ncmp(obj_id, obj_id_semi_zero_b, 10) ~= 0)
+        assert(luagit2_oid.oid_ncmp(obj_id, obj_id_semi_zero_a, 10) == 0)
+        assert(luagit2_oid.oid_ncmp(obj_id, obj_id_semi_zero_b, 10) ~= 0)
     end)
     
     it(" Tests oid_from_strn ", function()
         -- new oid created using first n length of string.
-        obj_id = luagit2.oid_fromstrn(obj_id_string, 19)
-        assert((luagit2.oid_cmp(obj_id, obj_id_semi_zero_a)) == 0)
-        assert.are.equal(luagit2.oid_tostr(obj_id), obj_id_semi_zero_string_a)
+        obj_id = luagit2_oid.oid_fromstrn(obj_id_string, 19)
+        assert((luagit2_oid.oid_cmp(obj_id, obj_id_semi_zero_a)) == 0)
+        assert.are.equal(luagit2_oid.oid_tostr(obj_id), obj_id_semi_zero_string_a)
     end)
     
     it(" Tests Comparison of Object Id and equivalent String Values", function()
         -- Check for string values of different Object_Ids
-        assert.are.equal(luagit2.oid_tostr(obj_id), obj_id_string)
-        assert.are.equal(luagit2.oid_tostr(obj_id_2), obj_id_string_2)
-        assert.are.equal(luagit2.oid_tostr(obj_id_semi_zero_a), obj_id_semi_zero_string_a)
-        assert.are.equal(luagit2.oid_tostr(obj_id_semi_zero_b), obj_id_semi_zero_string_b)
-        assert.are.equal(luagit2.oid_tostr(zero_obj_id), zero_obj_id_string)
+        assert.are.equal(luagit2_oid.oid_tostr(obj_id), obj_id_string)
+        assert.are.equal(luagit2_oid.oid_tostr(obj_id_2), obj_id_string_2)
+        assert.are.equal(luagit2_oid.oid_tostr(obj_id_semi_zero_a), obj_id_semi_zero_string_a)
+        assert.are.equal(luagit2_oid.oid_tostr(obj_id_semi_zero_b), obj_id_semi_zero_string_b)
+        assert.are.equal(luagit2_oid.oid_tostr(zero_obj_id), zero_obj_id_string)
     end)
     
     it(" Tests whether the OBject Id contains all zeros", function()
         -- It Returns Integer value
         -- true if oid has all zeros
         -- false if oid does not have all zeros
-        assert.is_false(luagit2.oid_iszero(obj_id))
-        assert.is_true(luagit2.oid_iszero(zero_obj_id))
+        assert.is_false(luagit2_oid.oid_iszero(obj_id))
+        assert.is_true(luagit2_oid.oid_iszero(zero_obj_id))
     end)
     
     it(" Tests Various Formatting methods available", function()
         -- format the oid for entire string value
-        assert.are.equal(luagit2.oid_nfmt(obj_id, 40), obj_id_string)
+        assert.are.equal(luagit2_oid.oid_nfmt(obj_id, 40), obj_id_string)
         
         -- format oid only for first 10 readable chars
         -- The value is non readable after 10 chars.
-        assert(string.find(luagit2.oid_nfmt(obj_id, 10), "1385f264af"))
+        assert(string.find(luagit2_oid.oid_nfmt(obj_id, 10), "1385f264af"))
         
         -- Tests the path of object as in .git/objects/
-        assert.are.equal(luagit2.oid_pathfmt(obj_id), "13/85f264afb75a56a5bec74243be9b367ba4ca08")
+        assert.are.equal(luagit2_oid.oid_pathfmt(obj_id), "13/85f264afb75a56a5bec74243be9b367ba4ca08")
         
         -- Format the Object Id to be complete human readable string.
-        assert.are.equal(luagit2.oid_fmt(obj_id), obj_id_string)
+        assert.are.equal(luagit2_oid.oid_fmt(obj_id), obj_id_string)
     end)
     
 end)
