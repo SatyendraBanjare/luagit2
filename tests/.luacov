@@ -60,4 +60,6 @@ modules = {
 	["revparse.*"] = ".",
 	["revparse"] = "revparse_cover.lua",
 
+	["revwalk.*"] = ".",
+	["revwalk"] = "revwalk_cover.lua",
 }
