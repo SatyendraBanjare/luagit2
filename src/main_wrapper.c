@@ -25,6 +25,7 @@
 #include "luagit2/revert/lua_revert.h"
 #include "luagit2/revparse/lua_revparse.h"
 #include "luagit2/diff/lua_diff.h"
+#include "luagit2/status/lua_status.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -35,6 +36,7 @@
 #include "luagit2/revparse/lua_revparse_help.h"
 #include "luagit2/diff/lua_diff_help.h"
 #include "luagit2/blame/lua_blame_help.h"
+#include "luagit2/status/lua_status_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -471,6 +473,13 @@ static const struct luaL_Reg luagit2 [] = {
       {"diff_tree_to_workdir_with_index",lua_git_diff_tree_to_workdir_with_index},
       //-----------------------------------------------------------------------------------------------//
 
+      //------------------------------------------- Status Methods ------------------------------------//
+      {"status_list_new",lua_git_status_list_new},
+      {"status_list_free",lua_git_status_list_free},
+      {"status_list_entrycount",lua_git_status_list_entrycount},
+      {"status_byindex",lua_git_status_byindex},
+      //-----------------------------------------------------------------------------------------------//
+
       //------------------------------------------- Helper Methods ------------------------------------//
       {"get_signature_details", lua_get_signature_details},
       {"print_complete_signature_details", lua_print_complete_signature_details},
@@ -497,11 +506,16 @@ static const struct luaL_Reg luagit2 [] = {
       {"index_entry_get_oid_str",lua_git_index_entry_get_oid_str},
       {"index_entry_get_dev_inode",lua_git_index_entry_get_dev_inode},
       {"index_entry_get_UID_GID",lua_git_index_entry_get_UID_GID},
+
       {"revspec_from",lua_git_revspec_from},
       {"revspec_to",lua_git_revspec_to},
       {"diff_format_init",lua_diff_format_init},
       {"diff_stats_format_init",lua_diff_stats_format_init},
+      {"status_type",lua_git_status_type},
+      {"status_wkdir_file_paths",lua_get_status_wkdir_file_paths},
+      {"status_index_file_paths",lua_get_status_index_file_paths},
       //-----------------------------------------------------------------------------------------------//
+
       {NULL, NULL}
 };
 

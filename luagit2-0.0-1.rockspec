@@ -47,6 +47,8 @@ build = {
                      "src/luagit2/reset/lua_reset.c",
                      "src/luagit2/signature/lua_signature.c",
                      "src/luagit2/signature/lua_signature_help.c",
+                     "src/luagit2/status/lua_status.c",
+                     "src/luagit2/status/lua_status_help.c",
                      "src/luagit2/tree/lua_tree.c",
                      "src/luagit2/tag/lua_tag.c",
                      "src/luagit2/object/lua_object.c",
