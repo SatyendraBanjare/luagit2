@@ -26,8 +26,6 @@
 #include "luagit2/revparse/lua_revparse.h"
 #include "luagit2/diff/lua_diff.h"
 #include "luagit2/status/lua_status.h"
-#include "luagit2/diff/lua_diff.h"
-#include "luagit2/diff/lua_diff.h
 #include "luagit2/graph/lua_graph.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
@@ -514,7 +512,6 @@ static const struct luaL_Reg luagit2 [] = {
       {"index_entry_get_oid_str",lua_git_index_entry_get_oid_str},
       {"index_entry_get_dev_inode",lua_git_index_entry_get_dev_inode},
       {"index_entry_get_UID_GID",lua_git_index_entry_get_UID_GID},
-
       {"revspec_from",lua_git_revspec_from},
       {"revspec_to",lua_git_revspec_to},
       {"diff_format_init",lua_diff_format_init},
