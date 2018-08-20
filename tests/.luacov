@@ -1,27 +1,74 @@
 modules = {
 
-	["libgit.*"] = ".",
-	["libgit"] = "test_libgit_spec.lua",
+	["annotated.*"] = ".",
+	["annotated"] = "annotated.annotated_cover.lua",
 
-	["oid.*"] = ".",
-	["oid"] = "test_oid_spec.lua",
-
-	["commit.*"] = ".",
-	["commit"] = "test_commit_spec.lua",
-
-	["branch.*"] = ".",
-	["branch"] = "test_branch_spec.lua",
+	["blame.*"] = ".",
+	["blame"] = "blame_cover.lua",
 
 	["blob.*"] = ".",
-	["blob"] = "test_blob_spec.lua",
+	["blob"] = "blob_cover.lua",
 
-	["buf.*"] = ".",
-	["buf"] = "test_buf_spec.lua",
+	["branch.*"] = ".",
+	["branch"] = "branch_cover.lua",
+
+	["checkout.*"] = ".",
+	["checkout"] = "checkout_cover.lua",
+
+	["commit.*"] = ".",
+	["commit"] = "commit_cover.lua",
 
 	["config.*"] = ".",
-	["config"] = "test_config_spec.lua",
+	["config"] = "config_cover.lua",
+
+	["cred.*"] = ".",
+	["cred"] = "cred_cover.lua",
+
+	["describe.*"] = ".",
+	["describe"] = "describe_cover.lua",
+
+	["diff.*"] = ".",
+	["diff"] = "diff_cover.lua",
+
+	["index.*"] = ".",
+	["index"] = "index_cover.lua",
+
+	["libgit.*"] = ".",
+	["libgit"] = "libgit_cover.lua",
+
+	["object.*"] = ".",
+	["object"] = "object_cover.lua",
+
+	["oid.*"] = ".",
+	["oid"] = "oid_cover.lua",
+
+	["reference.*"] = ".",
+	["reference"] = "reference_cover.lua",
+
+	["reflog.*"] = ".",
+	["reflog"] = "reflog_cover.lua",
+
+	["repository.*"] = ".",
+	["repository"] = "repository_cover.lua",
+
+	["reset.*"] = ".",
+	["reset"] = "reset_cover.lua",
+
+	["revert.*"] = ".",
+	["revert"] = "revert_cover.lua",
+
+	["revparse.*"] = ".",
+	["revparse"] = "revparse_cover.lua",
+
+	["revwalk.*"] = ".",
+	["revwalk"] = "revwalk_cover.lua",
+
+	["signature.*"] = ".",
+	["signature"] = "signature_cover.lua",
+
+	["tag.*"] = ".",
+	["tag"] = "tag_cover.lua",
 
 	["tree.*"] = ".",
-	["tree"] = "test_tree_spec.lua"
-
+	["tree"] = "tree_cover.lua",
 }

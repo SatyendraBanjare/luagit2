@@ -4,6 +4,7 @@ local fixer = require("Fixtures.fix_repo")
 
 describe(" Revparse Methods Tests ", function()
     local luagit2 = require("luagit2")
+    local luagit2_revparse = require("revparse.revparse_cover")
     local repo_path = "Fixtures/WORKON_REPO"
     
     setup(function()
@@ -27,7 +28,7 @@ describe(" Revparse Methods Tests ", function()
     it("tests revparse", function()
         -- Get the complete revparse for given revision
         -- string.
-        local revparse_complete = luagit2.revparse(repo, "origin/master..HEAD")
+        local revparse_complete = luagit2_revparse.revparse(repo, "origin/master..HEAD")
         local from_obj = luagit2.revspec_from(revparse_complete)
         local to_obj = luagit2.revspec_from(revparse_complete)
         
@@ -44,7 +45,7 @@ describe(" Revparse Methods Tests ", function()
     
     it("tests revparse single", function()
         -- Get the revparse for given revision string.
-        local revparse_single = luagit2.revparse_single(repo, "origin/master")
+        local revparse_single = luagit2_revparse.revparse_single(repo, "origin/master")
         
         -- get the from string obj_id.
         local from_obj_id = luagit2.object_id(revparse_single)

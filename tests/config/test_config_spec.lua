@@ -17,6 +17,7 @@ end
 
 describe(" Config Methods Tests ", function()
 	local luagit2 = require("luagit2")
+	local luagit2_config = require("config.config_cover")
 	local repo
 	local Config_ondisk , Config_Default, Config_System
 	local Config_Snapshot
@@ -32,8 +33,8 @@ describe(" Config Methods Tests ", function()
 	before_each(function()
 		fixer.set_repo("new_test_repo")
 		repo = luagit2.repository_open("Fixtures/WORKON_REPO/.git")
-		Config_ondisk = luagit2.config_open_ondisk(current_directory_path .. "/Fixtures/WORKON_REPO/.git/config")
-		Config_Default = luagit2.config_open_default()
+		Config_ondisk = luagit2_config.config_open_ondisk(current_directory_path .. "/Fixtures/WORKON_REPO/.git/config")
+		Config_Default = luagit2_config.config_open_default()
 
 		default_name, default_email = get_config_details("")
 		sys_name, sys_email  = get_config_details("system")
@@ -42,7 +43,7 @@ describe(" Config Methods Tests ", function()
 	end)
 
 	after_each(function()
-		luagit2.config_free(Config_ondisk)
+		luagit2_config.config_free(Config_ondisk)
 		luagit2.repository_free(repo)
 		fixer.set_back()
 	end)
@@ -86,17 +87,17 @@ describe(" Config Methods Tests ", function()
 		Config_Snapshot = luagit2.repository_config_snapshot(repo)
 
 		-- Get the username & useremail values and match
-		local old_name = luagit2.config_get_string(Config_Snapshot,"user.name")
-		local old_email = luagit2.config_get_string(Config_Snapshot,"user.email")
+		local old_name = luagit2_config.config_get_string(Config_Snapshot,"user.name")
+		local old_email = luagit2_config.config_get_string(Config_Snapshot,"user.email")
 
-		local cfg_int32 = luagit2.config_get_int32(Config_Snapshot,"core.repositoryformatversion")
-		local cfg_int64 = luagit2.config_get_int64(Config_Snapshot,"core.repositoryformatversion")
-		local cfg_bool = luagit2.config_get_bool(Config_Snapshot,"core.filemode")
+		local cfg_int32 = luagit2_config.config_get_int32(Config_Snapshot,"core.repositoryformatversion")
+		local cfg_int64 = luagit2_config.config_get_int64(Config_Snapshot,"core.repositoryformatversion")
+		local cfg_bool = luagit2_config.config_get_bool(Config_Snapshot,"core.filemode")
 
-		local cfg_path_buf = luagit2.config_get_path(Config_Snapshot,"remote.origin.url")
+		local cfg_path_buf = luagit2_config.config_get_path(Config_Snapshot,"remote.origin.url")
 		assert.are.same("https://github.com/libgit2/false.git",luagit2.buf_details(cfg_path_buf))
 
-		local cfg_str_buf = luagit2.config_get_string_buf(Config_Snapshot,"user.name")
+		local cfg_str_buf = luagit2_config.config_get_string_buf(Config_Snapshot,"user.name")
 		assert.are.same("TEST_USER",luagit2.buf_details(cfg_str_buf))
 		
 		assert.are.same("number",type(cfg_int32))
@@ -109,25 +110,25 @@ describe(" Config Methods Tests ", function()
 		assert.are.equal("testusernoreply@github.com",old_email)
 
 		-- Free the current Config Snapshot
-		luagit2.config_free(Config_Snapshot)
+		luagit2_config.config_free(Config_Snapshot)
 
 		-- Set the Values on test repository's config
-		luagit2.config_set_string(Config_ondisk,"user.email","newemail@example.com")
-		luagit2.config_set_string(Config_ondisk,"user.name","NEW_NAME_TEST_USER")
-		luagit2.config_set_int32(Config_ondisk,"core.repositoryformatversion",10)
-		luagit2.config_set_int64(Config_ondisk,"core.repositoryformatversion",10)
-		luagit2.config_set_bool(Config_ondisk,"core.filemode",0)
+		luagit2_config.config_set_string(Config_ondisk,"user.email","newemail@example.com")
+		luagit2_config.config_set_string(Config_ondisk,"user.name","NEW_NAME_TEST_USER")
+		luagit2_config.config_set_int32(Config_ondisk,"core.repositoryformatversion",10)
+		luagit2_config.config_set_int64(Config_ondisk,"core.repositoryformatversion",10)
+		luagit2_config.config_set_bool(Config_ondisk,"core.filemode",0)
 
 
 		-- Create a Snapshot again to read Values
 		-- The values of this snapshot would be different than
 		-- one used previously
-		Config_Snapshot = luagit2.config_snapshot(Config_ondisk)
+		Config_Snapshot = luagit2_config.config_snapshot(Config_ondisk)
 
-		local new_name = luagit2.config_get_string(Config_Snapshot,"user.name")
-		local new_email = luagit2.config_get_string(Config_Snapshot,"user.email")
-		local new_int32 = luagit2.config_get_int32(Config_Snapshot,"core.repositoryformatversion")
-		local new_bool = luagit2.config_get_bool(Config_ondisk,"core.filemode")
+		local new_name = luagit2_config.config_get_string(Config_Snapshot,"user.name")
+		local new_email = luagit2_config.config_get_string(Config_Snapshot,"user.email")
+		local new_int32 = luagit2_config.config_get_int32(Config_Snapshot,"core.repositoryformatversion")
+		local new_bool = luagit2_config.config_get_bool(Config_ondisk,"core.filemode")
 
 		-- Check for Updated Values
 		assert.are.equal("NEW_NAME_TEST_USER",new_name)
@@ -137,23 +138,23 @@ describe(" Config Methods Tests ", function()
 	end)
 
 	it("Tests config open default ", function()
-		Config_Snapshot = luagit2.config_snapshot(Config_Default)
-		local Def_name = luagit2.config_get_string(Config_Snapshot,"user.name")
-		local Def_email = luagit2.config_get_string(Config_Snapshot,"user.email")
+		Config_Snapshot = luagit2_config.config_snapshot(Config_Default)
+		local Def_name = luagit2_config.config_get_string(Config_Snapshot,"user.name")
+		local Def_email = luagit2_config.config_get_string(Config_Snapshot,"user.email")
 
 		assert.are.equal(default_name, Def_name .. '\n' )
 		assert.are.equal(default_email, Def_email .. '\n')
 	end)
 
 	it("Tests find System, Global Config path ", function()
-		local find_global = luagit2.config_find_global()
-		local find_sys = luagit2.config_find_system()
+		local find_global = luagit2_config.config_find_global()
+		local find_sys = luagit2_config.config_find_system()
 		
 		-- Current Tests are run using a non-Windows system
 		-- Thus these Values can't be found
 		-- 
-		-- local find_programdata = luagit2.config_find_programdata()
-		-- local fing_xdg = luagit2.config_find_xdg()
+		-- local find_programdata = luagit2_config.config_find_programdata()
+		-- local fing_xdg = luagit2_config.config_find_xdg()
 
 		assert.are.equal("/etc/gitconfig",luagit2.buf_details(find_sys))
 
@@ -168,22 +169,22 @@ describe(" Config Methods Tests ", function()
 		-- Create A snapshot and readvarious values from it
 		Config_Snapshot = luagit2.repository_config_snapshot(repo)
 
-		local cfg_int32 = luagit2.config_get_int32(Config_Snapshot,"core.repositoryformatversion")
+		local cfg_int32 = luagit2_config.config_get_int32(Config_Snapshot,"core.repositoryformatversion")
 		assert.are.same("number",type(cfg_int32))
 
-		local cfg_int64 = luagit2.config_get_int64(Config_Snapshot,"core.repositoryformatversion")
+		local cfg_int64 = luagit2_config.config_get_int64(Config_Snapshot,"core.repositoryformatversion")
 		assert.are.same("number",type(cfg_int64))
 
-		local cfg_bool = luagit2.config_get_bool(Config_Snapshot,"core.filemode")
+		local cfg_bool = luagit2_config.config_get_bool(Config_Snapshot,"core.filemode")
 		assert.are.same(1,cfg_bool)
 
-		cfg_bool = luagit2.config_get_bool(Config_Snapshot,"core.bare")
+		cfg_bool = luagit2_config.config_get_bool(Config_Snapshot,"core.bare")
 		assert.are.same(0,cfg_bool)
 
-		local cfg_path_buf = luagit2.config_get_path(Config_Snapshot,"remote.origin.url")
+		local cfg_path_buf = luagit2_config.config_get_path(Config_Snapshot,"remote.origin.url")
 		assert.are.same("https://github.com/libgit2/false.git",luagit2.buf_details(cfg_path_buf))
 
-		local cfg_str_buf = luagit2.config_get_string_buf(Config_Snapshot,"user.name")
+		local cfg_str_buf = luagit2_config.config_get_string_buf(Config_Snapshot,"user.name")
 		assert.are.same("TEST_USER",luagit2.buf_details(cfg_str_buf))
 	end)
 
@@ -198,75 +199,75 @@ describe(" Config Methods Tests ", function()
 		-- Check for open level system
 		--
 		----------------------------------------------------------------------------------
-		local cfg_lvl_sys = luagit2.config_level_system()
-		local sys_lvl_cfg = luagit2.config_open_level(Config_Default,cfg_lvl_sys)
-		Config_Snapshot = luagit2.config_snapshot(sys_lvl_cfg)
+		local cfg_lvl_sys = luagit2_config.config_level_system()
+		local sys_lvl_cfg = luagit2_config.config_open_level(Config_Default,cfg_lvl_sys)
+		Config_Snapshot = luagit2_config.config_snapshot(sys_lvl_cfg)
 		
-		local name = luagit2.config_get_string(Config_Snapshot,"user.name")
-		local email = luagit2.config_get_string(Config_Snapshot,"user.email")
+		local name = luagit2_config.config_get_string(Config_Snapshot,"user.name")
+		local email = luagit2_config.config_get_string(Config_Snapshot,"user.email")
 
 		assert.are.equal(sys_name,name .. "\n")
 		assert.are.equal(sys_email,email .. "\n")
 
-		luagit2.config_free(Config_Snapshot)
+		luagit2_config.config_free(Config_Snapshot)
 
 		-----------------------------------------------------------------------------------
 		--
 		-- Check for open level global
 		--
 		-----------------------------------------------------------------------------------
-		local cfg_lvl_global = luagit2.config_level_global()
-		local global_lvl_cfg = luagit2.config_open_level(Config_Default,cfg_lvl_global)
-		Config_Snapshot = luagit2.config_snapshot(global_lvl_cfg)
+		local cfg_lvl_global = luagit2_config.config_level_global()
+		local global_lvl_cfg = luagit2_config.config_open_level(Config_Default,cfg_lvl_global)
+		Config_Snapshot = luagit2_config.config_snapshot(global_lvl_cfg)
 
-		name = luagit2.config_get_string(Config_Snapshot,"user.name")
-		email = luagit2.config_get_string(Config_Snapshot,"user.email")
+		name = luagit2_config.config_get_string(Config_Snapshot,"user.name")
+		email = luagit2_config.config_get_string(Config_Snapshot,"user.email")
 
 		assert.are.equal(global_name,name .. "\n")
 		assert.are.equal(global_email,email .. "\n")
 		
-		luagit2.config_free(Config_Snapshot)
+		luagit2_config.config_free(Config_Snapshot)
 
 		-----------------------------------------------------------------------------------
 		--
 		-- 
 		-- 
-		local cfg_lvl_local = luagit2.config_level_local()
-		local local_lvl_cfg = luagit2.config_open_level(Config_ondisk,cfg_lvl_local)
-		Config_Snapshot = luagit2.config_snapshot(local_lvl_cfg)
+		local cfg_lvl_local = luagit2_config.config_level_local()
+		local local_lvl_cfg = luagit2_config.config_open_level(Config_ondisk,cfg_lvl_local)
+		Config_Snapshot = luagit2_config.config_snapshot(local_lvl_cfg)
 
-		name = luagit2.config_get_string(Config_Snapshot,"user.name")
-		email = luagit2.config_get_string(Config_Snapshot,"user.email")
+		name = luagit2_config.config_get_string(Config_Snapshot,"user.name")
+		email = luagit2_config.config_get_string(Config_Snapshot,"user.email")
 
 		assert.are.equal("TEST_USER",name)
 		assert.are.equal("testusernoreply@github.com",email)
 		
-		luagit2.config_free(Config_Snapshot)
+		luagit2_config.config_free(Config_Snapshot)
 
 		------------------------------------------------------------------------------------
 		--
 		-- To test for program_data & xdg level on Windows platform
 		--
 		------------------------------------------------------------------------------------
-		local cfg_lvl_program_data = luagit2.config_level_program_data()
-		local cfg_lvl_xdg = luagit2.config_level_xdg()
+		local cfg_lvl_program_data = luagit2_config.config_level_program_data()
+		local cfg_lvl_xdg = luagit2_config.config_level_xdg()
 	end)
 
 	it("Tests Varioud Parse Methods",function()
-		local parse_bool = luagit2.config_parse_bool("true")
+		local parse_bool = luagit2_config.config_parse_bool("true")
 		assert.are.equal(1,parse_bool)
-		parse_bool = luagit2.config_parse_bool("yes")
+		parse_bool = luagit2_config.config_parse_bool("yes")
 		assert.are.equal(1,parse_bool)
-		parse_bool = luagit2.config_parse_bool("on")
+		parse_bool = luagit2_config.config_parse_bool("on")
 		assert.are.equal(1,parse_bool)
 
-		local parse_int32 = luagit2.config_parse_int64("32")
+		local parse_int32 = luagit2_config.config_parse_int64("32")
 		assert.are.equal(32,parse_int32)
 
-		local parse_int64 = luagit2.config_parse_int64("999988892")
+		local parse_int64 = luagit2_config.config_parse_int64("999988892")
 		assert.are.equal(999988892,parse_int64)
 
-		local parse_path = luagit2.config_parse_path("abc/def/ghi")
+		local parse_path = luagit2_config.config_parse_path("abc/def/ghi")
 		assert.are.equal("abc/def/ghi",luagit2.buf_details(parse_path))
 	end)
 
@@ -274,13 +275,13 @@ describe(" Config Methods Tests ", function()
 		--
 		-- Delete a variable
 		--
-		luagit2.config_delete_entry(Config_ondisk,"user.name")
-		luagit2.config_delete_entry(Config_ondisk,"user.email")
+		luagit2_config.config_delete_entry(Config_ondisk,"user.name")
+		luagit2_config.config_delete_entry(Config_ondisk,"user.email")
 
 		-- Lets check for the deleted variable
-		Config_Snapshot = luagit2.config_snapshot(Config_ondisk)
-		local name = luagit2.config_get_string(Config_Snapshot,"user.name")
-		local email = luagit2.config_get_string(Config_Snapshot,"user.email")
+		Config_Snapshot = luagit2_config.config_snapshot(Config_ondisk)
+		local name = luagit2_config.config_get_string(Config_Snapshot,"user.name")
+		local email = luagit2_config.config_get_string(Config_Snapshot,"user.email")
 		assert.is_nil(name)
 		assert.is_nil(email)
 	end)
@@ -289,57 +290,57 @@ describe(" Config Methods Tests ", function()
 		--
 		-- Create a local new Config
 		--
-		local new_cfg = luagit2.config_new()
+		local new_cfg = luagit2_config.config_new()
 		-- Add the config to an EXISTING FILE
-		local cfg_lvl_local = luagit2.config_level_local()
-		luagit2.config_add_file_ondisk(new_cfg,"Fixtures/WORKON_REPO/abc.txt",
+		local cfg_lvl_local = luagit2_config.config_level_local()
+		luagit2_config.config_add_file_ondisk(new_cfg,"Fixtures/WORKON_REPO/abc.txt",
 										cfg_lvl_local,repo,1)
 		-- Set a variable
-		luagit2.config_set_string(new_cfg,"user.name","New_config_user")
+		luagit2_config.config_set_string(new_cfg,"user.name","New_config_user")
 		-- Get a snapshot 
-		Config_Snapshot = luagit2.config_snapshot(new_cfg)
+		Config_Snapshot = luagit2_config.config_snapshot(new_cfg)
 		-- Check for the variable
-		local name = luagit2.config_get_string(Config_Snapshot,"user.name")
+		local name = luagit2_config.config_get_string(Config_Snapshot,"user.name")
 		assert.are.same("New_config_user",name)
 		-- Free used Config's
-		luagit2.config_free(new_cfg)
-		luagit2.config_free(Config_Snapshot)
+		luagit2_config.config_free(new_cfg)
+		luagit2_config.config_free(Config_Snapshot)
 
 		--
 		-- Lets Open the file using config_ondisk to see
 		-- If the values are actually written or not.
 		--
-		local new_cfg_ondisk =  luagit2.config_open_ondisk(current_directory_path .. "/Fixtures/WORKON_REPO/abc.txt")
-		Config_Snapshot = luagit2.config_snapshot(new_cfg_ondisk)
+		local new_cfg_ondisk =  luagit2_config.config_open_ondisk(current_directory_path .. "/Fixtures/WORKON_REPO/abc.txt")
+		Config_Snapshot = luagit2_config.config_snapshot(new_cfg_ondisk)
 		-- Check for the variable
-		local name = luagit2.config_get_string(Config_Snapshot,"user.name")
+		local name = luagit2_config.config_get_string(Config_Snapshot,"user.name")
 		assert.are.same("New_config_user",name)
 		-- Free used Config's
-		luagit2.config_free(new_cfg_ondisk)
-		luagit2.config_free(Config_Snapshot)
+		luagit2_config.config_free(new_cfg_ondisk)
+		luagit2_config.config_free(Config_Snapshot)
 	end)
 
 	it("Tests config next",function()
-		local cfg_iterator = luagit2.config_iterator_new(Config_ondisk)
-		local cfg_entry = luagit2.config_next(cfg_iterator)
+		local cfg_iterator = luagit2_config.config_iterator_new(Config_ondisk)
+		local cfg_entry = luagit2_config.config_next(cfg_iterator)
 
-		local first_entry_name = luagit2.config_entry_name(cfg_entry)
+		local first_entry_name = luagit2_config.config_entry_name(cfg_entry)
 		-- Check that this entry exists
-		assert.is_not_nil(luagit2.config_get_string(Config_ondisk,first_entry_name))
+		assert.is_not_nil(luagit2_config.config_get_string(Config_ondisk,first_entry_name))
 
-		local second_entry_name = luagit2.config_entry_name(cfg_entry)
+		local second_entry_name = luagit2_config.config_entry_name(cfg_entry)
 		-- Check that this entry exists
-		assert.is_not_nil(luagit2.config_get_string(Config_ondisk,second_entry_name))
+		assert.is_not_nil(luagit2_config.config_get_string(Config_ondisk,second_entry_name))
 
 		-- Free up used objects
-		luagit2.config_iterator_free(cfg_iterator)
+		luagit2_config.config_iterator_free(cfg_iterator)
 	end)
 
 	it("Tests config get entry",function()
 		-- Open a  config entry
-		local cfg_entry = luagit2.config_get_entry(Config_ondisk,"user.name")
+		local cfg_entry = luagit2_config.config_get_entry(Config_ondisk,"user.name")
 		-- Check the value
-		assert.are.equal("TEST_USER",luagit2.config_entry_value(cfg_entry))
+		assert.are.equal("TEST_USER",luagit2_config.config_entry_value(cfg_entry))
 
 	end)
 end)
