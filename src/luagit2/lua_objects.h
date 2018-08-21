@@ -199,4 +199,8 @@ typedef struct {
 	git_status_t status_type;
 } luagit2_status_type;
 
+typedef struct {
+	git_note *note;
+} luagit2_note;
+
 #endif

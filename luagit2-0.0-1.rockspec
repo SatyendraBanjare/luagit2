@@ -38,6 +38,7 @@ build = {
                      "src/luagit2/index/lua_index.c",
                      "src/luagit2/index/lua_index_help.c",
                      "src/luagit2/oid/lua_oid.c",
+                     "src/luagit2/note/lua_note.c",
                      "src/luagit2/odb/lua_odb.c",
                      "src/luagit2/reference/lua_reference.c",
                      "src/luagit2/reflog/lua_reflog.c",
