@@ -6,15 +6,36 @@
 Welcome to LuaGit2's documentation!
 ===================================
 
+ `Luagit2`_ is a tool to do cool git things on lua. It depends on `Libgit2`_ and
+ consists of updated Lua bindings to the same. 
+
+ It is built using `Lua_C_Api`_ and has its tests written using `Busted`_ . It can be easily
+ installed using luarocks and Cmake/Make.
+
+*************
+Compatibility
+*************
+
+	* Linux
+	* Mac-OsX
+
+.. _Libgit2: https://github.com/libgit2/libgit2
+.. _Luagit2: https://github.com/SatyendraBanjare/luagit2
+.. _Lua_C_Api: https://www.lua.org/pil/24.html
+.. _Busted: https://github.com/Olivine-Labs/busted
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Installation
+   
+   install/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API Documentation
+   
+   basic/index
+   examples/index
+   luagit2_objects/index
 
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
