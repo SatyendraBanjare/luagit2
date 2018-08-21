@@ -15,6 +15,7 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/ignore/lua_ignore.h"
 #include "luagit2/odb/lua_odb.h"
 #include "luagit2/revwalk/lua_revwalk.h"
 #include "luagit2/annotated/lua_annotated.h"
@@ -378,6 +379,12 @@ static const struct luaL_Reg luagit2 [] = {
       //------------------------------------------- Buf Methods ---------------------------------------//
       {"buf_set_str", lua_git_buf_set_str},
       {"buf_free", lua_git_buf_free},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Ignore Methods ------------------------------------//
+      {"ignore_add_rule",lua_git_ignore_add_rule},
+      {"ignore_clear_internal_rules",lua_git_ignore_clear_internal_rules},
+      {"ignore_path_is_ignored",lua_git_ignore_path_is_ignored},
       //-----------------------------------------------------------------------------------------------//
 
       //-------------------------------------------- Odb Methods --------------------------------------//
