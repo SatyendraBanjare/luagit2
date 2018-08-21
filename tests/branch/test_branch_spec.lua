@@ -3,28 +3,28 @@
 local fixer = require("Fixtures.fix_repo")
 
 describe(" Branch Methods Tests ", function()
-	local lib = require("luagit2")
+	local luagit2 = require("luagit2")
 	local repo
 	local type_local, type_remote
 
 	setup(function()
-		lib.luagit2_init()
+		luagit2.init()
 	end)
 
 	before_each(function()
 		fixer.set_repo("testrepo")
-		repo = lib.luagit2_repository_open("Fixtures/WORKON_REPO/.git")
-		type_local = lib.luagit2_get_type_GIT_BRANCH_LOCAL()
-		type_remote = lib.luagit2_get_type_GIT_BRANCH_REMOTE()
+		repo = luagit2.repository_open("Fixtures/WORKON_REPO/.git")
+		type_local = luagit2.get_type_GIT_BRANCH_LOCAL()
+		type_remote = luagit2.get_type_GIT_BRANCH_REMOTE()
 	end)
 
 	after_each(function()
-		lib.luagit2_repository_free(repo)
+		luagit2.repository_free(repo)
 		fixer.set_back()
 	end)
 
 	teardown(function()
-		lib.luagit2_shutdown()
+		luagit2.shutdown()
 	end)
 
 	--[[ Output of `git branch -a` on Fixtures/testrepo
@@ -68,79 +68,79 @@ describe(" Branch Methods Tests ", function()
 
 	it("Tests Branch lookup", function()
 		-- Let's Check for few branches
-		local master_branch = lib.luagit2_branch_lookup(repo,"master",type_local)
-		local executable_branch = lib.luagit2_branch_lookup(repo,"executable",type_local)
-		local dir_branch = lib.luagit2_branch_lookup(repo,"dir",type_local)
+		local master_branch = luagit2.branch_lookup(repo,"master",type_local)
+		local executable_branch = luagit2.branch_lookup(repo,"executable",type_local)
+		local dir_branch = luagit2.branch_lookup(repo,"dir",type_local)
 		
 		-- Check their branch names
-		assert.are.same("master",lib.luagit2_branch_name(master_branch))
-		assert.are.same("executable",lib.luagit2_branch_name(executable_branch))
-		assert.are.same("dir",lib.luagit2_branch_name(dir_branch))
+		assert.are.same("master",luagit2.branch_name(master_branch))
+		assert.are.same("executable",luagit2.branch_name(executable_branch))
+		assert.are.same("dir",luagit2.branch_name(dir_branch))
 	end)
 
 	it("Tests Branch Create ", function()
-		local commit_id = lib.luagit2_oid_fromstr("099fabac3a9ea935598528c27f866e34089c2eff")
-		local commit = lib.luagit2_commit_lookup(repo,commit_id)
+		local commit_id = luagit2.oid_fromstr("099fabac3a9ea935598528c27f866e34089c2eff")
+		local commit = luagit2.commit_lookup(repo,commit_id)
 
 		-- Create a Branch
-		lib.luagit2_branch_create(repo,"newly_created_branch_from_luagit2",commit,1)
+		luagit2.branch_create(repo,"newly_created_branch_from_luagit2",commit,1)
 
 		-- Lookup for the created branch in repository
 		-- And check for its name. should be same as one
 		-- used to create 
-		local new_branch = lib.luagit2_branch_lookup(repo,"newly_created_branch_from_luagit2",type_local)
-		assert.are.same("newly_created_branch_from_luagit2",lib.luagit2_branch_name(new_branch))
+		local new_branch = luagit2.branch_lookup(repo,"newly_created_branch_from_luagit2",type_local)
+		assert.are.same("newly_created_branch_from_luagit2",luagit2.branch_name(new_branch))
 	end)
 
 	it("Tests if branch is checked out",function()
 		-- Create different branch refernces
-		local master_branch = lib.luagit2_branch_lookup(repo,"master",type_local)
-		local master_checked = lib.luagit2_branch_is_checked_out(master_branch)
+		local master_branch = luagit2.branch_lookup(repo,"master",type_local)
+		local master_checked = luagit2.branch_is_checked_out(master_branch)
 
-		local dir_branch = lib.luagit2_branch_lookup(repo,"dir",type_local)
-		local dir_checked = lib.luagit2_branch_is_checked_out(dir_branch)
+		local dir_branch = luagit2.branch_lookup(repo,"dir",type_local)
+		local dir_checked = luagit2.branch_is_checked_out(dir_branch)
 
 		-- As can be seen , Master is Checked out
 		-- Hence these values should match
-		assert.are.equal(1,master_checked)
-		assert.are.equal(0,dir_checked)
+		assert.are.equal(true,master_checked)
+		assert.are.equal(false,dir_checked)
 	end)
 
 	it("Tests of Branch is Head",function()
 		-- Create different branch refernces
-		local master_branch = lib.luagit2_branch_lookup(repo,"master",type_local)
-		local is_master_head = lib.luagit2_branch_is_head(master_branch)
+		local master_branch = luagit2.branch_lookup(repo,"master",type_local)
+		local is_master_head = luagit2.branch_is_head(master_branch)
 
-		local dir_branch = lib.luagit2_branch_lookup(repo,"dir",type_local)
-		local is_dir_head = lib.luagit2_branch_is_head(dir_branch)
+		local dir_branch = luagit2.branch_lookup(repo,"dir",type_local)
+		local is_dir_head = luagit2.branch_is_head(dir_branch)
 
 		-- As can be seen , Master is being pointed by HEAD
 		-- Hence these values should match
-		assert.are.equal(1,is_master_head)
-		assert.are.equal(0,is_dir_head)
+		assert.are.equal(true,is_master_head)
+		assert.are.equal(false,is_dir_head)
 	end)
 
 	it("Tests Moving a branch into new one",function()
 		-- lookup a branch to move
-		local old_branch = lib.luagit2_branch_lookup(repo,"dir",type_local)
+		local old_branch = luagit2.branch_lookup(repo,"dir",type_local)
 
 		-- new branch to move into
-		lib.luagit2_branch_move(old_branch,"new_branch_name_for_dir",1)
+		luagit2.branch_move(old_branch,"new_branch_name_for_dir",1)
 
-		local new_branch = lib.luagit2_branch_lookup(repo,"new_branch_name_for_dir",type_local)	
-		assert.are.same("new_branch_name_for_dir",lib.luagit2_branch_name(new_branch))
+		local new_branch = luagit2.branch_lookup(repo,"new_branch_name_for_dir",type_local)	
+		assert.are.same("new_branch_name_for_dir",luagit2.branch_name(new_branch))
 	end)
 
 	it("Tests Setting and getting a branch's upstream",function()
 		-- Set an Upstream for dir branch
-		local dir_branch = lib.luagit2_branch_lookup(repo,"dir",type_local)
-		lib.luagit2_branch_set_upstream(dir_branch,"master")
+		local dir_branch = luagit2.branch_lookup(repo,"dir",type_local)
+		luagit2.branch_set_upstream(dir_branch,"master")
 
 		-- Get the upstream branch
 		-- Check if it matches the used to create
 		-- the upstream
-		local dir_upstream = lib.luagit2_branch_upstream(dir_branch)
-		assert.are.same("master",lib.luagit2_branch_name(dir_upstream))
+		local dir_upstream = luagit2.branch_upstream(dir_branch)
+		assert.are.same("master",luagit2.branch_name(dir_upstream))
 	end)
 
 	it("Tests branch_iterator related functions ",function()
@@ -148,13 +148,13 @@ describe(" Branch Methods Tests ", function()
 		-- should be at zeroth position
 		-- Next accessed branch should be br2 (Sorted Alphabeticaly)
 		-- Then dir and then executable
-		local branch_iterator = lib.luagit2_branch_iterator_new(repo,type_local)
+		local branch_iterator = luagit2.branch_iterator_new(repo,type_local)
 		
-		local next_branch_first = lib.luagit2_branch_next(type_local,branch_iterator)
-		assert.are.equal("br2",lib.luagit2_branch_name(next_branch_first))
+		local next_branch_first = luagit2.branch_next(type_local,branch_iterator)
+		assert.are.equal("br2",luagit2.branch_name(next_branch_first))
 
-		local next_branch_second = lib.luagit2_branch_next(type_local,branch_iterator)
-		assert.are.equal("dir", lib.luagit2_branch_name(next_branch_second))
+		local next_branch_second = luagit2.branch_next(type_local,branch_iterator)
+		assert.are.equal("dir", luagit2.branch_name(next_branch_second))
 
 	end)
 end)

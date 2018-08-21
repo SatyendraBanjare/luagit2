@@ -1,6 +1,11 @@
 #include "lua_buf.h"
 
 int lua_git_buf_set_str(lua_State *L) {
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : string_value(string)");
+    }
+
 	luagit2_buf *lua_buf;
 	const char *string_value = luaL_checkstring(L, 1);
 
@@ -19,7 +24,12 @@ int lua_git_buf_set_str(lua_State *L) {
 }
 
 int lua_git_buf_free(lua_State *L) {
-	luagit2_buf *buf_to_free = (luagit2_buf *)lua_touserdata(L, 1);
+
+	if (lua_gettop(L) != 1 ) {
+        return luaL_error(L, "expecting 1 argument(s) : luagit2_buf");
+    }
+
+	luagit2_buf *buf_to_free = (luagit2_buf *)luaL_checkudata(L, 1,"luagit2_buf");
 	git_buf_free(buf_to_free->buf);
 	return 1;
 }

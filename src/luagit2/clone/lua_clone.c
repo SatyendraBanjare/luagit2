@@ -65,6 +65,11 @@ static void checkout_progress(const char *path, size_t cur, size_t tot, void *pa
 
 int lua_git_clone_public(lua_State *L)
 {
+
+	if (lua_gettop(L) != 3 ) {
+        return luaL_error(L, "expecting 3 argument(s) : url(string),path(string),should_print_progress(int)");
+    }
+
 	progress_data pd = {{0}};
 	git_repository *cloned_repo = NULL;
 	git_clone_options clone_opts = GIT_CLONE_OPTIONS_INIT;
