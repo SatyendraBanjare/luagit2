@@ -10,10 +10,6 @@
 # use pkg-config to get the directories and then use these values
 # in the FIND_PATH() and FIND_LIBRARY() calls
 
-
-
-
-
 #FIND_PACKAGE(PkgConfig)
 #PKG_SEARCH_MODULE(PC_LIBGIT2 libgit2)
 
