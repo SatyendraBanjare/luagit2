@@ -6,8 +6,10 @@
 Welcome to LuaGit2's documentation!
 ===================================
 
- `Luagit2`_ is a tool to do cool git things on lua. It depends on `Libgit2`_ and
+ `Luagit2`_ is a tool to do cool git things on lua. It depends on `Libgit2`_ ``Version 0.27.0`` and
  consists of updated Lua bindings to the same. 
+
+ It is currently compatible to be used only for ``lua 5.3``. 
 
  It is built using `Lua_C_Api`_ and has its tests written using `Busted`_ . It can be easily
  installed using luarocks and Cmake/Make.
@@ -16,8 +18,12 @@ Welcome to LuaGit2's documentation!
 Compatibility
 *************
 
-	* Linux
-	* Mac-OsX
+   * Libgit2 - **0.27.0**
+   * Lua- **5.3**
+
+   * Operating systems :
+      1. Linux
+      2. MacOs
 
 .. _Libgit2: https://github.com/libgit2/libgit2
 .. _Luagit2: https://github.com/SatyendraBanjare/luagit2
@@ -36,6 +42,5 @@ Compatibility
    
    basic/index
    examples/index
-   luagit2_objects/index
 
 

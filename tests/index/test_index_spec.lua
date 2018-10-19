@@ -121,7 +121,7 @@ describe(" Index Methods Tests ", function()
         -- It should not have any conflicts as we have not crearted
         -- any merge-conflict.
         local has_conflicts = luagit2.index_has_conflicts(repo_index)
-        assert.are.equal(0, has_conflicts)
+        assert.are.equal(false, has_conflicts)
 
         pending("Create a merge conflict and test index conflict add cleanup", function()
             -- TO DO

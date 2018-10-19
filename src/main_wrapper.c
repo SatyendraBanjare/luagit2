@@ -15,6 +15,9 @@
 #include "luagit2/tag/lua_tag.h"
 #include "luagit2/object/lua_object.h"
 #include "luagit2/buf/lua_buf.h"
+#include "luagit2/note/lua_note.h"
+#include "luagit2/ignore/lua_ignore.h"
+#include "luagit2/odb/lua_odb.h"
 #include "luagit2/revwalk/lua_revwalk.h"
 #include "luagit2/annotated/lua_annotated.h"
 #include "luagit2/checkout/lua_checkout.h"
@@ -24,6 +27,8 @@
 #include "luagit2/revert/lua_revert.h"
 #include "luagit2/revparse/lua_revparse.h"
 #include "luagit2/diff/lua_diff.h"
+#include "luagit2/status/lua_status.h"
+#include "luagit2/graph/lua_graph.h"
 //----------------- Helper Methods Functions --------------------//
 #include "luagit2/signature/lua_signature_help.h"
 #include "luagit2/buf/lua_buf_help.h"
@@ -34,6 +39,7 @@
 #include "luagit2/revparse/lua_revparse_help.h"
 #include "luagit2/diff/lua_diff_help.h"
 #include "luagit2/blame/lua_blame_help.h"
+#include "luagit2/status/lua_status_help.h"
 
 static const struct luaL_Reg luagit2 [] = {
 
@@ -376,6 +382,41 @@ static const struct luaL_Reg luagit2 [] = {
       {"buf_free", lua_git_buf_free},
       //-----------------------------------------------------------------------------------------------//
 
+      //------------------------------------------- Note Methods --------------------------------------//
+      {"note_author",lua_git_note_author},
+      {"note_committer",lua_git_note_committer},
+      {"note_commit_create",lua_git_note_commit_create},
+      {"note_create",lua_git_note_create},
+      {"note_free",lua_git_note_free},
+      {"note_message",lua_git_note_message},
+      {"note_id",lua_git_note_id},
+      {"note_commit_remove",lua_git_note_commit_remove},
+      {"note_remove",lua_git_note_remove},
+      {"note_read",lua_git_note_read},
+      {"note_commit_read",lua_git_note_commit_read},
+      //-----------------------------------------------------------------------------------------------//
+
+      //------------------------------------------- Ignore Methods ------------------------------------//
+      {"ignore_add_rule",lua_git_ignore_add_rule},
+      {"ignore_clear_internal_rules",lua_git_ignore_clear_internal_rules},
+      {"ignore_path_is_ignored",lua_git_ignore_path_is_ignored},
+      //-----------------------------------------------------------------------------------------------//
+
+      //-------------------------------------------- Odb Methods --------------------------------------//
+      {"odb_exists",lua_git_odb_exists},
+      {"odb_free",lua_git_odb_free},
+      {"odb_hash",lua_git_odb_hash},
+      {"odb_hashfile",lua_git_odb_hashfile},
+      {"odb_object_free",lua_git_odb_object_free},
+      {"odb_object_id",lua_git_odb_object_id},
+      {"odb_object_size",lua_git_odb_object_size},
+      {"odb_object_type",lua_git_odb_object_type},
+      {"odb_open",lua_git_odb_open},
+      {"odb_read",lua_git_odb_read},
+      {"odb_refresh",lua_git_odb_refresh},
+      {"odb_write",lua_git_odb_write},
+      //-----------------------------------------------------------------------------------------------//
+
       //------------------------------------------- Revwalk Methods -----------------------------------//
       {"revwalk_new",lua_git_revwalk_new},
       {"revwalk_next",lua_git_revwalk_next},
@@ -455,6 +496,17 @@ static const struct luaL_Reg luagit2 [] = {
       {"diff_tree_to_workdir_with_index",lua_git_diff_tree_to_workdir_with_index},
       //-----------------------------------------------------------------------------------------------//
 
+      //------------------------------------------- Status Methods ------------------------------------//
+      {"status_list_new",lua_git_status_list_new},
+      {"status_list_free",lua_git_status_list_free},
+      {"status_list_entrycount",lua_git_status_list_entrycount},
+      {"status_byindex",lua_git_status_byindex},
+      //-----------------------------------------------------------------------------------------------//
+
+      //-------------------------------------------- Graph Methods ------------------------------------//
+      {"graph_ahead_behind",lua_git_graph_ahead_behind},
+      {"graph_descendant_of",lua_git_graph_descendant_of},
+      //-----------------------------------------------------------------------------------------------//
 
       //------------------------------------------- Helper Methods ------------------------------------//
       {"get_signature_details", lua_get_signature_details},
@@ -486,7 +538,11 @@ static const struct luaL_Reg luagit2 [] = {
       {"revspec_to",lua_git_revspec_to},
       {"diff_format_init",lua_diff_format_init},
       {"diff_stats_format_init",lua_diff_stats_format_init},
+      {"status_type",lua_git_status_type},
+      {"status_wkdir_file_paths",lua_get_status_wkdir_file_paths},
+      {"status_index_file_paths",lua_get_status_index_file_paths},
       //-----------------------------------------------------------------------------------------------//
+
       {NULL, NULL}
 };
 

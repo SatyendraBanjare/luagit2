@@ -183,4 +183,24 @@ typedef struct {
 	git_revwalk *revwalk;
 } luagit2_revwalk;
 
+typedef struct {
+	git_odb_object *odb_object;
+} luagit2_odb_object;
+
+typedef struct {
+	git_status_list *status_list;
+} luagit2_status_list;
+
+typedef struct {
+	git_status_entry *status_entry;
+} luagit2_status_entry;
+
+typedef struct {
+	git_status_t status_type;
+} luagit2_status_type;
+
+typedef struct {
+	git_note *note;
+} luagit2_note;
+
 #endif

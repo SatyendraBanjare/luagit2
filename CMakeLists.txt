@@ -33,13 +33,17 @@ set (SOURCES
              ${src_dest}/luagit2/config/lua_config.c
              ${src_dest}/luagit2/cred/lua_cred.c
              ${src_dest}/luagit2/cred/lua_cred_help.c
+             ${src_dest}/luagit2/ignore/lua_ignore.c
              ${src_dest}/luagit2/diff/lua_diff.c
              ${src_dest}/luagit2/diff/lua_diff_help.c
              ${src_dest}/luagit2/describe/lua_describe.c
              ${src_dest}/luagit2/cred/lua_cred_help.c
+             ${src_dest}/luagit2/graph/lua_graph.c
              ${src_dest}/luagit2/index/lua_index.c
              ${src_dest}/luagit2/index/lua_index_help.c
              ${src_dest}/luagit2/oid/lua_oid.c
+             ${src_dest}/luagit2/note/lua_note.c
+             ${src_dest}/luagit2/odb/lua_odb.c
              ${src_dest}/luagit2/reference/lua_reference.c
              ${src_dest}/luagit2/reflog/lua_reflog.c
              ${src_dest}/luagit2/repository/lua_repository.c
@@ -50,6 +54,8 @@ set (SOURCES
              ${src_dest}/luagit2/reset/lua_reset.c
              ${src_dest}/luagit2/signature/lua_signature.c
              ${src_dest}/luagit2/signature/lua_signature_help.c
+             ${src_dest}/luagit2/status/lua_status.c
+             ${src_dest}/luagit2/status/lua_status_help.c
              ${src_dest}/luagit2/tree/lua_tree.c
              ${src_dest}/luagit2/tag/lua_tag.c
              ${src_dest}/luagit2/object/lua_object.c

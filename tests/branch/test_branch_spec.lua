@@ -102,8 +102,8 @@ describe(" Branch Methods Tests ", function()
 
 		-- As can be seen , Master is Checked out
 		-- Hence these values should match
-		assert.are.equal(1,master_checked)
-		assert.are.equal(0,dir_checked)
+		assert.are.equal(true,master_checked)
+		assert.are.equal(false,dir_checked)
 	end)
 
 	it("Tests of Branch is Head",function()
@@ -116,8 +116,8 @@ describe(" Branch Methods Tests ", function()
 
 		-- As can be seen , Master is being pointed by HEAD
 		-- Hence these values should match
-		assert.are.equal(1,is_master_head)
-		assert.are.equal(0,is_dir_head)
+		assert.are.equal(true,is_master_head)
+		assert.are.equal(false,is_dir_head)
 	end)
 
 	it("Tests Moving a branch into new one",function()

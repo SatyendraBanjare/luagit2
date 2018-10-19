@@ -30,12 +30,16 @@ build = {
                      "src/luagit2/config/lua_config_help.c",
                      "src/luagit2/cred/lua_cred.c",
                      "src/luagit2/cred/lua_cred_help.c",
+                     "src/luagit2/ignore/lua_ignore.c",
                      "src/luagit2/diff/lua_diff.c",
                      "src/luagit2/diff/lua_diff_help.c",
                      "src/luagit2/describe/lua_describe.c",
+                     "src/luagit2/graph/lua_graph.c",
                      "src/luagit2/index/lua_index.c",
                      "src/luagit2/index/lua_index_help.c",
                      "src/luagit2/oid/lua_oid.c",
+                     "src/luagit2/note/lua_note.c",
+                     "src/luagit2/odb/lua_odb.c",
                      "src/luagit2/reference/lua_reference.c",
                      "src/luagit2/reflog/lua_reflog.c",
                      "src/luagit2/repository/lua_repository.c",
@@ -46,6 +50,8 @@ build = {
                      "src/luagit2/reset/lua_reset.c",
                      "src/luagit2/signature/lua_signature.c",
                      "src/luagit2/signature/lua_signature_help.c",
+                     "src/luagit2/status/lua_status.c",
+                     "src/luagit2/status/lua_status_help.c",
                      "src/luagit2/tree/lua_tree.c",
                      "src/luagit2/tag/lua_tag.c",
                      "src/luagit2/object/lua_object.c",
@@ -59,3 +65,4 @@ build = {
    },
    
 }
+

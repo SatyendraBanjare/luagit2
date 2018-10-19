@@ -137,7 +137,7 @@ describe(" Commit Methods Tests ", function()
 
 	it("Tests commit lookup using prefix", function()
 		-- Create a simple commit object
-		local Commit_test = luagit2.commit_lookup(repo,commit_id_a,2)
+		local Commit_test = luagit2.commit_lookup(repo,commit_id_a)
 
 		-- If this commit is valid , it should
 		-- be same as commit_a. Lets check for

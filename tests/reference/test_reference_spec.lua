@@ -68,17 +68,17 @@ describe(" Reference Methods Tests ", function()
 		local is_tag_B = luagit2.reference_is_tag(ref_point_to_blob)
 
 		-- Check for the values
-		assert.are.equal(1,is_branch_A)
-		assert.are.equal(0,is_branch_B)
+		assert.are.equal(true,is_branch_A)
+		assert.are.equal(false,is_branch_B)
 
-		assert.are.equal(0,is_note_A)
-		assert.are.equal(0,is_note_B)
+		assert.are.equal(false,is_note_A)
+		assert.are.equal(false,is_note_B)
 
-		assert.are.equal(0,is_remote_A)
-		assert.are.equal(0,is_remote_B)
+		assert.are.equal(false,is_remote_A)
+		assert.are.equal(false,is_remote_B)
 
-		assert.are.equal(0,is_tag_A)
-		assert.are.equal(1,is_tag_B)
+		assert.are.equal(false,is_tag_A)
+		assert.are.equal(true,is_tag_B)
 	end)
 
 	it("Checks for a valid name",function()
@@ -88,8 +88,8 @@ describe(" Reference Methods Tests ", function()
 		local is_valid_name_A = luagit2.reference_is_valid_name("refs/tags/packed-tag")
 		local is_valid_name_B = luagit2.reference_is_valid_name("refs/tags/alpha@{beta")
 
-		assert.are.equal(1,is_valid_name_A)
-		assert.are.equal(0,is_valid_name_B)
+		assert.are.equal(true,is_valid_name_A)
+		assert.are.equal(false,is_valid_name_B)
 	end)
 
 	it("Checks for reference name and its oid",function()
