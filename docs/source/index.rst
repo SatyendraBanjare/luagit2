@@ -42,6 +42,5 @@ Compatibility
    
    basic/index
    examples/index
-   luagit2_objects/index
 
 
